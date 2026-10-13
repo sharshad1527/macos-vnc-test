@@ -1,0 +1,299 @@
+﻿2026-10-13T14:20:03.9116580Z Current runner version: '2.337.0'
+2026-10-13T14:20:03.9131490Z ##[group]Runner Image Provisioner
+2026-10-13T14:20:03.9132000Z Hosted Compute Agent
+2026-10-13T14:20:03.9132350Z Version: 20260828.587
+2026-10-13T14:20:03.9132750Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T14:20:03.9133370Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T14:20:03.9133800Z Worker ID: {dd4f294e-2831-428f-9aa8-896c68058630}
+2026-10-13T14:20:03.9134310Z Azure Region: westus
+2026-10-13T14:20:03.9134750Z ##[endgroup]
+2026-10-13T14:20:03.9135710Z ##[group]Operating System
+2026-10-13T14:20:03.9136080Z macOS
+2026-10-13T14:20:03.9136400Z 26.6.2
+2026-10-13T14:20:03.9136790Z 25G83
+2026-10-13T14:20:03.9137260Z ##[endgroup]
+2026-10-13T14:20:03.9137670Z ##[group]Runner Image
+2026-10-13T14:20:03.9138140Z Image: macos-26-arm64
+2026-10-13T14:20:03.9138500Z Version: 20260907.0351.1
+2026-10-13T14:20:03.9139290Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T14:20:03.9140300Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T14:20:03.9181040Z ##[endgroup]
+2026-10-13T14:20:03.9182220Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T14:20:03.9183520Z Contents: read
+2026-10-13T14:20:03.9183880Z Metadata: read
+2026-10-13T14:20:03.9184200Z Packages: read
+2026-10-13T14:20:03.9184510Z ##[endgroup]
+2026-10-13T14:20:03.9185810Z Secret source: Actions
+2026-10-13T14:20:03.9186320Z Cache mode: write
+2026-10-13T14:20:03.9186730Z Prepare workflow directory
+2026-10-13T14:20:03.9408620Z Prepare all required actions
+2026-10-13T14:20:03.9446610Z Getting action download info
+2026-10-13T14:20:04.2922070Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T14:20:04.4798240Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-13T14:20:04.6606600Z Complete job name: macOS Desktop Runner
+2026-10-13T14:20:04.7065020Z ##[group]Run actions/checkout@v4
+2026-10-13T14:20:04.7065700Z with:
+2026-10-13T14:20:04.7066100Z   repository: sharshad1527/macos-vnc-test
+2026-10-13T14:20:04.7069200Z   token: ***
+2026-10-13T14:20:04.7069570Z   ssh-strict: true
+2026-10-13T14:20:04.7069960Z   ssh-user: git
+2026-10-13T14:20:04.7070450Z   persist-credentials: true
+2026-10-13T14:20:04.7070860Z   clean: true
+2026-10-13T14:20:04.7071250Z   sparse-checkout-cone-mode: true
+2026-10-13T14:20:04.7071730Z   fetch-depth: 1
+2026-10-13T14:20:04.7072100Z   fetch-tags: false
+2026-10-13T14:20:04.7072520Z   show-progress: true
+2026-10-13T14:20:04.7072930Z   lfs: false
+2026-10-13T14:20:04.7073310Z   submodules: false
+2026-10-13T14:20:04.7073750Z   set-safe-directory: true
+2026-10-13T14:20:04.7074250Z   allow-unsafe-pr-checkout: false
+2026-10-13T14:20:04.7074890Z ##[endgroup]
+2026-10-13T14:20:04.8835780Z Syncing repository: sharshad1527/macos-vnc-test
+2026-10-13T14:20:04.8837200Z ##[group]Getting Git version info
+2026-10-13T14:20:04.8837870Z Working directory is '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T14:20:04.8838810Z [command]/opt/homebrew/bin/git version
+2026-10-13T14:20:04.9294870Z git version 2.55.0
+2026-10-13T14:20:04.9307300Z ##[endgroup]
+2026-10-13T14:20:04.9315010Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/dac99da8-c371-4a0f-8ab0-898650f0015d/.gitconfig'
+2026-10-13T14:20:04.9325730Z Temporarily overriding HOME='/Users/runner/work/_temp/dac99da8-c371-4a0f-8ab0-898650f0015d' before making global git config changes
+2026-10-13T14:20:04.9326720Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T14:20:04.9329870Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:20:04.9454690Z Deleting the contents of '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T14:20:04.9460380Z ##[group]Initializing the repository
+2026-10-13T14:20:04.9464890Z [command]/opt/homebrew/bin/git init /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:20:04.9707380Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T14:20:04.9708300Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T14:20:04.9708950Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T14:20:04.9709470Z hint: call:
+2026-10-13T14:20:04.9709830Z hint:
+2026-10-13T14:20:04.9710380Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T14:20:04.9710920Z hint:
+2026-10-13T14:20:04.9711360Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T14:20:04.9712050Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T14:20:04.9731410Z hint:
+2026-10-13T14:20:04.9731880Z hint: 	git branch -m <name>
+2026-10-13T14:20:04.9732280Z hint:
+2026-10-13T14:20:04.9732810Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T14:20:04.9733760Z Initialized empty Git repository in /Users/runner/work/macos-vnc-test/macos-vnc-test/.git/
+2026-10-13T14:20:04.9735580Z [command]/opt/homebrew/bin/git remote add origin https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T14:20:04.9813200Z ##[endgroup]
+2026-10-13T14:20:04.9814100Z ##[group]Disabling automatic garbage collection
+2026-10-13T14:20:04.9817230Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-13T14:20:04.9886970Z ##[endgroup]
+2026-10-13T14:20:04.9887840Z ##[group]Setting up auth
+2026-10-13T14:20:04.9892280Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T14:20:04.9968880Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T14:20:05.1023500Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T14:20:05.1097030Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T14:20:05.2000690Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T14:20:05.2066950Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T14:20:05.3073010Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T14:20:05.3152440Z ##[endgroup]
+2026-10-13T14:20:05.3153030Z ##[group]Fetching the repository
+2026-10-13T14:20:05.3163290Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +42c9c6583756783e0b902c8efaee6b7db85c7d41:refs/remotes/origin/main
+2026-10-13T14:20:05.8564150Z From https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T14:20:05.8565190Z  * [new ref]         42c9c6583756783e0b902c8efaee6b7db85c7d41 -> origin/main
+2026-10-13T14:20:05.8566940Z ##[endgroup]
+2026-10-13T14:20:05.8567500Z ##[group]Determining the checkout info
+2026-10-13T14:20:05.8569110Z ##[endgroup]
+2026-10-13T14:20:05.8573110Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-13T14:20:05.8657800Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T14:20:05.8745440Z ##[group]Checking out the ref
+2026-10-13T14:20:05.8747570Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-13T14:20:05.8873070Z Switched to a new branch 'main'
+2026-10-13T14:20:05.8875520Z branch 'main' set up to track 'origin/main'.
+2026-10-13T14:20:05.8888990Z ##[endgroup]
+2026-10-13T14:20:05.8990360Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-13T14:20:05.9064440Z 42c9c6583756783e0b902c8efaee6b7db85c7d41
+2026-10-13T14:20:05.9272000Z ##[group]Run chmod +x scripts/setup_vnc.sh
+2026-10-13T14:20:05.9273020Z [36;1mchmod +x scripts/setup_vnc.sh[0m
+2026-10-13T14:20:05.9274050Z [36;1mFINAL_TOKEN="${INPUT_NGROK_TOKEN:-$SECRET_NGROK_TOKEN}"[0m
+2026-10-13T14:20:05.9275530Z [36;1m./scripts/setup_vnc.sh "$VNC_PASSWORD" "$FINAL_TOKEN" "$NGROK_REGION"[0m
+2026-10-13T14:20:05.9324410Z shell: /bin/bash -e {0}
+2026-10-13T14:20:05.9325170Z env:
+2026-10-13T14:20:05.9325710Z   INPUT_NGROK_TOKEN: 
+2026-10-13T14:20:05.9326340Z   SECRET_NGROK_TOKEN: 
+2026-10-13T14:20:05.9327090Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T14:20:05.9327850Z   NGROK_REGION: in
+2026-10-13T14:20:05.9328570Z   LEGACY_VNC: yes
+2026-10-13T14:20:05.9329310Z ##[endgroup]
+2026-10-13T14:20:05.9755510Z ==========================================================
+2026-10-13T14:20:05.9757480Z 🍏 Configuring macOS GUI Screen Sharing & VNC Service...
+2026-10-13T14:20:05.9758650Z ==========================================================
+2026-10-13T14:20:06.7740240Z /:
+2026-10-13T14:20:06.7741530Z 	Indexing disabled.
+2026-10-13T14:20:06.7741900Z /System/Volumes/Data:
+2026-10-13T14:20:06.7742160Z 	Indexing disabled.
+2026-10-13T14:20:06.7742480Z /System/Volumes/Preboot:
+2026-10-13T14:20:06.7742770Z 	Indexing disabled.
+2026-10-13T14:20:06.7753030Z ==> Disabling display sleep and waking session...
+2026-10-13T14:20:06.8069670Z ==> Configuring desktop user 'vncuser' and 'runner'...
+2026-10-13T14:20:08.3043340Z creating home directories for (dsm41-ai252-5e394705-3c94-48fc-87be-78a57cf0c7d3-2277DDD9144D.local)
+2026-10-13T14:20:08.3044400Z created (/Users/vncuser)
+2026-10-13T14:20:08.4711110Z passwd: DS error: eDSAuthFailed
+2026-10-13T14:20:08.4723670Z ==> Verifying login credentials...
+2026-10-13T14:20:09.3849960Z     vncuser: password verified
+2026-10-13T14:20:09.6562740Z     runner: dscl passwd did not take, retrying via sysadminctl...
+2026-10-13T14:20:09.8081730Z     !! runner: CANNOT AUTHENTICATE - VNC login will fail
+2026-10-13T14:20:09.8082700Z ==> Granting Screen Recording / Accessibility to Screen Sharing...
+2026-10-13T14:20:09.8211810Z ==> Pre-approving Screen Sharing privacy permissions (TCC)...
+2026-10-13T14:20:09.8243790Z   --- /Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T14:20:10.1014800Z   granted kTCCServiceScreenCapture -> com.apple.screensharing.agent
+2026-10-13T14:20:10.2302940Z   granted kTCCServiceScreenCapture -> com.apple.screensharing.daemon
+2026-10-13T14:20:10.3610660Z   granted kTCCServiceScreenCapture -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:10.4881130Z   granted kTCCServiceScreenCapture -> com.apple.AppleVNCServer
+2026-10-13T14:20:10.6068580Z   granted kTCCServiceAccessibility -> com.apple.screensharing.agent
+2026-10-13T14:20:10.7301060Z   granted kTCCServiceAccessibility -> com.apple.screensharing.daemon
+2026-10-13T14:20:10.8431420Z   granted kTCCServiceAccessibility -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:10.9585440Z   granted kTCCServiceAccessibility -> com.apple.AppleVNCServer
+2026-10-13T14:20:11.0887880Z   granted kTCCServiceListenEvent -> com.apple.screensharing.agent
+2026-10-13T14:20:11.2003620Z   granted kTCCServiceListenEvent -> com.apple.screensharing.daemon
+2026-10-13T14:20:11.3240320Z   granted kTCCServiceListenEvent -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:11.4475150Z   granted kTCCServiceListenEvent -> com.apple.AppleVNCServer
+2026-10-13T14:20:11.5695980Z   granted kTCCServicePostEvent -> com.apple.screensharing.agent
+2026-10-13T14:20:11.6901310Z   granted kTCCServicePostEvent -> com.apple.screensharing.daemon
+2026-10-13T14:20:11.8102930Z   granted kTCCServicePostEvent -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:11.9329810Z   granted kTCCServicePostEvent -> com.apple.AppleVNCServer
+2026-10-13T14:20:11.9330320Z   --- /Users/runner/Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T14:20:12.0486240Z   granted kTCCServiceScreenCapture -> com.apple.screensharing.agent
+2026-10-13T14:20:12.1542290Z   granted kTCCServiceScreenCapture -> com.apple.screensharing.daemon
+2026-10-13T14:20:12.2699950Z   granted kTCCServiceScreenCapture -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:12.3940880Z   granted kTCCServiceScreenCapture -> com.apple.AppleVNCServer
+2026-10-13T14:20:12.5106760Z   granted kTCCServiceAccessibility -> com.apple.screensharing.agent
+2026-10-13T14:20:12.6226550Z   granted kTCCServiceAccessibility -> com.apple.screensharing.daemon
+2026-10-13T14:20:12.7339910Z   granted kTCCServiceAccessibility -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:12.8462640Z   granted kTCCServiceAccessibility -> com.apple.AppleVNCServer
+2026-10-13T14:20:12.9962910Z   granted kTCCServiceListenEvent -> com.apple.screensharing.agent
+2026-10-13T14:20:13.1144310Z   granted kTCCServiceListenEvent -> com.apple.screensharing.daemon
+2026-10-13T14:20:13.2369780Z   granted kTCCServiceListenEvent -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:13.3564210Z   granted kTCCServiceListenEvent -> com.apple.AppleVNCServer
+2026-10-13T14:20:13.5224570Z   granted kTCCServicePostEvent -> com.apple.screensharing.agent
+2026-10-13T14:20:13.6528140Z   granted kTCCServicePostEvent -> com.apple.screensharing.daemon
+2026-10-13T14:20:13.7763890Z   granted kTCCServicePostEvent -> com.apple.RemoteDesktopAgent
+2026-10-13T14:20:13.9063980Z   granted kTCCServicePostEvent -> com.apple.AppleVNCServer
+2026-10-13T14:20:13.9573690Z ==> Verifying screen-capture grants:
+2026-10-13T14:20:13.9920960Z     kTCCServiceScreenCapture -> com.apple.AppleVNCServer  auth=2
+2026-10-13T14:20:13.9921480Z     kTCCServiceScreenCapture -> com.apple.RemoteDesktopAgent  auth=2
+2026-10-13T14:20:13.9922170Z     kTCCServiceScreenCapture -> com.apple.screensharing.agent  auth=2
+2026-10-13T14:20:13.9922700Z     kTCCServiceScreenCapture -> com.apple.screensharing.daemon  auth=2
+2026-10-13T14:20:14.0188980Z     kTCCServiceScreenCapture -> com.apple.AppleVNCServer  auth=2
+2026-10-13T14:20:14.0189430Z     kTCCServiceScreenCapture -> com.apple.RemoteDesktopAgent  auth=2
+2026-10-13T14:20:14.0189840Z     kTCCServiceScreenCapture -> com.apple.screensharing.agent  auth=2
+2026-10-13T14:20:14.0190250Z     kTCCServiceScreenCapture -> com.apple.screensharing.daemon  auth=2
+2026-10-13T14:20:14.0202250Z   TCC seeding complete.
+2026-10-13T14:20:14.0204620Z ==> Configuring Apple Remote Management...
+2026-10-13T14:20:17.5869060Z Starting...
+2026-10-13T14:20:17.6936060Z Activated Remote Management.
+2026-10-13T14:20:17.7956510Z Stopped ARD Agent.
+2026-10-13T14:20:18.1866350Z runner: Set user remote control privileges.
+2026-10-13T14:20:18.1866700Z runner: Set user remote access.
+2026-10-13T14:20:18.2461590Z vncuser: Set user remote control privileges.
+2026-10-13T14:20:18.2462220Z vncuser: Set user remote access.
+2026-10-13T14:20:18.2983350Z Set the client options.
+2026-10-13T14:20:18.3078160Z Done.
+2026-10-13T14:20:18.3096120Z ==> Setting VNC authentication hash...
+2026-10-13T14:20:18.3225670Z 51552307F8E5A481
+2026-10-13T14:20:18.3234600Z ==> Restarting ARD service...
+2026-10-13T14:20:21.7212950Z Starting...
+2026-10-13T14:20:22.0525960Z Done.
+2026-10-13T14:20:25.5313170Z Starting...
+2026-10-13T14:20:25.5931600Z Activated Remote Management.
+2026-10-13T14:20:25.6632760Z runner: Set user remote control privileges.
+2026-10-13T14:20:25.6633130Z runner: Set user remote access.
+2026-10-13T14:20:25.7227890Z vncuser: Set user remote control privileges.
+2026-10-13T14:20:25.7228180Z vncuser: Set user remote access.
+2026-10-13T14:20:25.7505950Z Done.
+2026-10-13T14:20:25.7529240Z ==> Waiting for the VNC listener on 5900...
+2026-10-13T14:20:25.7886580Z ✅ macOS Screen Sharing & VNC is listening on port 5900!
+2026-10-13T14:20:25.8178720Z 
+2026-10-13T14:20:25.8179140Z ==========================================================
+2026-10-13T14:20:25.8179670Z 🌐 Starting Remote Tunnels...
+2026-10-13T14:20:25.8179910Z ==========================================================
+2026-10-13T14:20:25.8180180Z ==> Launching Pinggy TCP tunnel (tokenless backup)...
+2026-10-13T14:20:25.8184600Z ==> Waiting for Pinggy TCP endpoint...
+2026-10-13T14:20:27.8683750Z 
+2026-10-13T14:20:27.8685740Z ==========================================================
+2026-10-13T14:20:27.8686990Z 🎉 MACOS DESKTOP CONNECTION DETAILS
+2026-10-13T14:20:27.8687660Z ==========================================================
+2026-10-13T14:20:27.8688340Z 👤 Username:   vncuser (or runner)
+2026-10-13T14:20:27.8689140Z 🔑 Password:   FarisMac2026
+2026-10-13T14:20:27.8917220Z 🖥️  OS:         macOS 26.6.2
+2026-10-13T14:20:27.8917540Z 
+2026-10-13T14:20:27.8958020Z ⚡ PINGGY TUNNEL (TOKENLESS BACKUP):
+2026-10-13T14:20:27.8958610Z    VNC Target: tcp://ldomi-13-105-220-180.run.pinggy-free.link:40301
+2026-10-13T14:20:27.8959080Z    Connect directly to: ldomi-13-105-220-180.run.pinggy-free.link:40301
+2026-10-13T14:20:27.8959310Z 
+2026-10-13T14:20:27.8959410Z ==========================================================
+2026-10-13T14:20:32.9268630Z ##[group]Run set -e
+2026-10-13T14:20:32.9268830Z [36;1mset -e[0m
+2026-10-13T14:20:32.9269000Z [36;1mecho "--- can we authenticate at all? ---"[0m
+2026-10-13T14:20:32.9269290Z [36;1mif sudo dscl . -authonly runner "$VNC_PASSWORD" >/dev/null 2>&1; then[0m
+2026-10-13T14:20:32.9269580Z [36;1m  echo "  runner: auth OK"[0m
+2026-10-13T14:20:32.9269740Z [36;1melse[0m
+2026-10-13T14:20:32.9269880Z [36;1m  echo "  runner: AUTH FAILED"; exit 1[0m
+2026-10-13T14:20:32.9270060Z [36;1mfi[0m
+2026-10-13T14:20:32.9270180Z [36;1m[0m
+2026-10-13T14:20:32.9270480Z [36;1mecho "Installing a RFB client to pull the framebuffer from localhost:5900..."[0m
+2026-10-13T14:20:32.9270960Z [36;1m# Homebrew python is externally managed (PEP 668) - use a venv.[0m
+2026-10-13T14:20:32.9271310Z [36;1mpython3 -m venv /tmp/vncvenv[0m
+2026-10-13T14:20:32.9271700Z [36;1m/tmp/vncvenv/bin/pip install --quiet --disable-pip-version-check vncdotool pillow[0m
+2026-10-13T14:20:32.9271990Z [36;1m[0m
+2026-10-13T14:20:32.9272200Z [36;1mVNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/vncdo \[0m
+2026-10-13T14:20:32.9272500Z [36;1m  -s 127.0.0.1:0 -u "${VNC_USER:-runner}" -p "$VNC_PASSWORD" \[0m
+2026-10-13T14:20:32.9272780Z [36;1m  capture /tmp/vnc-frame.png[0m
+2026-10-13T14:20:32.9273010Z [36;1m[0m
+2026-10-13T14:20:32.9273170Z [36;1m/tmp/vncvenv/bin/python - <<'PY'[0m
+2026-10-13T14:20:32.9273400Z [36;1mimport sys[0m
+2026-10-13T14:20:32.9273580Z [36;1mfrom PIL import Image[0m
+2026-10-13T14:20:32.9273760Z [36;1m[0m
+2026-10-13T14:20:32.9273930Z [36;1mim = Image.open("/tmp/vnc-frame.png").convert("RGB")[0m
+2026-10-13T14:20:32.9274160Z [36;1mpx = list(im.getdata())[0m
+2026-10-13T14:20:32.9274360Z [36;1mnonblack = sum(1 for p in px if max(p) > 12)[0m
+2026-10-13T14:20:32.9274570Z [36;1mpct = 100.0 * nonblack / len(px)[0m
+2026-10-13T14:20:32.9274790Z [36;1mprint(f"  framebuffer : {im.size[0]}x{im.size[1]}")[0m
+2026-10-13T14:20:32.9275020Z [36;1mprint(f"  non-black   : {pct:.2f}%")[0m
+2026-10-13T14:20:32.9275210Z [36;1mif pct < 0.5:[0m
+2026-10-13T14:20:32.9275430Z [36;1m    print("  RESULT: BLACK SCREEN - the framebuffer is empty.")[0m
+2026-10-13T14:20:32.9275670Z [36;1m    sys.exit(1)[0m
+2026-10-13T14:20:32.9275910Z [36;1mprint("  RESULT: REAL DESKTOP - the framebuffer has actual content.")[0m
+2026-10-13T14:20:32.9276170Z [36;1mPY[0m
+2026-10-13T14:20:32.9276280Z [36;1m[0m
+2026-10-13T14:20:32.9276440Z [36;1mcp /tmp/vnc-frame.png "$RUNNER_TEMP/vnc-frame.png"[0m
+2026-10-13T14:20:32.9309610Z shell: /bin/bash -e {0}
+2026-10-13T14:20:32.9309760Z env:
+2026-10-13T14:20:32.9309880Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T14:20:32.9310030Z ##[endgroup]
+2026-10-13T14:20:32.9608280Z --- can we authenticate at all? ---
+2026-10-13T14:20:33.0891430Z   runner: AUTH FAILED
+2026-10-13T14:20:33.0904570Z ##[error]Process completed with exit code 1.
+2026-10-13T14:20:33.1012130Z ##[group]Run actions/upload-artifact@v4
+2026-10-13T14:20:33.1012430Z with:
+2026-10-13T14:20:33.1012640Z   name: vnc-frame-sample
+2026-10-13T14:20:33.1012880Z   path: /Users/runner/work/_temp/vnc-frame.png
+2026-10-13T14:20:33.1013160Z   if-no-files-found: ignore
+2026-10-13T14:20:33.1013360Z   compression-level: 6
+2026-10-13T14:20:33.1013560Z   overwrite: false
+2026-10-13T14:20:33.1013730Z   include-hidden-files: false
+2026-10-13T14:20:33.1014140Z ##[endgroup]
+2026-10-13T14:20:33.2502580Z (node:3381) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T14:20:33.2503820Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T14:20:33.2510680Z No files were found with the provided path: /Users/runner/work/_temp/vnc-frame.png. No artifacts will be uploaded.
+2026-10-13T14:20:33.2669270Z Post job cleanup.
+2026-10-13T14:20:33.3641540Z [command]/opt/homebrew/bin/git version
+2026-10-13T14:20:33.3713820Z git version 2.55.0
+2026-10-13T14:20:33.3732220Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/fd64a574-9cc7-4463-b5ea-f6e1ed3dd826/.gitconfig'
+2026-10-13T14:20:33.3742600Z Temporarily overriding HOME='/Users/runner/work/_temp/fd64a574-9cc7-4463-b5ea-f6e1ed3dd826' before making global git config changes
+2026-10-13T14:20:33.3743170Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T14:20:33.3752170Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:20:33.3816220Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T14:20:33.3880160Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T14:20:33.4653660Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T14:20:33.4701810Z http.https://github.com/.extraheader
+2026-10-13T14:20:33.4709720Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T14:20:33.4765580Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T14:20:33.5493720Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T14:20:33.5565770Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T14:20:33.6756650Z Cleaning up orphan processes
+2026-10-13T14:20:33.8842500Z Terminate orphan process: pid (3328) (ssh)
+2026-10-13T14:20:34.0204640Z Terminate orphan process: pid (1589) (caffeinate)
+2026-10-13T14:20:34.0250850Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
