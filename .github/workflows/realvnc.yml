@@ -1,74 +1,59 @@
-name: RealVNC server test
+name: RealVNC end-to-end
 on: workflow_dispatch
 
 jobs:
-  probe:
+  test:
     runs-on: macos-26
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
-      - name: Grant TCC for a NON-platform binary
-        run: |
-          chmod +x scripts/*.sh
-          ./scripts/grant_tcc.sh 2>&1 | tail -3
-          # RealVNC is not an Apple platform binary, so a TCC.db row IS honoured
-          # (unlike ARD, which tccd hard-denies as "is Platform Binary").
-          sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
-            "DELETE FROM access WHERE client LIKE '%VNC Server%';"
-          sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
-            "INSERT OR REPLACE INTO access
-               (service,client,client_type,auth_value,auth_reason,flags,csreq,last_modified)
-             VALUES
-               ('kTCCServiceScreenCapture','/Applications/VNC Server.app',0,2,4,1,NULL,strftime('%s','now')),
-               ('kTCCServiceAccessibility','/Applications/VNC Server.app',0,2,4,1,NULL,strftime('%s','now'));"
-          sudo killall tccd 2>/dev/null || true
-
-      - name: Install RealVNC Server
-        run: |
-          brew install --cask vnc-server 2>&1 | tail -5 || echo "INSTALL FAILED"
-          echo "--- what landed ---"
-          ls -la "/Applications/VNC Server.app/Contents/MacOS/" 2>/dev/null | head -20
-          ls -la "/Applications/VNC Server.app/Contents/Library/" 2>/dev/null | head -20
-
-      - name: Configure + start
-        run: |
-          BIN="/Applications/VNC Server.app/Contents/MacOS/vncserver"
-          [ -x "$BIN" ] || BIN="/Applications/VNC Server.app/Contents/Library/vncserver"
-          echo "using: $BIN"
-          sudo "$BIN" -help 2>&1 | head -40 || true
-          echo "--- try start ---"
-          sudo "$BIN" -start 2>&1 | tail -20 || true
-          sleep 5
-          echo "--- listeners ---"
-          sudo lsof -nP -iTCP -sTCP:LISTEN | grep -E ':59[0-9][0-9]|:580[0-9]' || echo "  no VNC listener"
-          sudo pgrep -fl -i vnc || echo "  no vnc process"
-
-      - name: Test a real RFB connection
+      - name: Set up RealVNC
         env:
           VNC_PASSWORD: 'FarisMac2026'
         run: |
-          python3 -m venv /tmp/v; /tmp/v/bin/pip install --quiet vncdotool pillow
-          for PORT in 5900 5901 5902; do
-            echo "--- trying port $PORT ---"
-            /tmp/v/bin/vncdo -s 127.0.0.1:$((PORT-5900)) -u vncuser -p "$VNC_PASSWORD" \
-              capture /tmp/r$PORT.png 2>&1 | tail -3 || true
-            if [ -s /tmp/r$PORT.png ]; then
-              echo "  GOT A FRAME on $PORT"
-              cp /tmp/r$PORT.png "$RUNNER_TEMP/rvnc-$PORT.png"
-              /tmp/v/bin/python - <<PY
+          chmod +x scripts/*.sh
+          ./scripts/setup_realvnc.sh "$VNC_PASSWORD" 5901 2>&1 | tail -60
+
+      - name: Pull a real framebuffer through RFB
+        env:
+          VNC_PASSWORD: 'FarisMac2026'
+        run: |
+          python3 -m venv /tmp/v
+          /tmp/v/bin/pip install --quiet vncdotool pillow
+          PORT=$(cat /tmp/realvnc.port 2>/dev/null || echo 5901)
+          echo "=== connecting to 127.0.0.1:$PORT ==="
+          /tmp/v/bin/vncdo -s 127.0.0.1:$((PORT-5900)) -p "$VNC_PASSWORD" \
+            capture /tmp/rv.png 2>&1 | tail -12 || echo "  vncdo returned non-zero"
+          if [ -s /tmp/rv.png ]; then
+            cp /tmp/rv.png "$RUNNER_TEMP/rvnc.png"
+            /tmp/v/bin/python - <<'PY'
           from PIL import Image
-          im=Image.open("/tmp/r$PORT.png").convert("RGB"); px=list(im.getdata())
-          nb=sum(1 for p in px if max(p)>12)
-          print(f"  size={im.size} nonblack={100.0*nb/len(px):.2f}%")
+          im = Image.open("/tmp/rv.png").convert("RGB"); px = list(im.getdata())
+          nb = sum(1 for p in px if max(p) > 12)
+          pct = 100.0*nb/len(px)
+          print(f"  RESULT size={im.size} nonblack={pct:.2f}%")
+          print("  VERDICT:", "REAL DESKTOP" if pct > 1.0 else "BLACK / EMPTY")
           PY
-            fi
-          done
+          else
+            echo "  NO FRAME CAPTURED"
+          fi
+
+      - name: dump config + logs
+        if: always()
+        run: |
+          echo "=== /var/root/.vnc/config.d/vncserver ==="
+          sudo cat /var/root/.vnc/config.d/vncserver 2>/dev/null || echo "(missing)"
+          echo "=== listener ==="
+          sudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | grep -E ':59[0-9][0-9]' || echo "(none)"
+          echo "=== tccd screen-capture verdicts (last 10m) ==="
+          sudo log show --last 10m --style compact 2>/dev/null \
+            | grep -iE 'realvnc|VNC Server' | grep -iE 'TCC|screen|deny|grant' | tail -25 || echo "(none)"
 
       - name: upload
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rvnc
-          path: ${{ runner.temp }}/rvnc-*.png
+          name: realvnc-frame
+          path: ${{ runner.temp }}/rvnc.png
           if-no-files-found: ignore

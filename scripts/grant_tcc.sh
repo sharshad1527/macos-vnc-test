@@ -60,6 +60,18 @@ readonly AUTH_VALUE=2          # 2 = allowed
 readonly AUTH_REASON=4         # matches the row GitHub ships
 readonly FLAGS=1
 
+# Callers can add their own clients, e.g.
+#   EXTRA_CLIENTS="com.realvnc.vncserver|0,/path/to/bin|1" ./grant_tcc.sh
+# The platform-binary TCC rule only applies to Apple's own binaries, so a
+# third-party server (RealVNC, etc.) IS grantable this way.
+ALL_CLIENTS=("${CLIENTS[@]}")
+if [[ -n "${EXTRA_CLIENTS:-}" ]]; then
+  IFS=',' read -r -a _extra <<< "$EXTRA_CLIENTS"
+  for e in "${_extra[@]}"; do
+    [[ -n "$e" ]] && ALL_CLIENTS+=("$e")
+  done
+fi
+
 log()  { printf '  %s\n' "$*"; }
 warn() { printf '  !! %s\n' "$*" >&2; }
 
@@ -165,7 +177,7 @@ rc=0
 while IFS= read -r db; do
   log "--- $db"
   for service in "${SERVICES[@]}"; do
-    for spec in "${CLIENTS[@]}"; do
+    for spec in "${ALL_CLIENTS[@]}"; do
       grant_service "$db" "$service" "${spec%%|*}" "${spec##*|}" || rc=1
     done
   done
