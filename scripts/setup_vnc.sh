@@ -80,14 +80,16 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 #    step 4 is in place, so give it a moment and poll rather than assume.
 echo "==> Waiting for the VNC listener on 5900..."
 for i in 1 2 3 4 5 6 7 8 9 10; do
-  if lsof -nP -iTCP:5900 -sTCP:LISTEN >/dev/null 2>&1; then
+  # NOTE: must be sudo lsof - the socket is owned by launchd/root, and a
+  # non-root lsof cannot see it and will falsely report nothing listening.
+  if sudo lsof -nP -iTCP:5900 -sTCP:LISTEN >/dev/null 2>&1; then
     echo "✅ macOS Screen Sharing & VNC is listening on port 5900!"
     break
   fi
   [[ "$i" -eq 10 ]] && break
   sleep 3
 done
-if ! lsof -nP -iTCP:5900 -sTCP:LISTEN >/dev/null 2>&1; then
+if ! sudo lsof -nP -iTCP:5900 -sTCP:LISTEN >/dev/null 2>&1; then
   echo "❌ Nothing is listening on 5900 - VNC will not connect." >&2
   echo "   If the TCC grant above succeeded, ARD itself is refusing to start the" >&2
   echo "   framebuffer listener. See 'Health Check' for daemons + SIP state." >&2

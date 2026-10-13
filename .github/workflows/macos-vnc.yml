@@ -69,21 +69,22 @@ jobs:
         run: |
           set -e
           echo "Installing a RFB client to pull the framebuffer from localhost:5900..."
-          python3 -m pip install --quiet --disable-pip-version-check vncdotool pillow
+          # Homebrew python is externally managed (PEP 668) - use a venv.
+          python3 -m venv /tmp/vncvenv
+          /tmp/vncvenv/bin/pip install --quiet --disable-pip-version-check vncdotool pillow
 
-          python3 - <<'PY'
+          VNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/python - <<'PY'
           import os, sys
           from vncdotool import api
           from PIL import Image
 
-          pw = os.environ["VNC_PASSWORD"]
-          api.connect("127.0.0.1:0", password=pw)
+          api.connect("127.0.0.1:0", password=os.environ["VNC_PASSWORD"])
           api.captureScreen("/tmp/vnc-frame.png")
           api.disconnect()
 
           im = Image.open("/tmp/vnc-frame.png").convert("RGB")
           px = list(im.getdata())
-          nonblack = sum(1 for r, g, b in px if max(r, g, b) > 12)
+          nonblack = sum(1 for p in px if max(p) > 12)
           pct = 100.0 * nonblack / len(px)
           print(f"  framebuffer : {im.size[0]}x{im.size[1]}")
           print(f"  non-black   : {pct:.2f}%")
@@ -105,8 +106,8 @@ jobs:
 
       - name: Health Check
         run: |
-          echo "--- listener on 5900 ---"
-          lsof -nP -iTCP:5900 -sTCP:LISTEN || echo "NOT LISTENING"
+          echo "--- listener on 5900 (needs sudo: socket is root/launchd owned) ---"
+          sudo lsof -nP -iTCP:5900 -sTCP:LISTEN || echo "NOT LISTENING"
           echo "--- Apple remote daemons ---"
           ps aux | grep -iE 'screenshar|ARDAgent|AppleVNC' | grep -v grep || echo "(no ARD/VNC process)"
           echo "--- console session owner (empty = no GUI login) ---"

@@ -1,0 +1,292 @@
+﻿2026-10-13T14:04:28.8021910Z Current runner version: '2.337.0'
+2026-10-13T14:04:28.8040280Z ##[group]Runner Image Provisioner
+2026-10-13T14:04:28.8040920Z Hosted Compute Agent
+2026-10-13T14:04:28.8041300Z Version: 20260828.587
+2026-10-13T14:04:28.8041800Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T14:04:28.8042290Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T14:04:28.8042750Z Worker ID: {bb00fb0d-99d0-4236-a41b-89c3d2ced485}
+2026-10-13T14:04:28.8043220Z Azure Region: westus
+2026-10-13T14:04:28.8043690Z ##[endgroup]
+2026-10-13T14:04:28.8044630Z ##[group]Operating System
+2026-10-13T14:04:28.8045610Z macOS
+2026-10-13T14:04:28.8046100Z 26.6.2
+2026-10-13T14:04:28.8046450Z 25G83
+2026-10-13T14:04:28.8046860Z ##[endgroup]
+2026-10-13T14:04:28.8047340Z ##[group]Runner Image
+2026-10-13T14:04:28.8047740Z Image: macos-26-arm64
+2026-10-13T14:04:28.8048140Z Version: 20260907.0351.1
+2026-10-13T14:04:28.8049060Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T14:04:28.8050240Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T14:04:28.8051040Z ##[endgroup]
+2026-10-13T14:04:28.8052060Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T14:04:28.8101600Z Contents: read
+2026-10-13T14:04:28.8102070Z Metadata: read
+2026-10-13T14:04:28.8102430Z Packages: read
+2026-10-13T14:04:28.8102780Z ##[endgroup]
+2026-10-13T14:04:28.8104790Z Secret source: Actions
+2026-10-13T14:04:28.8105450Z Cache mode: write
+2026-10-13T14:04:28.8105900Z Prepare workflow directory
+2026-10-13T14:04:28.8427960Z Prepare all required actions
+2026-10-13T14:04:28.8474980Z Getting action download info
+2026-10-13T14:04:29.3032210Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T14:04:29.5227540Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-13T14:04:29.7628560Z Complete job name: macOS Desktop Runner
+2026-10-13T14:04:29.8179800Z ##[group]Run actions/checkout@v4
+2026-10-13T14:04:29.8180440Z with:
+2026-10-13T14:04:29.8180820Z   repository: sharshad1527/macos-vnc-test
+2026-10-13T14:04:29.8183930Z   token: ***
+2026-10-13T14:04:29.8184250Z   ssh-strict: true
+2026-10-13T14:04:29.8184580Z   ssh-user: git
+2026-10-13T14:04:29.8184980Z   persist-credentials: true
+2026-10-13T14:04:29.8185380Z   clean: true
+2026-10-13T14:04:29.8185790Z   sparse-checkout-cone-mode: true
+2026-10-13T14:04:29.8186230Z   fetch-depth: 1
+2026-10-13T14:04:29.8186610Z   fetch-tags: false
+2026-10-13T14:04:29.8187010Z   show-progress: true
+2026-10-13T14:04:29.8187400Z   lfs: false
+2026-10-13T14:04:29.8187810Z   submodules: false
+2026-10-13T14:04:29.8188240Z   set-safe-directory: true
+2026-10-13T14:04:29.8188690Z   allow-unsafe-pr-checkout: false
+2026-10-13T14:04:29.8189250Z ##[endgroup]
+2026-10-13T14:04:30.1890890Z Syncing repository: sharshad1527/macos-vnc-test
+2026-10-13T14:04:30.1892770Z ##[group]Getting Git version info
+2026-10-13T14:04:30.1893530Z Working directory is '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T14:04:30.1894470Z [command]/opt/homebrew/bin/git version
+2026-10-13T14:04:30.2626730Z git version 2.55.0
+2026-10-13T14:04:30.2646410Z ##[endgroup]
+2026-10-13T14:04:30.2658550Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/b9cfce5a-e6cf-4c80-8379-c56166eff24b/.gitconfig'
+2026-10-13T14:04:30.2662170Z Temporarily overriding HOME='/Users/runner/work/_temp/b9cfce5a-e6cf-4c80-8379-c56166eff24b' before making global git config changes
+2026-10-13T14:04:30.2663270Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T14:04:30.2669810Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:04:30.2799970Z Deleting the contents of '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T14:04:30.2802510Z ##[group]Initializing the repository
+2026-10-13T14:04:30.2805580Z [command]/opt/homebrew/bin/git init /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:04:30.3069070Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T14:04:30.3071170Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T14:04:30.3072590Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T14:04:30.3075690Z hint: call:
+2026-10-13T14:04:30.3076320Z hint:
+2026-10-13T14:04:30.3076800Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T14:04:30.3077400Z hint:
+2026-10-13T14:04:30.3077960Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T14:04:30.3078720Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T14:04:30.3079340Z hint:
+2026-10-13T14:04:30.3081130Z hint: 	git branch -m <name>
+2026-10-13T14:04:30.3081770Z hint:
+2026-10-13T14:04:30.3082380Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T14:04:30.3083430Z Initialized empty Git repository in /Users/runner/work/macos-vnc-test/macos-vnc-test/.git/
+2026-10-13T14:04:30.3084890Z [command]/opt/homebrew/bin/git remote add origin https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T14:04:30.3182750Z ##[endgroup]
+2026-10-13T14:04:30.3183430Z ##[group]Disabling automatic garbage collection
+2026-10-13T14:04:30.3184750Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-13T14:04:30.3329920Z ##[endgroup]
+2026-10-13T14:04:30.3330620Z ##[group]Setting up auth
+2026-10-13T14:04:30.3335750Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T14:04:30.3425320Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T14:04:30.4573230Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T14:04:30.4642850Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T14:04:30.5622440Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T14:04:30.5704410Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T14:04:30.7746850Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T14:04:30.7833400Z ##[endgroup]
+2026-10-13T14:04:30.7836900Z ##[group]Fetching the repository
+2026-10-13T14:04:30.7840920Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cbe3431ed0d91e9f912c55d19320e6b39e23d191:refs/remotes/origin/main
+2026-10-13T14:04:31.4885060Z From https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T14:04:31.4911760Z  * [new ref]         cbe3431ed0d91e9f912c55d19320e6b39e23d191 -> origin/main
+2026-10-13T14:04:31.5005060Z ##[endgroup]
+2026-10-13T14:04:31.5006710Z ##[group]Determining the checkout info
+2026-10-13T14:04:31.5007950Z ##[endgroup]
+2026-10-13T14:04:31.5008800Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-13T14:04:31.5055800Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T14:04:31.5162970Z ##[group]Checking out the ref
+2026-10-13T14:04:31.5164830Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-13T14:04:31.5388610Z Switched to a new branch 'main'
+2026-10-13T14:04:31.5398310Z branch 'main' set up to track 'origin/main'.
+2026-10-13T14:04:31.5405750Z ##[endgroup]
+2026-10-13T14:04:31.5639360Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-13T14:04:31.5794840Z cbe3431ed0d91e9f912c55d19320e6b39e23d191
+2026-10-13T14:04:31.6208240Z ##[group]Run chmod +x scripts/setup_vnc.sh
+2026-10-13T14:04:31.6209600Z [36;1mchmod +x scripts/setup_vnc.sh[0m
+2026-10-13T14:04:31.6210830Z [36;1mFINAL_TOKEN="${INPUT_NGROK_TOKEN:-$SECRET_NGROK_TOKEN}"[0m
+2026-10-13T14:04:31.6212550Z [36;1m./scripts/setup_vnc.sh "$VNC_PASSWORD" "$FINAL_TOKEN" "$NGROK_REGION"[0m
+2026-10-13T14:04:31.6276170Z shell: /bin/bash -e {0}
+2026-10-13T14:04:31.6277080Z env:
+2026-10-13T14:04:31.6277840Z   INPUT_NGROK_TOKEN: 
+2026-10-13T14:04:31.6278750Z   SECRET_NGROK_TOKEN: 
+2026-10-13T14:04:31.6279650Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T14:04:31.6280550Z   NGROK_REGION: in
+2026-10-13T14:04:31.6281360Z   LEGACY_VNC: yes
+2026-10-13T14:04:31.6282180Z ##[endgroup]
+2026-10-13T14:04:31.6727150Z ==========================================================
+2026-10-13T14:04:31.6729370Z 🍏 Configuring macOS GUI Screen Sharing & VNC Service...
+2026-10-13T14:04:31.6730640Z ==========================================================
+2026-10-13T14:04:49.9894440Z /:
+2026-10-13T14:04:49.9998720Z 	Indexing disabled.
+2026-10-13T14:04:50.0082170Z /System/Volumes/Data:
+2026-10-13T14:04:50.0105220Z 	Indexing disabled.
+2026-10-13T14:04:50.0109800Z /System/Volumes/Preboot:
+2026-10-13T14:04:50.0141050Z 	Indexing disabled.
+2026-10-13T14:04:50.0152910Z ==> Disabling display sleep and waking session...
+2026-10-13T14:04:50.0776760Z ==> Configuring desktop user 'vncuser' and 'runner'...
+2026-10-13T14:04:51.9911700Z creating home directories for (sjc22-be108-e84bc367-1555-4e04-ad40-3bce90564969-0A634BA9D97F.local)
+2026-10-13T14:04:51.9916500Z created (/Users/vncuser)
+2026-10-13T14:04:52.1644730Z passwd: DS error: eDSAuthFailed
+2026-10-13T14:04:52.1657230Z ==> Granting Screen Recording / Accessibility to Screen Sharing...
+2026-10-13T14:04:52.1807880Z ==> Pre-approving Screen Sharing privacy permissions (TCC)...
+2026-10-13T14:04:52.1855170Z   --- /Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T14:04:52.7145840Z   granted kTCCServiceScreenCapture (template row 29)
+2026-10-13T14:04:52.9360300Z   granted kTCCServiceAccessibility (template row 3)
+2026-10-13T14:04:53.1950950Z   granted kTCCServiceListenEvent (template row 3)
+2026-10-13T14:04:53.1955470Z   --- /Users/runner/Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T14:04:53.3462850Z   granted kTCCServiceScreenCapture (template row 80)
+2026-10-13T14:04:53.5014190Z   granted kTCCServiceAccessibility (template row 50)
+2026-10-13T14:04:53.7039610Z   granted kTCCServiceListenEvent (template row 50)
+2026-10-13T14:04:53.7743700Z ==> Verifying kTCCServiceScreenCapture grants:
+2026-10-13T14:04:53.8308880Z     com.apple.screensharing.agent  type=0  auth=2
+2026-10-13T14:04:53.8639560Z     com.apple.screensharing.agent  type=0  auth=2
+2026-10-13T14:04:53.8654250Z   TCC seeding complete.
+2026-10-13T14:04:53.8659000Z ==> Configuring Apple Remote Management...
+2026-10-13T14:04:58.3252690Z Starting...
+2026-10-13T14:04:58.4278210Z [31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:04:58.4778820Z [0mActivated Remote Management.
+2026-10-13T14:04:58.7481780Z Stopped ARD Agent.
+2026-10-13T14:04:59.1387620Z runner: Set user remote control privileges.
+2026-10-13T14:04:59.1388470Z runner: Set user remote access.
+2026-10-13T14:04:59.2266730Z vncuser: Set user remote control privileges.
+2026-10-13T14:04:59.2268040Z vncuser: Set user remote access.
+2026-10-13T14:04:59.3011530Z Set the client options.
+2026-10-13T14:04:59.3192850Z Done.
+2026-10-13T14:04:59.3232390Z ==> Setting VNC authentication hash...
+2026-10-13T14:04:59.3620140Z 51552307F8E5A481
+2026-10-13T14:04:59.3633670Z ==> Restarting ARD service...
+2026-10-13T14:05:03.5401420Z Starting...
+2026-10-13T14:05:03.8832080Z Done.
+2026-10-13T14:05:08.4114370Z Starting...
+2026-10-13T14:05:08.4677070Z [31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:05:08.4785880Z [0mActivated Remote Management.
+2026-10-13T14:05:08.5612460Z runner: Set user remote control privileges.
+2026-10-13T14:05:08.5621550Z runner: Set user remote access.
+2026-10-13T14:05:08.6221540Z vncuser: Set user remote control privileges.
+2026-10-13T14:05:08.6238670Z vncuser: Set user remote access.
+2026-10-13T14:05:08.6500570Z Done.
+2026-10-13T14:05:08.6527490Z ==> Waiting for the VNC listener on 5900...
+2026-10-13T14:05:36.5050770Z ❌ Nothing is listening on 5900 - VNC will not connect.
+2026-10-13T14:05:36.5051730Z    If the TCC grant above succeeded, ARD itself is refusing to start the
+2026-10-13T14:05:36.5052320Z    framebuffer listener. See 'Health Check' for daemons + SIP state.
+2026-10-13T14:05:36.5052620Z 
+2026-10-13T14:05:36.5053500Z ==========================================================
+2026-10-13T14:05:36.5053960Z 🌐 Starting Remote Tunnels...
+2026-10-13T14:05:36.5054280Z ==========================================================
+2026-10-13T14:05:36.5054650Z ==> Launching Pinggy TCP tunnel (tokenless backup)...
+2026-10-13T14:05:36.5055190Z ==> Waiting for Pinggy TCP endpoint...
+2026-10-13T14:05:37.5695370Z 
+2026-10-13T14:05:37.5697210Z ==========================================================
+2026-10-13T14:05:37.5703620Z 🎉 MACOS DESKTOP CONNECTION DETAILS
+2026-10-13T14:05:37.5707500Z ==========================================================
+2026-10-13T14:05:37.5710790Z 👤 Username:   vncuser (or runner)
+2026-10-13T14:05:37.5722520Z 🔑 Password:   FarisMac2026
+2026-10-13T14:05:37.5931280Z 🖥️  OS:         macOS 26.6.2
+2026-10-13T14:05:37.5931520Z 
+2026-10-13T14:05:37.5969690Z ⚡ PINGGY TUNNEL (TOKENLESS BACKUP):
+2026-10-13T14:05:37.5970950Z    VNC Target: tcp://sbwxm-13-105-117-122.run.pinggy-free.link:35761
+2026-10-13T14:05:37.5971430Z    Connect directly to: sbwxm-13-105-117-122.run.pinggy-free.link:35761
+2026-10-13T14:05:37.5971800Z 
+2026-10-13T14:05:37.5971970Z ==========================================================
+2026-10-13T14:05:42.7724560Z ##[group]Run set -e
+2026-10-13T14:05:42.7724800Z [36;1mset -e[0m
+2026-10-13T14:05:42.7725880Z [36;1mecho "Installing a RFB client to pull the framebuffer from localhost:5900..."[0m
+2026-10-13T14:05:42.7726640Z [36;1mpython3 -m pip install --quiet --disable-pip-version-check vncdotool pillow[0m
+2026-10-13T14:05:42.7727060Z [36;1m[0m
+2026-10-13T14:05:42.7727250Z [36;1mpython3 - <<'PY'[0m
+2026-10-13T14:05:42.7727510Z [36;1mimport os, sys[0m
+2026-10-13T14:05:42.7727740Z [36;1mfrom vncdotool import api[0m
+2026-10-13T14:05:42.7728030Z [36;1mfrom PIL import Image[0m
+2026-10-13T14:05:42.7728850Z [36;1m[0m
+2026-10-13T14:05:42.7729110Z [36;1mpw = os.environ["VNC_PASSWORD"][0m
+2026-10-13T14:05:42.7730050Z [36;1mapi.connect("127.0.0.1:0", ***
+2026-10-13T14:05:42.7730410Z [36;1mapi.captureScreen("/tmp/vnc-frame.png")[0m
+2026-10-13T14:05:42.7730710Z [36;1mapi.disconnect()[0m
+2026-10-13T14:05:42.7730870Z [36;1m[0m
+2026-10-13T14:05:42.7731120Z [36;1mim = Image.open("/tmp/vnc-frame.png").convert("RGB")[0m
+2026-10-13T14:05:42.7731430Z [36;1mpx = list(im.getdata())[0m
+2026-10-13T14:05:42.7731740Z [36;1mnonblack = sum(1 for r, g, b in px if max(r, g, b) > 12)[0m
+2026-10-13T14:05:42.7732020Z [36;1mpct = 100.0 * nonblack / len(px)[0m
+2026-10-13T14:05:42.7732290Z [36;1mprint(f"  framebuffer : {im.size[0]}x{im.size[1]}")[0m
+2026-10-13T14:05:42.7732560Z [36;1mprint(f"  non-black   : {pct:.2f}%")[0m
+2026-10-13T14:05:42.7733220Z [36;1mif pct < 0.5:[0m
+2026-10-13T14:05:42.7733490Z [36;1m    print("  RESULT: BLACK SCREEN - the framebuffer is empty.")[0m
+2026-10-13T14:05:42.7733860Z [36;1m    sys.exit(1)[0m
+2026-10-13T14:05:42.7734140Z [36;1mprint("  RESULT: REAL DESKTOP - the framebuffer has actual content.")[0m
+2026-10-13T14:05:42.7734500Z [36;1mPY[0m
+2026-10-13T14:05:42.7734650Z [36;1m[0m
+2026-10-13T14:05:42.7734850Z [36;1mcp /tmp/vnc-frame.png "$RUNNER_TEMP/vnc-frame.png"[0m
+2026-10-13T14:05:42.7855760Z shell: /bin/bash -e {0}
+2026-10-13T14:05:42.7856440Z env:
+2026-10-13T14:05:42.7856920Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T14:05:42.7857450Z ##[endgroup]
+2026-10-13T14:05:42.9644300Z Installing a RFB client to pull the framebuffer from localhost:5900...
+2026-10-13T14:05:44.8963200Z error: externally-managed-environment
+2026-10-13T14:05:44.8964720Z 
+2026-10-13T14:05:44.8967480Z × This environment is externally managed
+2026-10-13T14:05:44.8970160Z ╰─> To install Python packages system-wide, try brew install
+2026-10-13T14:05:44.8970770Z     xyz, where xyz is the package you are trying to
+2026-10-13T14:05:44.8984790Z     install.
+2026-10-13T14:05:44.8985760Z     
+2026-10-13T14:05:44.8986170Z     If you wish to install a Python library that isn't in Homebrew,
+2026-10-13T14:05:44.8986600Z     use a virtual environment:
+2026-10-13T14:05:44.8986880Z     
+2026-10-13T14:05:44.8987150Z     python3 -m venv path/to/venv
+2026-10-13T14:05:44.8987450Z     source path/to/venv/bin/activate
+2026-10-13T14:05:44.8987800Z     python3 -m pip install xyz
+2026-10-13T14:05:44.8988140Z     
+2026-10-13T14:05:44.8989130Z     If you wish to install a Python application that isn't in Homebrew,
+2026-10-13T14:05:44.8989780Z     it may be easiest to use 'pipx install xyz', which will manage a
+2026-10-13T14:05:44.8990340Z     virtual environment for you. You can install pipx with
+2026-10-13T14:05:44.8990680Z     
+2026-10-13T14:05:44.8990920Z     brew install pipx
+2026-10-13T14:05:44.8991160Z     
+2026-10-13T14:05:44.8991430Z     You may restore the old behavior of pip by passing
+2026-10-13T14:05:44.8991850Z     the '--break-system-packages' flag to pip, or by adding
+2026-10-13T14:05:44.8992310Z     'break-system-packages = true' to your pip.conf file. The latter
+2026-10-13T14:05:44.8992730Z     will permanently disable this error.
+2026-10-13T14:05:44.8993040Z     
+2026-10-13T14:05:44.8993380Z     If you disable this error, we STRONGLY recommend that you additionally
+2026-10-13T14:05:44.8993840Z     pass the '--user' flag to pip, or set 'user = true' in your pip.conf
+2026-10-13T14:05:44.8995710Z     file. Failure to do this can result in a broken Homebrew installation.
+2026-10-13T14:05:44.8996270Z     
+2026-10-13T14:05:44.9005540Z     Read more about this behavior here: <https://peps.python.org/pep-0668/>
+2026-10-13T14:05:44.9005960Z 
+2026-10-13T14:05:44.9006660Z note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+2026-10-13T14:05:44.9007680Z hint: See PEP 668 for the detailed specification.
+2026-10-13T14:05:44.9567010Z ##[error]Process completed with exit code 1.
+2026-10-13T14:05:44.9717280Z ##[group]Run actions/upload-artifact@v4
+2026-10-13T14:05:44.9717580Z with:
+2026-10-13T14:05:44.9717770Z   name: vnc-frame-sample
+2026-10-13T14:05:44.9718020Z   path: /Users/runner/work/_temp/vnc-frame.png
+2026-10-13T14:05:44.9718250Z   if-no-files-found: ignore
+2026-10-13T14:05:44.9718460Z   compression-level: 6
+2026-10-13T14:05:44.9719570Z   overwrite: false
+2026-10-13T14:05:44.9719740Z   include-hidden-files: false
+2026-10-13T14:05:44.9719960Z ##[endgroup]
+2026-10-13T14:05:45.4884160Z (node:2779) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T14:05:45.4886160Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T14:05:45.4905460Z No files were found with the provided path: /Users/runner/work/_temp/vnc-frame.png. No artifacts will be uploaded.
+2026-10-13T14:05:45.5412400Z Post job cleanup.
+2026-10-13T14:05:45.7090650Z [command]/opt/homebrew/bin/git version
+2026-10-13T14:05:45.7403250Z git version 2.55.0
+2026-10-13T14:05:45.7449860Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/6393b8bf-7c91-44aa-bc65-23c27996e55e/.gitconfig'
+2026-10-13T14:05:45.7473380Z Temporarily overriding HOME='/Users/runner/work/_temp/6393b8bf-7c91-44aa-bc65-23c27996e55e' before making global git config changes
+2026-10-13T14:05:45.7474760Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T14:05:45.7477240Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:05:45.7732840Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T14:05:45.7845590Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T14:05:45.9970530Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T14:05:46.0006730Z http.https://github.com/.extraheader
+2026-10-13T14:05:46.0106940Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T14:05:46.0222230Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T14:05:46.1524730Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T14:05:46.1613490Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T14:05:46.5824210Z Cleaning up orphan processes
+2026-10-13T14:05:46.8549770Z Terminate orphan process: pid (2639) (ssh)
+2026-10-13T14:05:46.9558930Z Terminate orphan process: pid (1490) (caffeinate)
+2026-10-13T14:05:47.0967460Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
