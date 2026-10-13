@@ -1,0 +1,212 @@
+﻿2026-10-13T14:02:09.5990760Z Current runner version: '2.337.0'
+2026-10-13T14:02:09.6041350Z ##[group]Runner Image Provisioner
+2026-10-13T14:02:09.6042170Z Hosted Compute Agent
+2026-10-13T14:02:09.6042640Z Version: 20260828.587
+2026-10-13T14:02:09.6043160Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T14:02:09.6043780Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T14:02:09.6044320Z Worker ID: {26f6f151-7661-4a8f-8f9a-ffaaf75d2fdb}
+2026-10-13T14:02:09.6045050Z Azure Region: westus
+2026-10-13T14:02:09.6045560Z ##[endgroup]
+2026-10-13T14:02:09.6047610Z ##[group]Operating System
+2026-10-13T14:02:09.6048040Z macOS
+2026-10-13T14:02:09.6048380Z 26.6.2
+2026-10-13T14:02:09.6048700Z 25G83
+2026-10-13T14:02:09.6049270Z ##[endgroup]
+2026-10-13T14:02:09.6049810Z ##[group]Runner Image
+2026-10-13T14:02:09.6051410Z Image: macos-26-arm64
+2026-10-13T14:02:09.6052500Z Version: 20260907.0351.1
+2026-10-13T14:02:09.6054620Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T14:02:09.6056080Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T14:02:09.6057350Z ##[endgroup]
+2026-10-13T14:02:09.6058530Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T14:02:09.6060510Z Contents: read
+2026-10-13T14:02:09.6060920Z Metadata: read
+2026-10-13T14:02:09.6061510Z Packages: read
+2026-10-13T14:02:09.6061950Z ##[endgroup]
+2026-10-13T14:02:09.6064250Z Secret source: Actions
+2026-10-13T14:02:09.6065020Z Cache mode: write
+2026-10-13T14:02:09.6065640Z Prepare workflow directory
+2026-10-13T14:02:09.6384640Z Prepare all required actions
+2026-10-13T14:02:09.6469550Z Complete job name: probe
+2026-10-13T14:02:09.7077470Z ##[group]Run K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+2026-10-13T14:02:09.7079150Z [36;1mK=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart[0m
+2026-10-13T14:02:09.7079940Z [36;1m[0m
+2026-10-13T14:02:09.7080450Z [36;1mecho "===== 1. bundle identifiers ====="[0m
+2026-10-13T14:02:09.7081310Z [36;1mfor a in /System/Library/CoreServices/RemoteManagement/*.app \[0m
+2026-10-13T14:02:09.7082190Z [36;1m         /System/Library/CoreServices/RemoteManagement/*.bundle; do[0m
+2026-10-13T14:02:09.7082970Z [36;1m  [ -e "$a/Contents/Info.plist" ] || continue[0m
+2026-10-13T14:02:09.7083630Z [36;1m  printf '  %-55s %s\n' "$(basename "$a")" \[0m
+2026-10-13T14:02:09.7084540Z [36;1m    "$(defaults read "$a/Contents/Info.plist" CFBundleIdentifier 2>/dev/null || echo '?')"[0m
+2026-10-13T14:02:09.7085440Z [36;1mdone[0m
+2026-10-13T14:02:09.7085910Z [36;1m[0m
+2026-10-13T14:02:09.7086570Z [36;1mecho "===== 2. launchd services (system domain) ====="[0m
+2026-10-13T14:02:09.7087720Z [36;1msudo launchctl list 2>/dev/null | grep -iE 'screenshar|vnc|remote|ard' || echo "  (none)"[0m
+2026-10-13T14:02:09.7148360Z [36;1m[0m
+2026-10-13T14:02:09.7148880Z [36;1mecho "===== 3. launchd services (user domain) ====="[0m
+2026-10-13T14:02:09.7149800Z [36;1mlaunchctl list 2>/dev/null | grep -iE 'screenshar|vnc|remote|ard' || echo "  (none)"[0m
+2026-10-13T14:02:09.7150580Z [36;1m[0m
+2026-10-13T14:02:09.7151000Z [36;1mecho "===== 4. DISABLED launchd services ====="[0m
+2026-10-13T14:02:09.7152070Z [36;1msudo launchctl print-disabled system 2>/dev/null | grep -iE 'screenshar|vnc|remote' || echo "  (none disabled)"[0m
+2026-10-13T14:02:09.7167800Z [36;1mlaunchctl print-disabled user/$(id -u) 2>/dev/null | grep -iE 'screenshar|vnc|remote' || echo "  (none disabled user)"[0m
+2026-10-13T14:02:09.7168850Z [36;1m[0m
+2026-10-13T14:02:09.7169220Z [36;1mecho "===== 5. files present? ====="[0m
+2026-10-13T14:02:09.7170000Z [36;1mls -la /System/Library/CoreServices/RemoteManagement/ 2>/dev/null | head -30[0m
+2026-10-13T14:02:09.7170640Z [36;1m[0m
+2026-10-13T14:02:09.7171050Z [36;1mecho "===== 6. ARD preference domain ====="[0m
+2026-10-13T14:02:09.7171880Z [36;1msudo defaults read /Library/Preferences/com.apple.RemoteManagement 2>&1 | head -40 || true[0m
+2026-10-13T14:02:09.7173750Z [36;1m[0m
+2026-10-13T14:02:09.7174110Z [36;1mecho "===== 7. activate, then re-probe ====="[0m
+2026-10-13T14:02:09.7174830Z [36;1msudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu 2>&1 | tail -20[0m
+2026-10-13T14:02:09.7175500Z [36;1msleep 5[0m
+2026-10-13T14:02:09.7176120Z [36;1msudo "$K" -activate -configure -allusers -privs -all -access -on 2>&1 | tail -10[0m
+2026-10-13T14:02:09.7176760Z [36;1msleep 3[0m
+2026-10-13T14:02:09.7177100Z [36;1mecho "--- listeners now ---"[0m
+2026-10-13T14:02:09.7178050Z [36;1msudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | grep -iE '5900|vnc|ARD|screen' || echo "  5900 STILL NOT LISTENING"[0m
+2026-10-13T14:02:09.7178900Z [36;1mecho "--- all listeners ---"[0m
+2026-10-13T14:02:09.7179470Z [36;1msudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | awk 'NR==1||/:59/' | head -20[0m
+2026-10-13T14:02:09.7180020Z [36;1m[0m
+2026-10-13T14:02:09.7180370Z [36;1mecho "===== 8. unified log, last 5m ====="[0m
+2026-10-13T14:02:09.7180970Z [36;1msudo log show --last 5m --style compact 2>/dev/null \[0m
+2026-10-13T14:02:09.7181600Z [36;1m  | grep -iE 'screenshar|ARDAgent|VNC' | tail -40 || echo "  (no log lines)"[0m
+2026-10-13T14:02:09.7182320Z [36;1m[0m
+2026-10-13T14:02:09.7182770Z [36;1mecho "===== 9. Screen Sharing subsystem present? ====="[0m
+2026-10-13T14:02:09.7183520Z [36;1mls -d /System/Library/PrivateFrameworks/RemoteManagement.framework 2>&1[0m
+2026-10-13T14:02:09.7184250Z [36;1mls /System/Library/CoreServices/RemoteManagement/ 2>&1 | head[0m
+2026-10-13T14:02:09.7185520Z [36;1msudo codesign -dv /System/Library/CoreServices/RemoteManagement/ARDAgent.app 2>&1 | grep -iE 'Identifier|Authority' | head -4[0m
+2026-10-13T14:02:09.8947530Z shell: /bin/bash -e {0}
+2026-10-13T14:02:09.8948200Z ##[endgroup]
+2026-10-13T14:02:09.9837850Z ===== 1. bundle identifiers =====
+2026-10-13T14:02:10.0044370Z   ARDAgent.app                                            com.apple.RemoteDesktopAgent
+2026-10-13T14:02:10.0205720Z   Remote Desktop Message.app                              com.apple.RemoteDesktopMessageAgent
+2026-10-13T14:02:10.0376990Z   SSMenuAgent.app                                         com.apple.SSMenuAgent
+2026-10-13T14:02:10.0580340Z   AppleVNCServer.bundle                                   com.apple.AppleVNCServer
+2026-10-13T14:02:10.0729140Z   ScreensharingAgent.bundle                               com.apple.screensharing.agent
+2026-10-13T14:02:10.0868300Z   screensharingd.bundle                                   com.apple.screensharing.daemon
+2026-10-13T14:02:10.0869850Z ===== 2. launchd services (system domain) =====
+2026-10-13T14:02:10.1210600Z 91	0	com.apple.mediaremoted
+2026-10-13T14:02:10.1212500Z -	0	com.apple.RemoteDesktop.PrivilegeProxy
+2026-10-13T14:02:10.1217920Z -	0	com.apple.dt.RemotePairingDataVaultHelper
+2026-10-13T14:02:10.1220110Z -	0	com.apple.RemotePairTool
+2026-10-13T14:02:10.1224350Z 163	0	com.apple.runningboardd
+2026-10-13T14:02:10.1261380Z -	0	com.apple.testmanagerd.remote
+2026-10-13T14:02:10.1262240Z -	0	com.apple.noticeboard.state
+2026-10-13T14:02:10.1262900Z 104	0	com.apple.remoted
+2026-10-13T14:02:10.1263780Z -	0	com.apple.xartstorageremoted
+2026-10-13T14:02:10.1265860Z -	0	com.apple.remotemanagementd
+2026-10-13T14:02:10.1268500Z -	0	com.apple.usbsmartcardreaderd
+2026-10-13T14:02:10.1269410Z ===== 3. launchd services (user domain) =====
+2026-10-13T14:02:10.1306380Z 512	0	com.apple.mediaremoteagent
+2026-10-13T14:02:10.1307130Z -	0	com.apple.screensharing.agent
+2026-10-13T14:02:10.1308040Z -	0	com.apple.CoreDevice.remotepairingd
+2026-10-13T14:02:10.1308820Z -	0	com.apple.remotecompositorclientd
+2026-10-13T14:02:10.1309500Z -	0	com.apple.PosterBoard
+2026-10-13T14:02:10.1310020Z -	0	com.apple.keyboardservicesd
+2026-10-13T14:02:10.1311520Z -	0	com.apple.coreservices.UASharedPasteboardProgressUI
+2026-10-13T14:02:10.1315280Z -	0	com.apple.screensharing.menuextra
+2026-10-13T14:02:10.1317060Z -	0	com.apple.noticeboard.agent
+2026-10-13T14:02:10.1322150Z -	0	com.apple.CharacterPicker.RemoteGenerationViewService
+2026-10-13T14:02:10.1342720Z 334	0	com.apple.pboard
+2026-10-13T14:02:10.1343310Z -	0	com.apple.KeyboardAccessAgent
+2026-10-13T14:02:10.1343910Z -	0	com.apple.RemoteManagementAgent
+2026-10-13T14:02:10.1344430Z -	0	com.apple.RemoteDesktop.agent
+2026-10-13T14:02:10.1344960Z -	0	com.apple.screensharing.MessagesAgent
+2026-10-13T14:02:10.1345550Z 404	0	com.apple.accessibility.heard
+2026-10-13T14:02:10.1346210Z -	0	com.apple.idsfoundation.IDSRemoteURLConnectionAgent
+2026-10-13T14:02:10.1347200Z ===== 4. DISABLED launchd services =====
+2026-10-13T14:02:10.1532500Z   (none disabled)
+2026-10-13T14:02:10.1673810Z   (none disabled user)
+2026-10-13T14:02:10.1674610Z ===== 5. files present? =====
+2026-10-13T14:02:10.1743680Z total 0
+2026-10-13T14:02:10.1744270Z drwxr-xr-x    8 root  wheel   256 Aug 13 02:51 .
+2026-10-13T14:02:10.1744980Z drwxr-xr-x  211 root  wheel  6752 Aug 13 02:51 ..
+2026-10-13T14:02:10.1745650Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 AppleVNCServer.bundle
+2026-10-13T14:02:10.1746320Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 ARDAgent.app
+2026-10-13T14:02:10.1747690Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 Remote Desktop Message.app
+2026-10-13T14:02:10.1749060Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 ScreensharingAgent.bundle
+2026-10-13T14:02:10.1749810Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 screensharingd.bundle
+2026-10-13T14:02:10.1750420Z drwxr-xr-x    3 root  wheel    96 Aug 13 02:51 SSMenuAgent.app
+2026-10-13T14:02:10.1751020Z ===== 6. ARD preference domain =====
+2026-10-13T14:02:10.1963860Z 2026-10-13 14:02:10.194 defaults[1063:6782] 
+2026-10-13T14:02:10.1965160Z Domain /Library/Preferences/com.apple.RemoteManagement does not exist
+2026-10-13T14:02:10.1965800Z ===== 7. activate, then re-probe =====
+2026-10-13T14:02:14.8870890Z Starting...
+2026-10-13T14:02:14.9233110Z [31mScreen recording might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:02:14.9234760Z [0m[31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:02:14.9235890Z [0mActivated Remote Management.
+2026-10-13T14:02:14.9236970Z Stopped ARD Agent.
+2026-10-13T14:02:14.9237850Z runner: Set user remote control privileges.
+2026-10-13T14:02:14.9238370Z runner: Set user remote access.
+2026-10-13T14:02:14.9238950Z Restarted Menu Extra (System UI Server).
+2026-10-13T14:02:14.9239530Z Done.
+2026-10-13T14:02:23.9569120Z Starting...
+2026-10-13T14:02:23.9571730Z [31mScreen recording might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:02:23.9572880Z [0m[31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T14:02:23.9573530Z [0mActivated Remote Management.
+2026-10-13T14:02:23.9573990Z runner: Set user remote control privileges.
+2026-10-13T14:02:23.9574590Z runner: Set user remote access.
+2026-10-13T14:02:23.9575200Z Done.
+2026-10-13T14:02:26.9707680Z --- listeners now ---
+2026-10-13T14:02:27.0212510Z launchd     1   root   40u  IPv6 0xb34ac48a2d1d52c0      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0213510Z launchd     1   root   46u  IPv4 0x103b7a381797c1fe      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0214530Z launchd     1   root   47u  IPv6 0xb34ac48a2d1d52c0      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0217580Z launchd     1   root   48u  IPv4 0x103b7a381797c1fe      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0219960Z ARDAgent 1429 runner    9u  IPv6 0xc07f9f562bb701b5      0t0  TCP *:3283 (LISTEN)
+2026-10-13T14:02:27.0222850Z --- all listeners ---
+2026-10-13T14:02:27.0509300Z COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+2026-10-13T14:02:27.0510480Z launchd     1   root   40u  IPv6 0xb34ac48a2d1d52c0      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0511080Z launchd     1   root   46u  IPv4 0x103b7a381797c1fe      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0511840Z launchd     1   root   47u  IPv6 0xb34ac48a2d1d52c0      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0521450Z launchd     1   root   48u  IPv4 0x103b7a381797c1fe      0t0  TCP *:5900 (LISTEN)
+2026-10-13T14:02:27.0522750Z ===== 8. unified log, last 5m =====
+2026-10-13T14:02:31.5495050Z 2026-10-13 14:02:25.095 Df launchd[1:244] [gui/501/com.apple.screensharing.menuextra [1430]:] job state = running
+2026-10-13T14:02:31.5526450Z 2026-10-13 14:02:25.096 Df runningboardd[163:2384] [com.apple.runningboard:ttl] Acquiring assertion targeting [osservice<com.apple.screensharing.menuextra(501)>:1430] from originator [osservice<com.apple.coreservices.launchservicesd>:127] with description <RBSAssertionDescriptor| "uielement:1430" ID:163-127-488 target:1430 attributes:[
+2026-10-13T14:02:31.5533340Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:general] [osservice<com.apple.screensharing.menuextra(501)>:1430] reported to RB as running
+2026-10-13T14:02:31.5536350Z 2026-10-13 14:02:25.096 Df runningboardd[163:2384] [com.apple.runningboard:ttl] Assertion 163-127-488 (target:[osservice<com.apple.screensharing.menuextra(501)>:1430]) will be created as active
+2026-10-13T14:02:31.5571450Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:process] [osservice<com.apple.screensharing.menuextra(501)>:1430] Ignoring jetsam update because this process is not memory-managed
+2026-10-13T14:02:31.5576750Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:process] [osservice<com.apple.screensharing.menuextra(501)>:1430] Ignoring suspend because this process is not lifecycle managed
+2026-10-13T14:02:31.5593080Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:ttl] [osservice<com.apple.screensharing.menuextra(501)>:1430] Set darwin role to: UserInteractive
+2026-10-13T14:02:31.5594560Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:process] [osservice<com.apple.screensharing.menuextra(501)>:1430] Ignoring GPU update because this process is not GPU managed
+2026-10-13T14:02:31.5605800Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:process] [osservice<com.apple.screensharing.menuextra(501)>:1430] Ignoring memory limit update because this process is not memory-managed
+2026-10-13T14:02:31.5611010Z 2026-10-13 14:02:25.096 Df runningboardd[163:2385] [com.apple.runningboard:process] [osservice<com.apple.screensharing.menuextra(501)>:1430] Skipping AppNap state - not lifecycle managed
+2026-10-13T14:02:31.5615890Z 2026-10-13 14:02:25.096 Df runningboardd[163:2384] [com.apple.runningboard:ttl] Acquiring assertion targeting [osservice<com.apple.screensharing.menuextra(501)>:1430] from originator [osservice<com.apple.coreservices.launchservicesd>:127] with description <RBSAssertionDescriptor| "uielement:1430" ID:163-127-489 target:1430 attributes:[
+2026-10-13T14:02:31.5617940Z 2026-10-13 14:02:25.096 Df runningboardd[163:2384] [com.apple.runningboard:ttl] Assertion 163-127-489 (target:[osservice<com.apple.screensharing.menuextra(501)>:1430]) will be created as active
+2026-10-13T14:02:31.5683250Z 2026-10-13 14:02:25.097 Df runningboardd[163:2385] [com.apple.runningboard:ttl] Invalidating assertion 163-127-488 (target:[osservice<com.apple.screensharing.menuextra(501)>:1430]) from originator [osservice<com.apple.coreservices.launchservicesd>:127]
+2026-10-13T14:02:31.5685190Z 2026-10-13 14:02:25.099 Df gamepolicyd[872:19a2] [com.apple.runningboard:process] Hit the server for a process handle 1788cea600000596 that resolved to: [osservice<com.apple.screensharing.menuextra(501)>:1430]
+2026-10-13T14:02:31.5687430Z 2026-10-13 14:02:25.099 Df gamepolicyd[872:19a2] [com.apple.runningboard:monitor] Received state update for 1430 (osservice<com.apple.screensharing.menuextra(501)>, running-NotVisible
+2026-10-13T14:02:31.5689220Z 2026-10-13 14:02:25.107 Df runningboardd[163:192f] [com.apple.runningboard:connection] Setting client for [osservice<com.apple.screensharing.menuextra(501)>:1430] as ready
+2026-10-13T14:02:31.5691330Z 2026-10-13 14:02:25.108 Df SSMenuAgent[1430:23ae] [com.apple.runningboard:connection] Identity resolved as osservice<com.apple.screensharing.menuextra(501)>
+2026-10-13T14:02:31.5699280Z 2026-10-13 14:02:25.198 Df gamepolicyd[872:16ea] [com.apple.runningboard:monitor] Received state update for 1430 (osservice<com.apple.screensharing.menuextra(501)>, running-NotVisible
+2026-10-13T14:02:31.5700640Z 2026-10-13 14:02:25.267 Df SSMenuAgent[1430:23d0] [com.apple.xpc:connection] [0x76907e440] activating connection: mach=true listener=true peer=false name=com.apple.screensharing.menuextra
+2026-10-13T14:02:31.5702420Z 2026-10-13 14:02:25.273 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5704260Z 2026-10-13 14:02:25.286 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5705280Z 2026-10-13 14:02:25.286 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5706400Z 2026-10-13 14:02:25.287 Df SSMenuAgent[1430:23d1] [com.apple.xpc:connection] [0x768d15b00] activating connection: mach=false listener=false peer=true name=com.apple.screensharing.menuextra.peer[1429].0x768d15b00
+2026-10-13T14:02:31.5707570Z 2026-10-13 14:02:25.287 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5710390Z 2026-10-13 14:02:25.287 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5714110Z 2026-10-13 14:02:25.287 Df SSMenuAgent[1430:23d1] [com.apple.xpc:connection] [0x768d15c80] activating connection: mach=false listener=false peer=true name=com.apple.screensharing.menuextra.peer[1429].0x768d15c80
+2026-10-13T14:02:31.5717120Z 2026-10-13 14:02:25.290 Df ARDAgent[1429:2387] Got request for kCurrentStateNotification.  Sending value 6
+2026-10-13T14:02:31.5718400Z 2026-10-13 14:02:25.290 Df ARDAgent[1429:2387] [com.apple.xpc:connection] [0x93105cdc0] activating connection: mach=true listener=false peer=false name=com.apple.screensharing.menuextra
+2026-10-13T14:02:31.5719910Z 2026-10-13 14:02:25.291 Df ARDAgent[1429:2387] Post Menu Notification 6
+2026-10-13T14:02:31.5720620Z 2026-10-13 14:02:25.291 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5721300Z 2026-10-13 14:02:25.291 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5722390Z 2026-10-13 14:02:25.291 Df SSMenuAgent[1430:23d0] [com.apple.xpc:connection] [0x768d15e00] activating connection: mach=false listener=false peer=true name=com.apple.screensharing.menuextra.peer[1429].0x768d15e00
+2026-10-13T14:02:31.5723770Z 2026-10-13 14:02:25.291 Df ARDAgent[1429:2387] Got request for kCurrentStateNotification.  Sending value 6
+2026-10-13T14:02:31.5724490Z 2026-10-13 14:02:25.291 Df ARDAgent[1429:2387] Post Menu Notification 6
+2026-10-13T14:02:31.5725320Z 2026-10-13 14:02:25.292 Df ARDAgent[1429:2387] Got request for kCurrentStateNotification.  Sending value 6
+2026-10-13T14:02:31.5725910Z 2026-10-13 14:02:25.292 Df ARDAgent[1429:2387] Post Menu Notification 6
+2026-10-13T14:02:31.5726600Z 2026-10-13 14:02:25.292 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5727370Z 2026-10-13 14:02:25.292 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5728050Z 2026-10-13 14:02:25.292 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5728700Z 2026-10-13 14:02:25.292 Df SSMenuAgent[1430:23a0] ServiceTypeScreenSharing:showDevicesAndRecentsSubmenu: 0
+2026-10-13T14:02:31.5731370Z ===== 9. Screen Sharing subsystem present? =====
+2026-10-13T14:02:31.5732020Z /System/Library/PrivateFrameworks/RemoteManagement.framework
+2026-10-13T14:02:31.5732540Z AppleVNCServer.bundle
+2026-10-13T14:02:31.5732950Z ARDAgent.app
+2026-10-13T14:02:31.5733320Z Remote Desktop Message.app
+2026-10-13T14:02:31.5733730Z ScreensharingAgent.bundle
+2026-10-13T14:02:31.5734540Z screensharingd.bundle
+2026-10-13T14:02:31.5734820Z SSMenuAgent.app
+2026-10-13T14:02:31.6061260Z Identifier=com.apple.RemoteDesktopAgent
+2026-10-13T14:02:31.6061870Z Platform identifier=26
+2026-10-13T14:02:31.6062320Z TeamIdentifier=not set
+2026-10-13T14:02:31.6225160Z Cleaning up orphan processes

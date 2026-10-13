@@ -46,23 +46,34 @@ chmod +x "$SCRIPT_DIR/grant_tcc.sh"
 "$SCRIPT_DIR/grant_tcc.sh" || \
   echo "!! TCC grant failed - VNC will authenticate but show a BLACK SCREEN." >&2
 
-# 5. Enable Apple Remote Management & legacy VNC client support
+# 5. Enable Apple Remote Management (Apple Remote Desktop)
+#
+#    NOTE the flag combination, it is the whole ballgame:
+#      -access -on   turns the service ON. Without it ARD prints
+#                    "Activated Remote Management." but never actually
+#                    listens on 5900.
+#      -allusers     is only a *modifier* of -access; on its own it does
+#                    nothing (the original script used -allowAccessFor -allUsers
+#                    with no -access, which is why 5900 never bound).
+#      -privs -all   grants observe+control.
+#      -menu         starts the menu-extra agent alongside the daemon.
 echo "==> Configuring Apple Remote Management..."
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \
-  -activate -configure -allowAccessFor -allUsers -privs -all \
-  -clientopts -setvnclegacy -vnclegacy "${LEGACY_VNC:-yes}"
+  -activate -configure -access -on -allusers -privs -all \
+  -clientopts -setvnclegacy -vnclegacy "${LEGACY_VNC:-yes}" \
+  -restart -agent -menu
 
 # 6. Set legacy VNC password hash in system preferences
 echo "==> Setting VNC authentication hash..."
 echo "$VNC_PASSWORD" | perl -we 'BEGIN { @k = unpack "C*", pack "H*", "1734516E8BA8C5E2"}; $_ = <>; chomp; s/^(.{8}).*/$1/; @p = unpack "C*", $_; foreach (@k) { printf "%02X", $_ ^ (shift @p || 0) }; print "\n"' | sudo tee /Library/Preferences/com.apple.VNCSettings.txt
 
-# 7. Restart ARD Agent (must happen AFTER grant_tcc.sh so the agent starts
-#    with the grant already in place)
+# 7. Re-assert activation AFTER the legacy-VNC password is written, so the
+#    agent comes back up with the grant from step 4 already in place.
 echo "==> Restarting ARD service..."
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \
-  -restart -agent -console
+  -restart -agent -menu
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \
-  -activate
+  -activate -configure -access -on -allusers -privs -all
 
 # 8. Prove the listener is actually up before we advertise a tunnel URL.
 #    ARD binds the framebuffer listener only once the screen-capture grant from
