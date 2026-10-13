@@ -73,14 +73,12 @@ jobs:
           python3 -m venv /tmp/vncvenv
           /tmp/vncvenv/bin/pip install --quiet --disable-pip-version-check vncdotool pillow
 
-          VNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/python - <<'PY'
-          import os, sys
-          from vncdotool import api
-          from PIL import Image
+          VNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/vncdo \
+            -s 127.0.0.1:0 -p "$VNC_PASSWORD" capture /tmp/vnc-frame.png
 
-          api.connect("127.0.0.1:0", password=os.environ["VNC_PASSWORD"])
-          api.captureScreen("/tmp/vnc-frame.png")
-          api.disconnect()
+          /tmp/vncvenv/bin/python - <<'PY'
+          import sys
+          from PIL import Image
 
           im = Image.open("/tmp/vnc-frame.png").convert("RGB")
           px = list(im.getdata())

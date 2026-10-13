@@ -36,11 +36,20 @@
 
 set -uo pipefail
 
-readonly TCC_CLIENT="com.apple.screensharing.agent"   # client_type 0 = bundle id
 readonly SERVICES=(
   "kTCCServiceScreenCapture"   # read the framebuffer  -> fixes the black screen
   "kTCCServiceAccessibility"   # synthesise input events
   "kTCCServiceListenEvent"     # observe input events
+  "kTCCServicePostEvent"       # post input events
+)
+# Every bundle identifier that ships in /System/Library/CoreServices/RemoteManagement
+# and can end up doing the capture / event injection. Verified against a live
+# macOS 26 runner; see .github/workflows/diagnose.yml.
+readonly CLIENTS=(
+  "com.apple.screensharing.agent"   # ScreensharingAgent.bundle
+  "com.apple.screensharing.daemon"  # screensharingd.bundle  <- the actual server
+  "com.apple.RemoteDesktopAgent"    # ARDAgent.app
+  "com.apple.AppleVNCServer"        # AppleVNCServer.bundle
 )
 readonly AUTH_VALUE=2          # 2 = allowed
 readonly AUTH_REASON=4         # matches the row GitHub ships
@@ -65,11 +74,11 @@ collect_dbs() {
   return 0
 }
 
-# expr_for <column> <service>  ->  a SQL expression for that column
+# expr_for <column> <service> <client>
 expr_for() {
   case "$1" in
     service)       printf "'%s'" "$2" ;;
-    client)        printf "'%s'" "$TCC_CLIENT" ;;
+    client)        printf "'%s'" "$3" ;;
     client_type)   printf '0' ;;      # 0 = bundle identifier
     auth_value)    printf '%s' "$AUTH_VALUE" ;;
     auth_reason)   printf '%s' "$AUTH_REASON" ;;
@@ -79,9 +88,9 @@ expr_for() {
   esac
 }
 
-# grant_service <db> <service>
+# grant_service <db> <service> <client>
 grant_service() {
-  local db="$1" service="$2"
+  local db="$1" service="$2" client="$3"
   local columns select_list col tmpl sql err
 
   [[ -f "$db" ]] || return 0
@@ -100,12 +109,12 @@ grant_service() {
     [[ -z "$col" ]] && continue
     if [[ -n "$columns" ]]; then columns="$columns,"; select_list="$select_list,"; fi
     columns="$columns\"$col\""
-    select_list="$select_list$(expr_for "$col" "$service")"
+    select_list="$select_list$(expr_for "$col" "$service" "$client")"
   done < <(sudo sqlite3 "$db" "PRAGMA table_info(access);" | cut -d'|' -f2)
 
   # Deterministic: drop any stale row (including a `denied` one) first, since
   # INSERT OR IGNORE would silently keep a bad grant.
-  sudo sqlite3 "$db" "DELETE FROM access WHERE service='$service' AND client='$TCC_CLIENT';"
+  sudo sqlite3 "$db" "DELETE FROM access WHERE service='$service' AND client='$client';"
 
   if [[ -n "$tmpl" ]]; then
     sql="INSERT INTO access ($columns) SELECT $select_list FROM access WHERE rowid=$tmpl;"
@@ -115,9 +124,9 @@ grant_service() {
   fi
 
   if err="$(sudo sqlite3 "$db" "$sql" 2>&1)"; then
-    log "granted $service (template row $tmpl)"
+    log "granted ${service} -> ${client}"
   else
-    warn "FAILED $service -> $err"
+    warn "FAILED ${service} -> ${client}: ${err}"
     return 1
   fi
 }
@@ -146,7 +155,9 @@ rc=0
 while IFS= read -r db; do
   log "--- $db"
   for service in "${SERVICES[@]}"; do
-    grant_service "$db" "$service" || rc=1
+    for client in "${CLIENTS[@]}"; do
+      grant_service "$db" "$service" "$client" || rc=1
+    done
   done
 done < <(collect_dbs)
 
@@ -154,14 +165,15 @@ suppress_replayd_reminder
 flush_tcc
 
 # Show the resulting rows so a failed run is obvious in the Actions log.
-echo "==> Verifying kTCCServiceScreenCapture grants:"
+echo "==> Verifying screen-capture grants:"
 while IFS= read -r db; do
   [[ -f "$db" ]] || continue
   sudo sqlite3 "$db" \
-    "SELECT '    ' || client || '  type=' || client_type || '  auth=' || auth_value
+    "SELECT '    ' || service || ' -> ' || client || '  auth=' || auth_value
        FROM access
       WHERE service = 'kTCCServiceScreenCapture'
-        AND client = '$TCC_CLIENT';" 2>/dev/null || true
+        AND client IN ($(printf "'%s'," "${CLIENTS[@]}" | sed 's/,$//'))
+      ORDER BY client;" 2>/dev/null || true
 done < <(collect_dbs)
 
 if [[ "$rc" -ne 0 ]]; then
