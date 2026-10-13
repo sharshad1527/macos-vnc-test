@@ -74,7 +74,8 @@ jobs:
           /tmp/vncvenv/bin/pip install --quiet --disable-pip-version-check vncdotool pillow
 
           VNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/vncdo \
-            -s 127.0.0.1:0 -p "$VNC_PASSWORD" capture /tmp/vnc-frame.png
+            -s 127.0.0.1:0 -u "${VNC_USER:-runner}" -p "$VNC_PASSWORD" \
+            capture /tmp/vnc-frame.png
 
           /tmp/vncvenv/bin/python - <<'PY'
           import sys
