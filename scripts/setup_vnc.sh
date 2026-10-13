@@ -197,11 +197,14 @@ ssh -T -p 443 -R0:localhost:"$DESKTOP_PORT" -o StrictHostKeyChecking=no \
 
 WEB_URL=""
 for i in $(seq 1 25); do
-  WEB_URL=$(grep -oE 'https://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null | head -n1 || true)
+  # Pinggy's banner also advertises https://dashboard.pinggy.io - that is NOT
+  # the tunnel. The real forward lives on a *.pinggy.link / *.pinggy.io host.
+  WEB_URL=$(grep -oE 'https://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null \
+            | grep -v 'dashboard' | grep -E 'pinggy\.(link|io)' | head -n1 || true)
   [ -n "$WEB_URL" ] && break
   sleep 1
 done
-[ -z "$WEB_URL" ] && { echo "!! Pinggy HTTPS tunnel did not come up:" >&2; tail -20 /tmp/pinggy-web.log >&2; }
+[ -z "$WEB_URL" ] && { echo "!! Pinggy HTTPS tunnel did not come up:" >&2; tail -30 /tmp/pinggy-web.log >&2; }
 
 # 10. Classic raw-TCP VNC tunnels (still useful for a VNC client)
 echo ""
@@ -342,6 +345,7 @@ fi
 if [ -n "${RUNNER_TEMP:-}" ]; then
   {
     echo "BROWSER: ${WEB_URL}?t=${DESKTOP_TOKEN}"
+    echo "ALL_URLS_IN_LOG:"; grep -oE 'https?://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null | sort -u
     echo "TOKEN: ${DESKTOP_TOKEN}"
     echo "PORT: ${DESKTOP_PORT}"
     echo "VNC_USER: vncuser"
