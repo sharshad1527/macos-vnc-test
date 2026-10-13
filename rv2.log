@@ -1,0 +1,215 @@
+﻿2026-10-13T15:28:44.0068660Z Current runner version: '2.337.0'
+2026-10-13T15:28:44.0086850Z ##[group]Runner Image Provisioner
+2026-10-13T15:28:44.0087390Z Hosted Compute Agent
+2026-10-13T15:28:44.0087770Z Version: 20260828.587
+2026-10-13T15:28:44.0088180Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T15:28:44.0088660Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T15:28:44.0089590Z Worker ID: {5b7c0755-a4de-4fc8-a872-793ebc7e1029}
+2026-10-13T15:28:44.0090500Z Azure Region: westus
+2026-10-13T15:28:44.0090970Z ##[endgroup]
+2026-10-13T15:28:44.0091890Z ##[group]Operating System
+2026-10-13T15:28:44.0092290Z macOS
+2026-10-13T15:28:44.0092620Z 26.6.2
+2026-10-13T15:28:44.0092950Z 25G83
+2026-10-13T15:28:44.0093290Z ##[endgroup]
+2026-10-13T15:28:44.0093650Z ##[group]Runner Image
+2026-10-13T15:28:44.0094030Z Image: macos-26-arm64
+2026-10-13T15:28:44.0094400Z Version: 20260907.0351.1
+2026-10-13T15:28:44.0095270Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T15:28:44.0096310Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T15:28:44.0097010Z ##[endgroup]
+2026-10-13T15:28:44.0098000Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T15:28:44.0099420Z Contents: read
+2026-10-13T15:28:44.0099790Z Metadata: read
+2026-10-13T15:28:44.0101740Z Packages: read
+2026-10-13T15:28:44.0102460Z ##[endgroup]
+2026-10-13T15:28:44.0104180Z Secret source: Actions
+2026-10-13T15:28:44.0104810Z Cache mode: write
+2026-10-13T15:28:44.0105320Z Prepare workflow directory
+2026-10-13T15:28:44.0374730Z Prepare all required actions
+2026-10-13T15:28:44.0415800Z Getting action download info
+2026-10-13T15:28:44.4610740Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T15:28:44.7530550Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-13T15:28:44.9701420Z Complete job name: test
+2026-10-13T15:28:45.0225410Z ##[group]Run actions/checkout@v4
+2026-10-13T15:28:45.0226360Z with:
+2026-10-13T15:28:45.0226810Z   repository: sharshad1527/macos-vnc-test
+2026-10-13T15:28:45.0231020Z   token: ***
+2026-10-13T15:28:45.0231400Z   ssh-strict: true
+2026-10-13T15:28:45.0231810Z   ssh-user: git
+2026-10-13T15:28:45.0232710Z   persist-credentials: true
+2026-10-13T15:28:45.0233190Z   clean: true
+2026-10-13T15:28:45.0233620Z   sparse-checkout-cone-mode: true
+2026-10-13T15:28:45.0234090Z   fetch-depth: 1
+2026-10-13T15:28:45.0234440Z   fetch-tags: false
+2026-10-13T15:28:45.0234850Z   show-progress: true
+2026-10-13T15:28:45.0235200Z   lfs: false
+2026-10-13T15:28:45.0235590Z   submodules: false
+2026-10-13T15:28:45.0235970Z   set-safe-directory: true
+2026-10-13T15:28:45.0236570Z   allow-unsafe-pr-checkout: false
+2026-10-13T15:28:45.0237360Z ##[endgroup]
+2026-10-13T15:28:45.3243510Z Syncing repository: sharshad1527/macos-vnc-test
+2026-10-13T15:28:45.3245460Z ##[group]Getting Git version info
+2026-10-13T15:28:45.3246370Z Working directory is '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T15:28:45.3247300Z [command]/opt/homebrew/bin/git version
+2026-10-13T15:28:45.3764550Z git version 2.55.0
+2026-10-13T15:28:45.3779110Z ##[endgroup]
+2026-10-13T15:28:45.3786310Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/404d0582-008b-4514-9040-d4fad13db0ae/.gitconfig'
+2026-10-13T15:28:45.3793480Z Temporarily overriding HOME='/Users/runner/work/_temp/404d0582-008b-4514-9040-d4fad13db0ae' before making global git config changes
+2026-10-13T15:28:45.3794800Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T15:28:45.3797510Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T15:28:45.3912160Z Deleting the contents of '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T15:28:45.3924770Z ##[group]Initializing the repository
+2026-10-13T15:28:45.3925670Z [command]/opt/homebrew/bin/git init /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T15:28:45.4147320Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T15:28:45.4148690Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T15:28:45.4149480Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T15:28:45.4150150Z hint: call:
+2026-10-13T15:28:45.4150530Z hint:
+2026-10-13T15:28:45.4150940Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T15:28:45.4151420Z hint:
+2026-10-13T15:28:45.4151980Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T15:28:45.4152710Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T15:28:45.4155040Z hint:
+2026-10-13T15:28:45.4156430Z hint: 	git branch -m <name>
+2026-10-13T15:28:45.4156980Z hint:
+2026-10-13T15:28:45.4175800Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T15:28:45.4176850Z Initialized empty Git repository in /Users/runner/work/macos-vnc-test/macos-vnc-test/.git/
+2026-10-13T15:28:45.4178280Z [command]/opt/homebrew/bin/git remote add origin https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T15:28:45.4242500Z ##[endgroup]
+2026-10-13T15:28:45.4243800Z ##[group]Disabling automatic garbage collection
+2026-10-13T15:28:45.4244610Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-13T15:28:45.4316230Z ##[endgroup]
+2026-10-13T15:28:45.4316920Z ##[group]Setting up auth
+2026-10-13T15:28:45.4322250Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T15:28:45.4397360Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T15:28:45.5328970Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T15:28:45.5393170Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T15:28:45.6340630Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T15:28:45.6402450Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T15:28:45.7268220Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T15:28:45.7338200Z ##[endgroup]
+2026-10-13T15:28:45.7338900Z ##[group]Fetching the repository
+2026-10-13T15:28:45.7346400Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +f21665d9191ac9256941324bea2973353b91f444:refs/remotes/origin/main
+2026-10-13T15:28:46.3506740Z From https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T15:28:46.3520070Z  * [new ref]         f21665d9191ac9256941324bea2973353b91f444 -> origin/main
+2026-10-13T15:28:46.3530710Z ##[endgroup]
+2026-10-13T15:28:46.3539620Z ##[group]Determining the checkout info
+2026-10-13T15:28:46.3542220Z ##[endgroup]
+2026-10-13T15:28:46.3556440Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-13T15:28:46.3639660Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T15:28:46.3702600Z ##[group]Checking out the ref
+2026-10-13T15:28:46.3703370Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-13T15:28:46.4218240Z Switched to a new branch 'main'
+2026-10-13T15:28:46.4226050Z branch 'main' set up to track 'origin/main'.
+2026-10-13T15:28:46.4239830Z ##[endgroup]
+2026-10-13T15:28:46.4321440Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-13T15:28:46.4392890Z f21665d9191ac9256941324bea2973353b91f444
+2026-10-13T15:28:46.4629890Z ##[group]Run chmod +x scripts/*.sh
+2026-10-13T15:28:46.4631260Z [36;1mchmod +x scripts/*.sh[0m
+2026-10-13T15:28:46.4632530Z [36;1m./scripts/setup_realvnc.sh "$VNC_PASSWORD" 5901 2>&1 | tail -60[0m
+2026-10-13T15:28:46.4685550Z shell: /bin/bash -e {0}
+2026-10-13T15:28:46.4687760Z env:
+2026-10-13T15:28:46.4689370Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T15:28:46.4691360Z ##[endgroup]
+2026-10-13T15:32:10.5762010Z ==> Installing RealVNC Server...
+2026-10-13T15:32:10.5771780Z installer: Installing at base path /
+2026-10-13T15:32:10.5772300Z installer: The install was successful.
+2026-10-13T15:32:10.5775910Z 🍺  vnc-server was successfully installed!
+2026-10-13T15:32:10.5776510Z   !! VNC Server.app is not present - cannot continue
+2026-10-13T15:32:10.5927720Z ##[group]Run python3 -m venv /tmp/v
+2026-10-13T15:32:10.5928120Z [36;1mpython3 -m venv /tmp/v[0m
+2026-10-13T15:32:10.5928370Z [36;1m/tmp/v/bin/pip install --quiet vncdotool pillow[0m
+2026-10-13T15:32:10.5928900Z [36;1mPORT=$(cat /tmp/realvnc.port 2>/dev/null || echo 5901)[0m
+2026-10-13T15:32:10.5929550Z [36;1mecho "=== connecting to 127.0.0.1:$PORT ==="[0m
+2026-10-13T15:32:10.5930070Z [36;1m/tmp/v/bin/vncdo -s 127.0.0.1:$((PORT-5900)) -p "$VNC_PASSWORD" \[0m
+2026-10-13T15:32:10.5930620Z [36;1m  capture /tmp/rv.png 2>&1 | tail -12 || echo "  vncdo returned non-zero"[0m
+2026-10-13T15:32:10.5931010Z [36;1mif [ -s /tmp/rv.png ]; then[0m
+2026-10-13T15:32:10.5931360Z [36;1m  cp /tmp/rv.png "$RUNNER_TEMP/rvnc.png"[0m
+2026-10-13T15:32:10.5931670Z [36;1m  /tmp/v/bin/python - <<'PY'[0m
+2026-10-13T15:32:10.5932010Z [36;1mfrom PIL import Image[0m
+2026-10-13T15:32:10.5932310Z [36;1mim = Image.open("/tmp/rv.png").convert("RGB"); px = list(im.getdata())[0m
+2026-10-13T15:32:10.5932800Z [36;1mnb = sum(1 for p in px if max(p) > 12)[0m
+2026-10-13T15:32:10.5933110Z [36;1mpct = 100.0*nb/len(px)[0m
+2026-10-13T15:32:10.5933390Z [36;1mprint(f"  RESULT size={im.size} nonblack={pct:.2f}%")[0m
+2026-10-13T15:32:10.5933880Z [36;1mprint("  VERDICT:", "REAL DESKTOP" if pct > 1.0 else "BLACK / EMPTY")[0m
+2026-10-13T15:32:10.5934280Z [36;1mPY[0m
+2026-10-13T15:32:10.5934600Z [36;1melse[0m
+2026-10-13T15:32:10.5934900Z [36;1m  echo "  NO FRAME CAPTURED"[0m
+2026-10-13T15:32:10.5935150Z [36;1mfi[0m
+2026-10-13T15:32:10.6192250Z shell: /bin/bash -e {0}
+2026-10-13T15:32:10.6192550Z env:
+2026-10-13T15:32:10.6192740Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T15:32:10.6193060Z ##[endgroup]
+2026-10-13T15:32:17.8735890Z === connecting to 127.0.0.1:5901 ===
+2026-10-13T15:32:18.7335250Z CRITICAL:root:Connection was refused by other side: 61: Connection refused.
+2026-10-13T15:32:18.7336550Z   NO FRAME CAPTURED
+2026-10-13T15:32:18.7395940Z ##[group]Run echo "=== /var/root/.vnc/config.d/vncserver ==="
+2026-10-13T15:32:18.7396530Z [36;1mecho "=== /var/root/.vnc/config.d/vncserver ==="[0m
+2026-10-13T15:32:18.7397450Z [36;1msudo cat /var/root/.vnc/config.d/vncserver 2>/dev/null || echo "(missing)"[0m
+2026-10-13T15:32:18.7398290Z [36;1mecho "=== listener ==="[0m
+2026-10-13T15:32:18.7399000Z [36;1msudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | grep -E ':59[0-9][0-9]' || echo "(none)"[0m
+2026-10-13T15:32:18.7401230Z [36;1mecho "=== tccd screen-capture verdicts (last 10m) ==="[0m
+2026-10-13T15:32:18.7402420Z [36;1msudo log show --last 10m --style compact 2>/dev/null \[0m
+2026-10-13T15:32:18.7404450Z [36;1m  | grep -iE 'realvnc|VNC Server' | grep -iE 'TCC|screen|deny|grant' | tail -25 || echo "(none)"[0m
+2026-10-13T15:32:18.7451380Z shell: /bin/bash -e {0}
+2026-10-13T15:32:18.7451630Z ##[endgroup]
+2026-10-13T15:32:18.7680700Z === /var/root/.vnc/config.d/vncserver ===
+2026-10-13T15:32:18.7851290Z (missing)
+2026-10-13T15:32:18.7851870Z === listener ===
+2026-10-13T15:32:18.8257860Z (none)
+2026-10-13T15:32:18.8258240Z === tccd screen-capture verdicts (last 10m) ===
+2026-10-13T15:32:24.8746040Z 2026-10-13 15:28:54.681 Df tccd[154:32b] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df1e9200 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8754480Z 2026-10-13 15:28:54.684 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1368.1, attribution={responsible={TCCDProcess: identifier=a.out, pid=971, auid=501, euid=501, responsible_path=/opt/hca/hosted-compute-agent, binary_path=/opt/hca/hosted-compute-agent}, requesting={TCCDProcess: identifier=com.realvnc.vncagent, pid=1368, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, },
+2026-10-13T15:32:24.8757920Z 2026-10-13 15:28:54.686 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=166.78, attribution={responsible={TCCDProcess: identifier=a.out, pid=971, auid=501, euid=501, responsible_path=/opt/hca/hosted-compute-agent, binary_path=/opt/hca/hosted-compute-agent}, accessing={TCCDProcess: identifier=com.realvnc.vncagent, pid=1368, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, requesting={TCCDProcess: identifier=com.apple.WindowServer, pid=166, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer}, },
+2026-10-13T15:32:24.8760990Z 2026-10-13 15:28:54.686 Df tccd[154:189f] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.WindowServer, pid=166, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer is checking access for accessor TCCDProcess: identifier=com.realvnc.vncagent, pid=1368, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent
+2026-10-13T15:32:24.8763240Z 2026-10-13 15:28:54.794 Df tccd[154:189f] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df1e8c00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8765360Z 2026-10-13 15:28:54.801 E  tccd[154:189f] [com.apple.TCC:access] Prompting policy for hardened runtime; service: kTCCServiceAppleEvents requires entitlement com.apple.security.automation.apple-events but it is missing for accessing={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, requesting={TCCDProcess: identifier=com.apple.appleeventsd, pid=199, auid=55, euid=55, binary_path=/System/Library/CoreServices/appleeventsd},
+2026-10-13T15:32:24.8768270Z 2026-10-13 15:28:57.092 E  tccd[154:189f] [com.apple.TCC:access] TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent attempted to call TCCAccessRequest for kTCCServiceAccessibility without the recommended com.apple.private.tcc.manager.check-by-audit-token entitlement
+2026-10-13T15:32:24.8770540Z 2026-10-13 15:28:57.092 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1365.2, attribution={accessing={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, requesting={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, },
+2026-10-13T15:32:24.8772070Z 2026-10-13 15:28:57.093 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=1365.2, subject=com.realvnc.vncagent,
+2026-10-13T15:32:24.8772970Z 2026-10-13 15:28:57.093 Df tccd[154:189f] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df1e8c00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8774560Z 2026-10-13 15:28:57.097 E  tccd[154:189f] [com.apple.TCC:access] TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent attempted to call TCCAccessRequest for kTCCServiceAccessibility without the recommended com.apple.private.tcc.manager.check-by-audit-token entitlement
+2026-10-13T15:32:24.8776950Z 2026-10-13 15:28:57.097 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1365.3, attribution={accessing={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, requesting={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, },
+2026-10-13T15:32:24.8778490Z 2026-10-13 15:28:57.098 Df tccd[154:189f] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=1365.3, subject=com.realvnc.vncagent,
+2026-10-13T15:32:24.8779400Z 2026-10-13 15:28:57.098 Df tccd[154:189f] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df1e8c00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8780520Z 2026-10-13 15:28:57.229 Df tccd[154:189f] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df1ead00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8781630Z 2026-10-13 15:28:57.241 Df tccd[154:32b] [com.apple.TCC:events] Publishing <TCCDEvent: type=Modify, service=kTCCServiceAccessibility, identifier_type=Bundle ID, identifier=com.realvnc.vncagent> to 0 subscribers: {
+2026-10-13T15:32:24.8783600Z 2026-10-13 15:32:09.270 Df tccd[154:4544] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=4825.1, attribution={responsible={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, responsible_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, requesting={TCCDProcess: identifier=com.realvnc.vncserverui, pid=4825, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server.app/Contents/MacOS/vncserverui}, },
+2026-10-13T15:32:24.8785340Z 2026-10-13 15:32:09.290 Df tccd[154:4544] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=4825.1, subject=com.realvnc.vncagent,
+2026-10-13T15:32:24.8786260Z 2026-10-13 15:32:09.290 Df tccd[154:4544] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df12cf00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8788900Z 2026-10-13 15:32:09.296 Df tccd[154:49ea] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=166.85, attribution={responsible={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, responsible_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, accessing={TCCDProcess: identifier=com.realvnc.vncserverui, pid=4825, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server.app/Contents/MacOS/vncserverui}, requesting={TCCDProcess: identifier=com.apple.WindowServer, pid=166, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer}, },
+2026-10-13T15:32:24.8792030Z 2026-10-13 15:32:09.296 Df tccd[154:49ea] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.WindowServer, pid=166, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer is checking access for accessor TCCDProcess: identifier=com.realvnc.vncserverui, pid=4825, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server.app/Contents/MacOS/vncserverui
+2026-10-13T15:32:24.8793640Z 2026-10-13 15:32:09.297 Df tccd[154:49ea] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=166.85, subject=com.realvnc.vncagent,
+2026-10-13T15:32:24.8794520Z 2026-10-13 15:32:09.297 Df tccd[154:49ea] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df12cf00 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8795690Z 2026-10-13 15:32:09.459 Df tccd[154:4a4e] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.realvnc.vncagent, type: 0: 0x8df12e400 at /Library/vnc/RealVNC Server Agent.app
+2026-10-13T15:32:24.8798540Z 2026-10-13 15:32:09.464 E  tccd[154:4a4e] [com.apple.TCC:access] Prompting policy for hardened runtime; service: kTCCServiceAppleEvents requires entitlement com.apple.security.automation.apple-events but it is missing for responsible={TCCDProcess: identifier=com.realvnc.vncagent, pid=1365, auid=501, euid=501, responsible_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent, binary_path=/Library/vnc/RealVNC Server Agent.app/Contents/MacOS/vncagent}, accessing={TCCDProcess: identifier=com.realvnc.vncserverui, pid=4825, auid=501, euid=501, binary_path=/Library/vnc/RealVNC Server.app/Contents/MacOS/vncserverui}, requesting={TCCDProcess: identifier=com.apple.appleeventsd, pid=199, auid=55, euid=55, binary_path=/System/Library/CoreServices/appleeventsd},
+2026-10-13T15:32:24.8938850Z ##[group]Run actions/upload-artifact@v4
+2026-10-13T15:32:24.8939130Z with:
+2026-10-13T15:32:24.8939280Z   name: realvnc-frame
+2026-10-13T15:32:24.8939490Z   path: /Users/runner/work/_temp/rvnc.png
+2026-10-13T15:32:24.8939720Z   if-no-files-found: ignore
+2026-10-13T15:32:24.8939910Z   compression-level: 6
+2026-10-13T15:32:24.8940110Z   overwrite: false
+2026-10-13T15:32:24.8940280Z   include-hidden-files: false
+2026-10-13T15:32:24.8940490Z ##[endgroup]
+2026-10-13T15:32:25.3101050Z (node:5082) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T15:32:25.3101800Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T15:32:25.3124160Z No files were found with the provided path: /Users/runner/work/_temp/rvnc.png. No artifacts will be uploaded.
+2026-10-13T15:32:25.3355980Z Post job cleanup.
+2026-10-13T15:32:25.4431170Z [command]/opt/homebrew/bin/git version
+2026-10-13T15:32:25.4655430Z git version 2.55.0
+2026-10-13T15:32:25.4673300Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/c2a9638f-f928-4aef-bf6f-c3d4f9f6070e/.gitconfig'
+2026-10-13T15:32:25.4686790Z Temporarily overriding HOME='/Users/runner/work/_temp/c2a9638f-f928-4aef-bf6f-c3d4f9f6070e' before making global git config changes
+2026-10-13T15:32:25.4687980Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T15:32:25.4696220Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T15:32:25.4876870Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T15:32:25.4957640Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T15:32:25.5929520Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T15:32:25.6005220Z http.https://github.com/.extraheader
+2026-10-13T15:32:25.6105360Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T15:32:25.6119070Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T15:32:25.7281250Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T15:32:25.7362480Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T15:32:25.8737260Z Cleaning up orphan processes
+2026-10-13T15:32:27.2789650Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
