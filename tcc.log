@@ -1,0 +1,195 @@
+﻿2026-10-13T14:37:06.3777440Z Current runner version: '2.337.0'
+2026-10-13T14:37:06.3796480Z ##[group]Runner Image Provisioner
+2026-10-13T14:37:06.3797170Z Hosted Compute Agent
+2026-10-13T14:37:06.3797560Z Version: 20260828.587
+2026-10-13T14:37:06.3797970Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T14:37:06.3798540Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T14:37:06.3799060Z Worker ID: {9c517cb6-ef66-418e-8fcd-bda43e200372}
+2026-10-13T14:37:06.3799550Z Azure Region: westus
+2026-10-13T14:37:06.3799950Z ##[endgroup]
+2026-10-13T14:37:06.3801180Z ##[group]Operating System
+2026-10-13T14:37:06.3801720Z macOS
+2026-10-13T14:37:06.3802060Z 26.6.2
+2026-10-13T14:37:06.3802460Z 25G83
+2026-10-13T14:37:06.3802810Z ##[endgroup]
+2026-10-13T14:37:06.3803180Z ##[group]Runner Image
+2026-10-13T14:37:06.3803640Z Image: macos-26-arm64
+2026-10-13T14:37:06.3804050Z Version: 20260907.0351.1
+2026-10-13T14:37:06.3805030Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T14:37:06.3806080Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T14:37:06.3806880Z ##[endgroup]
+2026-10-13T14:37:06.3807730Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T14:37:06.3809250Z Contents: read
+2026-10-13T14:37:06.3809650Z Metadata: read
+2026-10-13T14:37:06.3810110Z Packages: read
+2026-10-13T14:37:06.3810570Z ##[endgroup]
+2026-10-13T14:37:06.3812380Z Secret source: Actions
+2026-10-13T14:37:06.3812980Z Cache mode: write
+2026-10-13T14:37:06.3813460Z Prepare workflow directory
+2026-10-13T14:37:06.4231160Z Prepare all required actions
+2026-10-13T14:37:06.4318440Z Complete job name: probe
+2026-10-13T14:37:06.5102290Z ##[group]Run K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+2026-10-13T14:37:06.5103320Z [36;1mK=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart[0m
+2026-10-13T14:37:06.5104100Z [36;1m./scripts/grant_tcc.sh 2>&1 | tail -5[0m
+2026-10-13T14:37:06.5104980Z [36;1msudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu >/dev/null 2>&1 || true[0m
+2026-10-13T14:37:06.5105760Z [36;1msleep 4[0m
+2026-10-13T14:37:06.5106140Z [36;1mecho "TCC_MARKER_START $(date +%s)"[0m
+2026-10-13T14:37:06.7158930Z shell: /bin/bash -e {0}
+2026-10-13T14:37:06.7160700Z ##[endgroup]
+2026-10-13T14:37:06.7957180Z /Users/runner/work/_temp/90375813-e471-4b78-bd60-e93a6f225d3e.sh: line 2: ./scripts/grant_tcc.sh: No such file or directory
+2026-10-13T14:37:18.3169680Z TCC_MARKER_START 1791902238
+2026-10-13T14:37:18.3402660Z ##[group]Run python3 -m venv /tmp/v 2>/dev/null
+2026-10-13T14:37:18.3405340Z [36;1mpython3 -m venv /tmp/v 2>/dev/null[0m
+2026-10-13T14:37:18.3407900Z [36;1m/tmp/v/bin/pip install --quiet vncdotool pillow[0m
+2026-10-13T14:37:18.3412280Z [36;1m/tmp/v/bin/vncdo -s 127.0.0.1:0 -u vncuser -p "${VNC_PASSWORD}" capture /tmp/f.png || true[0m
+2026-10-13T14:37:18.3414280Z [36;1mls -la /tmp/f.png 2>/dev/null || echo "no frame"[0m
+2026-10-13T14:37:18.3492360Z shell: /bin/bash -e {0}
+2026-10-13T14:37:18.3494240Z ##[endgroup]
+2026-10-13T14:37:32.0052720Z /private/tmp/v/lib/python3.14/site-packages/vncdotool/rfb.py:316: CryptographyDeprecationWarning: Diffie-Hellman over finite fields (FFDH) is deprecated and support will be removed in a future release. Use a more modern key exchange algorithm.
+2026-10-13T14:37:32.0059520Z   param_nums = dh.DHParameterNumbers(p=p, g=self.generator)
+2026-10-13T14:37:41.8792730Z /private/tmp/v/lib/python3.14/site-packages/vncdotool/rfb.py:317: CryptographyDeprecationWarning: Diffie-Hellman over finite fields (FFDH) is deprecated and support will be removed in a future release. Use a more modern key exchange algorithm.
+2026-10-13T14:37:41.8795710Z   server_key = dh.DHPublicNumbers(sk, param_nums).public_key()
+2026-10-13T14:37:41.8797700Z CRITICAL:root:Authentication or authorization failure
+2026-10-13T14:37:42.1199130Z no frame
+2026-10-13T14:37:42.1383980Z ##[group]Run echo "===== tccd / TCC subsystem log (last 8m) ====="
+2026-10-13T14:37:42.1385780Z [36;1mecho "===== tccd / TCC subsystem log (last 8m) ====="[0m
+2026-10-13T14:37:42.1386440Z [36;1msudo log show --last 8m --style compact --predicate 'subsystem == "com.apple.TCC" OR process == "tccd"' 2>/dev/null \[0m
+2026-10-13T14:37:42.1387250Z [36;1m  | grep -iE 'screenshar|remote|vnc|denied|deny|auth_value|kTCCServiceScreenCapture' | tail -50 \[0m
+2026-10-13T14:37:42.1387730Z [36;1m  || echo "  (nothing)"[0m
+2026-10-13T14:37:42.1388380Z [36;1m[0m
+2026-10-13T14:37:42.1389080Z [36;1mecho "===== ScreenCaptureKit / CoreGraphics capture logs ====="[0m
+2026-10-13T14:37:42.1389480Z [36;1msudo log show --last 8m --style compact 2>/dev/null \[0m
+2026-10-13T14:37:42.1390150Z [36;1m  | grep -iE 'ScreenCaptureKit|SCStream|CGDisplay|screensharingd|ScreensharingAgent' | tail -40 \[0m
+2026-10-13T14:37:42.1390650Z [36;1m  || echo "  (nothing)"[0m
+2026-10-13T14:37:42.1391050Z [36;1m[0m
+2026-10-13T14:37:42.1391460Z [36;1mecho "===== exact rows in system TCC.db for our clients ====="[0m
+2026-10-13T14:37:42.1392020Z [36;1msudo sqlite3 -header -column "/Library/Application Support/com.apple.TCC/TCC.db" \[0m
+2026-10-13T14:37:42.1392570Z [36;1m  "SELECT service,client,client_type ct,auth_value av,auth_reason ar,flags,[0m
+2026-10-13T14:37:42.1393450Z [36;1m          CASE WHEN csreq IS NULL THEN 'NULL' ELSE 'SET' END csreq[0m
+2026-10-13T14:37:42.1393790Z [36;1m     FROM access[0m
+2026-10-13T14:37:42.1394270Z [36;1m    WHERE client LIKE '%screenshar%' OR client LIKE '%RemoteDesktop%' OR client LIKE '%AppleVNC%'[0m
+2026-10-13T14:37:42.1394860Z [36;1m    ORDER BY service,client;" 2>&1 | head -60[0m
+2026-10-13T14:37:42.1395260Z [36;1m[0m
+2026-10-13T14:37:42.1395500Z [36;1mecho "===== rows in the CONSOLE USER's TCC.db (uid 501) ====="[0m
+2026-10-13T14:37:42.1395890Z [36;1mCU=$(stat -f '%Su' /dev/console)[0m
+2026-10-13T14:37:42.1396300Z [36;1msudo sqlite3 -header -column "/Users/$CU/Library/Application Support/com.apple.TCC/TCC.db" \[0m
+2026-10-13T14:37:42.1396910Z [36;1m  "SELECT service,client,client_type ct,auth_value av FROM access[0m
+2026-10-13T14:37:42.1397490Z [36;1m    WHERE service LIKE '%ScreenCapture%' OR service LIKE '%Accessibility%'[0m
+2026-10-13T14:37:42.1397850Z [36;1m    LIMIT 25;" 2>&1 | head -40[0m
+2026-10-13T14:37:42.1398180Z [36;1m[0m
+2026-10-13T14:37:42.1398430Z [36;1mecho "===== can we install an MDM PPPC profile here? ====="[0m
+2026-10-13T14:37:42.1398790Z [36;1msudo profiles status -type enrollment 2>&1 | head -5[0m
+2026-10-13T14:37:42.1399090Z [36;1mls -la /usr/bin/profiles 2>&1[0m
+2026-10-13T14:37:42.1780280Z shell: /bin/bash -e {0}
+2026-10-13T14:37:42.1780550Z env:
+2026-10-13T14:37:42.1780740Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T14:37:42.1780950Z ##[endgroup]
+2026-10-13T14:37:42.2697450Z ===== tccd / TCC subsystem log (last 8m) =====
+2026-10-13T14:37:44.2561640Z 2026-10-13 14:37:25.426 Df tccd[334:1896] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2568150Z 2026-10-13 14:37:25.429 Df tccd[334:2055] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.297, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2577340Z 2026-10-13 14:37:25.429 Df tccd[334:2055] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2583960Z 2026-10-13 14:37:25.429 Df tccd[334:2055] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2590230Z 2026-10-13 14:37:25.430 Df tccd[334:2136] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.298, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2602680Z 2026-10-13 14:37:25.430 Df tccd[334:2136] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2609480Z 2026-10-13 14:37:25.430 Df tccd[334:2136] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2615750Z 2026-10-13 14:37:25.431 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.299, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2622950Z 2026-10-13 14:37:25.431 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2629020Z 2026-10-13 14:37:25.431 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2632920Z 2026-10-13 14:37:25.447 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.300, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2636290Z 2026-10-13 14:37:25.447 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2638850Z 2026-10-13 14:37:25.447 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2641200Z 2026-10-13 14:37:25.449 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.301, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2653330Z 2026-10-13 14:37:25.449 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2655930Z 2026-10-13 14:37:25.449 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2658200Z 2026-10-13 14:37:25.450 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.302, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2660760Z 2026-10-13 14:37:25.450 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2662900Z 2026-10-13 14:37:25.450 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2665220Z 2026-10-13 14:37:25.451 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.303, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2667860Z 2026-10-13 14:37:25.451 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2670780Z 2026-10-13 14:37:25.451 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2673380Z 2026-10-13 14:37:25.471 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.304, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2676020Z 2026-10-13 14:37:25.471 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2678210Z 2026-10-13 14:37:25.471 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2681120Z 2026-10-13 14:37:25.472 Df tccd[334:214a] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=402.305, attribution={accessing={TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent}, requesting={TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd}, },
+2026-10-13T14:37:44.2684840Z 2026-10-13 14:37:25.472 Df tccd[334:214a] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.contactsd, pid=402, auid=501, euid=501, binary_path=/System/Library/Frameworks/Contacts.framework/Support/contactsd is checking access for accessor TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent
+2026-10-13T14:37:44.2686970Z 2026-10-13 14:37:25.472 Df tccd[334:214a] [com.apple.TCC:access] Granting TCCDProcess: identifier=com.apple.SSMenuAgent, pid=1345, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent access to kTCCServiceAddressBook via entitlement 'com.apple.private.tcc.allow'
+2026-10-13T14:37:44.2689210Z 2026-10-13 14:37:31.408 Df tccd[154:20a3] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1403.1, attribution={requesting={TCCDProcess: identifier=com.apple.screensharing.agent, pid=1403, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent}, },
+2026-10-13T14:37:44.2690530Z 2026-10-13 14:37:31.412 Df tccd[154:20a3] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=1403.1, subject=com.apple.screensharing.agent,
+2026-10-13T14:37:44.2839790Z 2026-10-13 14:37:31.413 E  tccd[154:21b6] [com.apple.TCC:access] Failed to create LSApplicationRecord for file:///System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/: 'The operation couldn’t be completed. (OSStatus error -10811.)'
+2026-10-13T14:37:44.2843890Z 2026-10-13 14:37:31.413 Df tccd[154:20a3] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.apple.screensharing.agent, type: 0: 0xaa8d91500 at /System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle
+2026-10-13T14:37:44.2847760Z 2026-10-13 14:37:31.420 Df tccd[154:20a3] [com.apple.TCC:access] Platform binary prompting is 'Deny' because: is Platform Binary
+2026-10-13T14:37:44.2854040Z 2026-10-13 14:37:31.424 Df tccd[154:20a3] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=162.80, attribution={accessing={TCCDProcess: identifier=com.apple.screensharing.agent, pid=1403, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent}, requesting={TCCDProcess: identifier=com.apple.WindowServer, pid=162, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer}, },
+2026-10-13T14:37:44.2862030Z 2026-10-13 14:37:31.424 Df tccd[154:20a3] [com.apple.TCC:access] requestor: TCCDProcess: identifier=com.apple.WindowServer, pid=162, auid=88, euid=88, binary_path=/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer is checking access for accessor TCCDProcess: identifier=com.apple.screensharing.agent, pid=1403, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent
+2026-10-13T14:37:44.2863980Z 2026-10-13 14:37:31.426 Df tccd[154:20a3] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=162.80, subject=com.apple.screensharing.agent,
+2026-10-13T14:37:44.2865480Z 2026-10-13 14:37:31.426 E  tccd[154:21b6] [com.apple.TCC:access] Failed to create LSApplicationRecord for file:///System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/: 'The operation couldn’t be completed. (OSStatus error -10811.)'
+2026-10-13T14:37:44.2866920Z 2026-10-13 14:37:31.427 Df tccd[154:20a3] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.apple.screensharing.agent, type: 0: 0xaa8e52d00 at /System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle
+2026-10-13T14:37:44.2867980Z 2026-10-13 14:37:31.432 Df tccd[154:20a3] [com.apple.TCC:access] Platform binary prompting is 'Deny' because: is Platform Binary
+2026-10-13T14:37:44.2869310Z 2026-10-13 14:37:31.444 Df tccd[154:21b6] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1403.2, attribution={requesting={TCCDProcess: identifier=com.apple.screensharing.agent, pid=1403, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent}, },
+2026-10-13T14:37:44.2870630Z 2026-10-13 14:37:31.446 Df tccd[154:21b6] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=1403.2, subject=com.apple.screensharing.agent,
+2026-10-13T14:37:44.2871770Z 2026-10-13 14:37:31.446 E  tccd[154:20a3] [com.apple.TCC:access] Failed to create LSApplicationRecord for file:///System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/: 'The operation couldn’t be completed. (OSStatus error -10811.)'
+2026-10-13T14:37:44.2873180Z 2026-10-13 14:37:31.447 Df tccd[154:21b6] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.apple.screensharing.agent, type: 0: 0xaa8e52d00 at /System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle
+2026-10-13T14:37:44.2874230Z 2026-10-13 14:37:31.449 Df tccd[154:21b6] [com.apple.TCC:access] Platform binary prompting is 'Deny' because: is Platform Binary
+2026-10-13T14:37:44.2875190Z 2026-10-13 14:37:31.451 Df tccd[154:21b6] [com.apple.TCC:access] AUTHREQ_CTX: msgID=1403.3, function=TCCAccessRequest, service=kTCCServiceScreenCapture, preflight=yes, query=1, client_dict=(null), daemon_dict=<private>
+2026-10-13T14:37:44.2876750Z 2026-10-13 14:37:31.451 Df tccd[154:21b6] [com.apple.TCC:access] AUTHREQ_ATTRIBUTION: msgID=1403.3, attribution={requesting={TCCDProcess: identifier=com.apple.screensharing.agent, pid=1403, auid=501, euid=501, binary_path=/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent}, },
+2026-10-13T14:37:44.2878700Z 2026-10-13 14:37:31.456 Df tccd[154:21b6] [com.apple.TCC:access] AUTHREQ_SUBJECT: msgID=1403.3, subject=com.apple.screensharing.agent,
+2026-10-13T14:37:44.2880180Z 2026-10-13 14:37:31.456 E  tccd[154:20a3] [com.apple.TCC:access] Failed to create LSApplicationRecord for file:///System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/: 'The operation couldn’t be completed. (OSStatus error -10811.)'
+2026-10-13T14:37:44.2881830Z 2026-10-13 14:37:31.458 Df tccd[154:21b6] [com.apple.TCC:access] -[TCCDAccessIdentity staticCode]: static code for: identifier com.apple.screensharing.agent, type: 0: 0xaa8e53600 at /System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle
+2026-10-13T14:37:44.2883320Z 2026-10-13 14:37:31.462 Df tccd[154:21b6] [com.apple.TCC:access] Platform binary prompting is 'Deny' because: is Platform Binary
+2026-10-13T14:37:44.2883920Z ===== ScreenCaptureKit / CoreGraphics capture logs =====
+2026-10-13T14:37:51.5106030Z 2026-10-13 14:37:40.675 Df screensharingd[1400:21b9] available bytes 640
+2026-10-13T14:37:51.5208220Z 2026-10-13 14:37:40.675 Df screensharingd[1400:21b9] available data 640
+2026-10-13T14:37:51.5311350Z 2026-10-13 14:37:40.675 Df screensharingd[1400:21b9] HandleViewerAuthenticationMessages 4
+2026-10-13T14:37:51.5377190Z 2026-10-13 14:37:40.869 A  screensharingd[1400:21b9] (CFOpenDirectory) Open a given node
+2026-10-13T14:37:51.5385730Z 2026-10-13 14:37:40.871 Df screensharingd[1400:21b9] naPrivsAttributeName 0xbacd2c150
+2026-10-13T14:37:51.5387080Z 2026-10-13 14:37:40.871 Df screensharingd[1400:21b9] name = <private>
+2026-10-13T14:37:51.5388550Z 2026-10-13 14:37:40.871 A  screensharingd[1400:21b9] (CFOpenDirectory) Retrieve record from node
+2026-10-13T14:37:51.5390410Z 2026-10-13 14:37:40.871 A  screensharingd[1400:21b9] (CFOpenDirectory) Querying records from directories
+2026-10-13T14:37:51.5391930Z 2026-10-13 14:37:40.873 Df screensharingd[1400:21b9] Unable to find user record for <<private>>
+2026-10-13T14:37:51.5393400Z 2026-10-13 14:37:40.873 A  screensharingd[1400:21b9] (CFOpenDirectory) Closing a node reference
+2026-10-13T14:37:51.5394600Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] authResult = 1
+2026-10-13T14:37:51.5396480Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] auth 4351 μs
+2026-10-13T14:37:51.5397350Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] override now 0
+2026-10-13T14:37:51.5398670Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] bad authentication occurred: 1 concurrent bad authentication(s)
+2026-10-13T14:37:51.5400190Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] new viewer connection: 127.0.0.1
+2026-10-13T14:37:51.5401570Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] bad auth count: 1 concurrent: 1 pref: 500000 auth time: 4351 delay 995649
+2026-10-13T14:37:51.5403060Z 2026-10-13 14:37:40.874 Df screensharingd[1400:21b9] viewers with bad authentication attempts 1
+2026-10-13T14:37:51.5404420Z 2026-10-13 14:37:41.874 Df screensharingd[1400:21b9] auth 1005113 μs (blinding)
+2026-10-13T14:37:51.5405490Z 2026-10-13 14:37:41.874 Df screensharingd[1400:21b9] done waiting after bad authentication
+2026-10-13T14:37:51.5406730Z 2026-10-13 14:37:41.874 Df screensharingd[1400:21b9] send vers 8 response authresult 1
+2026-10-13T14:37:51.5407800Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] go into read call
+2026-10-13T14:37:51.5409000Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] reached eof
+2026-10-13T14:37:51.5410010Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] errno 60 Operation timed out
+2026-10-13T14:37:51.5411220Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] read error 60 Operation timed out
+2026-10-13T14:37:51.5412590Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] close the connection from viewer authentication thread
+2026-10-13T14:37:51.5413880Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] closing index 0
+2026-10-13T14:37:51.5415220Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] closing index 0 ptr 0xbad0bd400  fd 9
+2026-10-13T14:37:51.5416320Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] going to close 9
+2026-10-13T14:37:51.5418720Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] going to log acceleration flag 1
+2026-10-13T14:37:51.5422110Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] viewer->fileCopyInfo 0x0
+2026-10-13T14:37:51.5423170Z 2026-10-13 14:37:42.878 Df screensharingd[1400:21b9] viewer->mode 0
+2026-10-13T14:37:51.5424280Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] set gViewerConnections index 0 to -1
+2026-10-13T14:37:51.5425910Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] gViewerConnections[ descriptorIndex ] -1 address 0x104ecb1c8 descriptorIndex = 0
+2026-10-13T14:37:51.5427370Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] MVS_FreeInfo
+2026-10-13T14:37:51.5428400Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] reset gMaxViewerConnection to -1
+2026-10-13T14:37:51.5429530Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] unlocked mutexes
+2026-10-13T14:37:51.5431820Z 2026-10-13 14:37:42.879 Df powerd[99:21ba] [com.apple.powerd:assertions] Process screensharingd.1400 Released PreventSystemSleep "Remote user is connected" age:00:00:11  id:30064804094 [System: PrevIdle PrevDisp DeclUser NetAcc kCPU kDisp]
+2026-10-13T14:37:51.5434260Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] remove timer
+2026-10-13T14:37:51.5434720Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] inval  gExitTimerRef 0xbad005980
+2026-10-13T14:37:51.5435270Z 2026-10-13 14:37:42.879 Df screensharingd[1400:21b9] create gExitTimerRef 0xbad005980
+2026-10-13T14:37:51.5435750Z ===== exact rows in system TCC.db for our clients =====
+2026-10-13T14:37:51.9307610Z ===== rows in the CONSOLE USER's TCC.db (uid 501) =====
+2026-10-13T14:37:51.9684250Z service                   client                                         ct  av
+2026-10-13T14:37:51.9686240Z ------------------------  ---------------------------------------------  --  --
+2026-10-13T14:37:51.9687560Z kTCCServiceAccessibility  /bin/bash                                      1   2 
+2026-10-13T14:37:51.9689820Z kTCCServiceAccessibility  /usr/bin/osascript                             1   2 
+2026-10-13T14:37:51.9696280Z kTCCServiceAccessibility  com.apple.Terminal                             0   2 
+2026-10-13T14:37:51.9702310Z kTCCServiceScreenCapture  /opt/hca/hosted-compute-agent                  1   2 
+2026-10-13T14:37:51.9707590Z kTCCServiceScreenCapture  /usr/local/opt/runner/provisioner/provisioner  1   2 
+2026-10-13T14:37:51.9736940Z kTCCServiceScreenCapture  /bin/bash                                      1   2 
+2026-10-13T14:37:51.9737830Z kTCCServiceScreenCapture  /usr/bin/osascript                             1   2 
+2026-10-13T14:37:51.9738650Z kTCCServiceScreenCapture  com.apple.Terminal                             0   2 
+2026-10-13T14:37:51.9739130Z ===== can we install an MDM PPPC profile here? =====
+2026-10-13T14:37:52.2491260Z Enrolled via DEP: No
+2026-10-13T14:37:52.2507910Z MDM enrollment: No
+2026-10-13T14:37:52.2621570Z -rwxr-xr-x  1 root  wheel  433136 Aug 13 02:51 /usr/bin/profiles
+2026-10-13T14:37:52.2839680Z Cleaning up orphan processes

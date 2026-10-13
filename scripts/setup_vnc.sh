@@ -76,6 +76,26 @@ chmod +x "$SCRIPT_DIR/grant_tcc.sh"
 "$SCRIPT_DIR/grant_tcc.sh" || \
   echo "!! TCC grant failed - VNC will authenticate but show a BLACK SCREEN." >&2
 
+# 4b. Register the RemoteManagement bundles with LaunchServices.
+#     tccd logs "Failed to create LSApplicationRecord ... OSStatus error -10811"
+#     for ScreensharingAgent.bundle, which means it cannot even resolve the
+#     binary's identity to look up a grant. lsregister -f fixes that.
+if [ "${LSREGISTER:-0}" = "1" ]; then
+  echo "==> Registering RemoteManagement bundles with LaunchServices..."
+  LSREG=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
+  for b in ScreensharingAgent.bundle screensharingd.bundle AppleVNCServer.bundle \
+           ARDAgent.app SSMenuAgent.app; do
+    if [ -e "/System/Library/CoreServices/RemoteManagement/$b" ]; then
+      sudo "$LSREG" -f "/System/Library/CoreServices/RemoteManagement/$b" >/dev/null 2>&1 \
+        && echo "    registered $b" \
+        || echo "    !! failed to register $b" >&2
+    fi
+  done
+  # Make sure tccd re-reads the now-registered identity.
+  sudo killall tccd 2>/dev/null || true
+  sleep 1
+fi
+
 # 5. Enable Apple Remote Management (Apple Remote Desktop)
 #
 #    NOTE the flag combination, it is the whole ballgame:

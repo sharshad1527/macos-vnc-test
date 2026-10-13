@@ -1,0 +1,56 @@
+name: Probe ingredients for a custom VNC server
+on: workflow_dispatch
+
+jobs:
+  probe:
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - name: Inventory
+        run: |
+          echo "=== is a non-Apple VNC server brew-installable? ==="
+          brew search vnc 2>/dev/null | head -20 || echo "  search failed"
+          echo "--- cask: realvnc ---"
+          brew info --cask vnc-server 2>&1 | head -8 || true
+          echo "--- cask: tightvnc ---"
+          brew info --cask tightvnc 2>&1 | head -8 || true
+
+          echo "=== input injection prerequisites ==="
+          command -v cliclick || echo "  cliclick: not installed (brew install cliclick)"
+          echo "--- osascript Accessibility is pre-granted by the runner image? ---"
+          sudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
+            "SELECT service||' -> '||client||' auth='||auth_value
+               FROM access WHERE client='/usr/bin/osascript';" 2>&1 | head
+
+          echo "=== can screencapture run in a loop inside the console session? ==="
+          CU=$(stat -f '%Su' /dev/console); CUID=$(stat -f '%u' /dev/console)
+          mkdir -p /tmp/loop
+          START=$(date +%s)
+          for i in $(seq 1 10); do
+            sudo launchctl asuser "$CUID" sudo -u "$CU" \
+              /usr/sbin/screencapture -x /tmp/loop/f$i.png 2>/dev/null
+          done
+          END=$(date +%s)
+          echo "  10 frames in $((END-START))s"
+          ls /tmp/loop | wc -l
+          md5 -q /tmp/loop/f1.png /tmp/loop/f5.png /tmp/loop/f10.png 2>/dev/null
+
+          echo "=== is there a usable display to capture? ==="
+          sudo launchctl asuser "$CUID" sudo -u "$CU" /usr/sbin/screencapture -x /tmp/one.png
+          python3 -m venv /tmp/p 2>/dev/null; /tmp/p/bin/pip install --quiet pillow
+          /tmp/p/bin/python - <<'PY'
+          from PIL import Image
+          im = Image.open("/tmp/one.png").convert("RGB"); px=list(im.getdata())
+          nb=sum(1 for p in px if max(p)>12)
+          print(f"  size={im.size} nonblack={100.0*nb/len(px):.2f}%")
+          # is the TOP strip (menu bar) rendered?
+          w,h = im.size
+          top = list(im.crop((0,0,w,30)).getdata())
+          tnb = sum(1 for p in top if max(p)>12)
+          bot = list(im.crop((0,h-90,w,h)).getdata())
+          bnb = sum(1 for p in bot if max(p)>12)
+          print(f"  menubar nonblack={100.0*tnb/len(top):.1f}%  dock nonblack={100.0*bnb/len(bot):.1f}%")
+          PY
+
+          echo "=== display resolution ==="
+          system_profiler SPDisplaysDataType 2>/dev/null | head -25
