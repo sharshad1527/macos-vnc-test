@@ -113,7 +113,8 @@ def capture_loop():
                 n += 1
             if n == 1:
                 log(f"first frame captured ({os.path.getsize(FRAME)} bytes)")
-            time.sleep(INTERVAL)
+            # No artificial sleep: screencapture's own runtime (~150-250ms) is
+            # the natural frame pacing, and sleeping on top of it halved the rate.
             continue
 
         # failed - remember why, then fall back to a plainer invocation
@@ -276,14 +277,17 @@ document.querySelectorAll('.k').forEach(el=>el.onclick=()=>{
   const v=el.dataset.send; send('type='+v.split(':')[0]+'&k='+v.split(':')[1]);
 });
 
-// poll the frame; INTERVAL must match the server's capture rate
-let n=0,t0=performance.now();
+// The token MUST be on the frame request too - without it the server 403s and
+// the <img> silently never paints. `_` is only a cache-buster.
+let ok=0,bad=0;
 function tick(){
-  img.src='/frame.jpg?t='+Date.now();
-  n++;
-  if(performance.now()-t0>1000){document.getElementById('fps').textContent=n+' fps';n=0;t0=performance.now();}
+  img.src='/frame.jpg?t='+T+'&_='+Date.now();
 }
-img.onload=()=>setTimeout(tick,150); img.onerror=()=>setTimeout(tick,500);
+img.onload=()=>{ok++;bad=0;document.getElementById('fps').textContent=ok+' fps';
+                setTimeout(tick,30);};
+img.onerror=()=>{bad++;document.getElementById('fps').textContent=
+                  'ERROR '+(bad===1?'(check token)':'x'+bad);
+                setTimeout(tick,500);};
 tick();
 </script></body></html>"""
 
