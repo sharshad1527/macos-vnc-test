@@ -32,6 +32,36 @@ if ! dscl . -read /Users/vncuser &>/dev/null; then
 fi
 sudo dscl . -passwd /Users/runner "$VNC_PASSWORD" 2>/dev/null || true
 
+# 3b. Make sure the account passwords actually took.
+#     `dscl -passwd` fails SILENTLY in some cases (we already saw
+#     "passwd: DS error: eDSAuthFailed" for vncuser), and Apple DH auth - which
+#     is what the VNC server offers - then rejects us with a bare
+#     "Authentication or authorization failure". So verify with -authonly and
+#     fall back to sysadminctl, which goes through the proper admin path.
+set_account_password() {
+  local user="$1" pw="$2"
+  sudo dscl . -passwd "/Users/$user" "$pw" >/dev/null 2>&1 || true
+
+  if sudo dscl . -authonly "$user" "$pw" >/dev/null 2>&1; then
+    echo "    $user: password verified"
+    return 0
+  fi
+
+  echo "    $user: dscl passwd did not take, retrying via sysadminctl..." >&2
+  sudo sysadminctl -adminUser "$user" -password "$pw" >/dev/null 2>&1 || true
+  if sudo dscl . -authonly "$user" "$pw" >/dev/null 2>&1; then
+    echo "    $user: password verified via sysadminctl"
+    return 0
+  fi
+
+  echo "    !! $user: CANNOT AUTHENTICATE - VNC login will fail" >&2
+  return 1
+}
+
+echo "==> Verifying login credentials..."
+set_account_password vncuser "$VNC_PASSWORD" || true
+set_account_password runner  "$VNC_PASSWORD" || true
+
 # 4. Pre-approve Screen Sharing's TCC privileges BEFORE starting the agent.
 #    `kickstart` cannot do this on macOS 12.1+ (Apple requires System Settings
 #    or MDM), and there is no human at the desktop on a CI runner. Without it
