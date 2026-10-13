@@ -1,71 +1,48 @@
-name: Matrix - which macOS image shows pixels
+name: Does an older image fix the black screen
 on: workflow_dispatch
 
 jobs:
   probe:
-    name: ${{ matrix.os }} lsregister=${{ matrix.lsreg }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { os: 'macos-15', lsreg: '1' }
-          - { os: 'macos-15', lsreg: '0' }
-          - { os: 'macos-14', lsreg: '1' }
-          - { os: 'macos-26', lsreg: '1' }
+        os: ['macos-15', 'macos-14', 'macos-26']
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up screen sharing
+      - name: Enable ARD the corrected way
         env:
-          LSREGISTER: ${{ matrix.lsreg }}
           VNC_PASSWORD: 'FarisMac2026'
         run: |
           chmod +x scripts/*.sh
-          ./scripts/setup_vnc.sh "FarisMac2026" "" "in" 2>&1 | grep -viE 'pinggy|ngrok|====' | tail -25
+          ./scripts/setup_vnc.sh "FarisMac2026" "" "in" 2>&1 | tail -20
 
-      - name: Pull the framebuffer over VNC
+      - name: Capture over VNC
         env:
           VNC_PASSWORD: 'FarisMac2026'
         run: |
-          python3 -m venv /tmp/v 2>/dev/null
+          python3 -m venv /tmp/v
           /tmp/v/bin/pip install --quiet vncdotool pillow
           /tmp/v/bin/vncdo -s 127.0.0.1:0 -u vncuser -p "$VNC_PASSWORD" \
-            capture /tmp/f.png || echo "  vncdo failed"
+            capture /tmp/f.png 2>&1 | tail -6 || true
           cp -f /tmp/f.png "$RUNNER_TEMP/f.png" 2>/dev/null || true
 
-      - name: Score it
-        env:
-          OS_LABEL: ${{ matrix.os }}
-          LSREG: ${{ matrix.lsreg }}
+      - name: Score
         run: |
-          python3 -m venv /tmp/s 2>/dev/null
+          set +e
+          python3 -m venv /tmp/s
           /tmp/s/bin/pip install --quiet pillow
-          /tmp/s/bin/python - <<PY
-          from PIL import Image
-          import os
-          res = []
-          try:
-              im = Image.open("/tmp/f.png").convert("RGB")
-              px = list(im.getdata())
-              nb = sum(1 for p in px if max(p) > 12)
-              pct = 100.0*nb/len(px)
-              res.append(f"{pct:.2f}")
-              verdict = "PIXELS" if pct > 1.0 else "BLACK"
-          except Exception as e:
-              res.append("0.00"); verdict = f"ERR {e}"
-          pct = res[0]
-          # ignore the single-cursor case: 0.5% is just the mouse pointer
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-              f.write(f"| ${{OS_LABEL}} | ${{LSREG}} | {pct}% | **{verdict}** |\n")
-          print(f"SUMMARY  os=$OS_LABEL lsregister=$LSREG nonblack={pct}% -> {verdict}")
-          PY
+          echo "IMAGE=${{ matrix.os }} $($( /tmp/s/bin/python scripts/score_frame.py /tmp/f.png ) 2>&1)" \
+            | tee -a "$GITHUB_OUTPUT"
+          /tmp/s/bin/python scripts/score_frame.py /tmp/f.png || true
 
-      - name: Frame
+      - name: upload
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: frame-${{ matrix.os }}-ls${{ matrix.lsreg }}
+          name: frame-${{ matrix.os }}
           path: ${{ runner.temp }}/f.png
           if-no-files-found: ignore
