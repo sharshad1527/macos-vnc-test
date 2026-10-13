@@ -1,0 +1,55 @@
+name: Why is the capture denied
+on: workflow_dispatch
+
+jobs:
+  probe:
+    runs-on: macos-26
+    timeout-minutes: 12
+    steps:
+      - name: Seed grants then capture
+        run: |
+          K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          ./scripts/grant_tcc.sh 2>&1 | tail -5
+          sudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu >/dev/null 2>&1 || true
+          sleep 4
+          echo "TCC_MARKER_START $(date +%s)"
+
+      - name: Trigger a capture attempt
+        run: |
+          python3 -m venv /tmp/v 2>/dev/null
+          /tmp/v/bin/pip install --quiet vncdotool pillow
+          /tmp/v/bin/vncdo -s 127.0.0.1:0 -u vncuser -p "${VNC_PASSWORD}" capture /tmp/f.png || true
+          ls -la /tmp/f.png 2>/dev/null || echo "no frame"
+
+      - name: Ask tccd what it decided
+        env:
+          VNC_PASSWORD: FarisMac2026
+        run: |
+          echo "===== tccd / TCC subsystem log (last 8m) ====="
+          sudo log show --last 8m --style compact --predicate 'subsystem == "com.apple.TCC" OR process == "tccd"' 2>/dev/null \
+            | grep -iE 'screenshar|remote|vnc|denied|deny|auth_value|kTCCServiceScreenCapture' | tail -50 \
+            || echo "  (nothing)"
+
+          echo "===== ScreenCaptureKit / CoreGraphics capture logs ====="
+          sudo log show --last 8m --style compact 2>/dev/null \
+            | grep -iE 'ScreenCaptureKit|SCStream|CGDisplay|screensharingd|ScreensharingAgent' | tail -40 \
+            || echo "  (nothing)"
+
+          echo "===== exact rows in system TCC.db for our clients ====="
+          sudo sqlite3 -header -column "/Library/Application Support/com.apple.TCC/TCC.db" \
+            "SELECT service,client,client_type ct,auth_value av,auth_reason ar,flags,
+                    CASE WHEN csreq IS NULL THEN 'NULL' ELSE 'SET' END csreq
+               FROM access
+              WHERE client LIKE '%screenshar%' OR client LIKE '%RemoteDesktop%' OR client LIKE '%AppleVNC%'
+              ORDER BY service,client;" 2>&1 | head -60
+
+          echo "===== rows in the CONSOLE USER's TCC.db (uid 501) ====="
+          CU=$(stat -f '%Su' /dev/console)
+          sudo sqlite3 -header -column "/Users/$CU/Library/Application Support/com.apple.TCC/TCC.db" \
+            "SELECT service,client,client_type ct,auth_value av FROM access
+              WHERE service LIKE '%ScreenCapture%' OR service LIKE '%Accessibility%'
+              LIMIT 25;" 2>&1 | head -40
+
+          echo "===== can we install an MDM PPPC profile here? ====="
+          sudo profiles status -type enrollment 2>&1 | head -5
+          ls -la /usr/bin/profiles 2>&1
