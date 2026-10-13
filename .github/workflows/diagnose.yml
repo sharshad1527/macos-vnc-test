@@ -1,0 +1,54 @@
+name: Diagnose macOS Screen Sharing
+on: workflow_dispatch
+
+jobs:
+  probe:
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - name: Probe
+        run: |
+          K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+
+          echo "===== 1. bundle identifiers ====="
+          for a in /System/Library/CoreServices/RemoteManagement/*.app \
+                   /System/Library/CoreServices/RemoteManagement/*.bundle; do
+            [ -e "$a/Contents/Info.plist" ] || continue
+            printf '  %-55s %s\n' "$(basename "$a")" \
+              "$(defaults read "$a/Contents/Info.plist" CFBundleIdentifier 2>/dev/null || echo '?')"
+          done
+
+          echo "===== 2. launchd services (system domain) ====="
+          sudo launchctl list 2>/dev/null | grep -iE 'screenshar|vnc|remote|ard' || echo "  (none)"
+
+          echo "===== 3. launchd services (user domain) ====="
+          launchctl list 2>/dev/null | grep -iE 'screenshar|vnc|remote|ard' || echo "  (none)"
+
+          echo "===== 4. DISABLED launchd services ====="
+          sudo launchctl print-disabled system 2>/dev/null | grep -iE 'screenshar|vnc|remote' || echo "  (none disabled)"
+          launchctl print-disabled user/$(id -u) 2>/dev/null | grep -iE 'screenshar|vnc|remote' || echo "  (none disabled user)"
+
+          echo "===== 5. files present? ====="
+          ls -la /System/Library/CoreServices/RemoteManagement/ 2>/dev/null | head -30
+
+          echo "===== 6. ARD preference domain ====="
+          sudo defaults read /Library/Preferences/com.apple.RemoteManagement 2>&1 | head -40 || true
+
+          echo "===== 7. activate, then re-probe ====="
+          sudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu 2>&1 | tail -20
+          sleep 5
+          sudo "$K" -activate -configure -allusers -privs -all -access -on 2>&1 | tail -10
+          sleep 3
+          echo "--- listeners now ---"
+          sudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | grep -iE '5900|vnc|ARD|screen' || echo "  5900 STILL NOT LISTENING"
+          echo "--- all listeners ---"
+          sudo lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | awk 'NR==1||/:59/' | head -20
+
+          echo "===== 8. unified log, last 5m ====="
+          sudo log show --last 5m --style compact 2>/dev/null \
+            | grep -iE 'screenshar|ARDAgent|VNC' | tail -40 || echo "  (no log lines)"
+
+          echo "===== 9. Screen Sharing subsystem present? ====="
+          ls -d /System/Library/PrivateFrameworks/RemoteManagement.framework 2>&1
+          ls /System/Library/CoreServices/RemoteManagement/ 2>&1 | head
+          sudo codesign -dv /System/Library/CoreServices/RemoteManagement/ARDAgent.app 2>&1 | grep -iE 'Identifier|Authority' | head -4

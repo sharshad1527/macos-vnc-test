@@ -1,0 +1,258 @@
+﻿2026-10-13T13:58:10.9745760Z Current runner version: '2.337.0'
+2026-10-13T13:58:10.9766810Z ##[group]Runner Image Provisioner
+2026-10-13T13:58:10.9767480Z Hosted Compute Agent
+2026-10-13T13:58:10.9767880Z Version: 20260828.587
+2026-10-13T13:58:10.9768320Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T13:58:10.9768810Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T13:58:10.9769270Z Worker ID: {aa6570de-0c41-44f6-818b-d95cd436a8a8}
+2026-10-13T13:58:10.9769730Z Azure Region: westus
+2026-10-13T13:58:10.9770120Z ##[endgroup]
+2026-10-13T13:58:10.9771100Z ##[group]Operating System
+2026-10-13T13:58:10.9771510Z macOS
+2026-10-13T13:58:10.9771880Z 26.6.2
+2026-10-13T13:58:10.9772220Z 25G83
+2026-10-13T13:58:10.9772570Z ##[endgroup]
+2026-10-13T13:58:10.9772940Z ##[group]Runner Image
+2026-10-13T13:58:10.9773370Z Image: macos-26-arm64
+2026-10-13T13:58:10.9773760Z Version: 20260907.0351.1
+2026-10-13T13:58:10.9774720Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T13:58:10.9775800Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T13:58:10.9776470Z ##[endgroup]
+2026-10-13T13:58:10.9777320Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T13:58:10.9779060Z Contents: read
+2026-10-13T13:58:10.9779470Z Metadata: read
+2026-10-13T13:58:10.9779850Z Packages: read
+2026-10-13T13:58:10.9780240Z ##[endgroup]
+2026-10-13T13:58:10.9781980Z Secret source: Actions
+2026-10-13T13:58:10.9782580Z Cache mode: write
+2026-10-13T13:58:10.9783060Z Prepare workflow directory
+2026-10-13T13:58:11.0207390Z Prepare all required actions
+2026-10-13T13:58:11.0252140Z Getting action download info
+2026-10-13T13:58:11.6580720Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T13:58:12.1634430Z Complete job name: macOS Desktop Runner
+2026-10-13T13:58:12.2439740Z ##[group]Run actions/checkout@v4
+2026-10-13T13:58:12.2441710Z with:
+2026-10-13T13:58:12.2442880Z   repository: sharshad1527/macos-vnc-test
+2026-10-13T13:58:12.2445720Z   token: ***
+2026-10-13T13:58:12.2446050Z   ssh-strict: true
+2026-10-13T13:58:12.2446380Z   ssh-user: git
+2026-10-13T13:58:12.2446710Z   persist-credentials: true
+2026-10-13T13:58:12.2447070Z   clean: true
+2026-10-13T13:58:12.2447400Z   sparse-checkout-cone-mode: true
+2026-10-13T13:58:12.2447830Z   fetch-depth: 1
+2026-10-13T13:58:12.2448210Z   fetch-tags: false
+2026-10-13T13:58:12.2448540Z   show-progress: true
+2026-10-13T13:58:12.2448890Z   lfs: false
+2026-10-13T13:58:12.2449200Z   submodules: false
+2026-10-13T13:58:12.2449540Z   set-safe-directory: true
+2026-10-13T13:58:12.2449910Z   allow-unsafe-pr-checkout: false
+2026-10-13T13:58:12.2451040Z ##[endgroup]
+2026-10-13T13:58:12.9237210Z Syncing repository: sharshad1527/macos-vnc-test
+2026-10-13T13:58:12.9242410Z ##[group]Getting Git version info
+2026-10-13T13:58:12.9244540Z Working directory is '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T13:58:12.9247820Z [command]/opt/homebrew/bin/git version
+2026-10-13T13:58:12.9908200Z git version 2.55.0
+2026-10-13T13:58:12.9928430Z ##[endgroup]
+2026-10-13T13:58:12.9936950Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/12dc8510-391a-4112-aa9e-33f245af5a3f/.gitconfig'
+2026-10-13T13:58:12.9949960Z Temporarily overriding HOME='/Users/runner/work/_temp/12dc8510-391a-4112-aa9e-33f245af5a3f' before making global git config changes
+2026-10-13T13:58:12.9951260Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T13:58:12.9953550Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T13:58:13.0108240Z Deleting the contents of '/Users/runner/work/macos-vnc-test/macos-vnc-test'
+2026-10-13T13:58:13.0114570Z ##[group]Initializing the repository
+2026-10-13T13:58:13.0118850Z [command]/opt/homebrew/bin/git init /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T13:58:13.0592000Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T13:58:13.0601440Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T13:58:13.0604780Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T13:58:13.0607700Z hint: call:
+2026-10-13T13:58:13.0609470Z hint:
+2026-10-13T13:58:13.0612050Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T13:58:13.0614620Z hint:
+2026-10-13T13:58:13.0616900Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T13:58:13.0620000Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T13:58:13.0622570Z hint:
+2026-10-13T13:58:13.0624190Z hint: 	git branch -m <name>
+2026-10-13T13:58:13.0625950Z hint:
+2026-10-13T13:58:13.0628150Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T13:58:13.0632160Z Initialized empty Git repository in /Users/runner/work/macos-vnc-test/macos-vnc-test/.git/
+2026-10-13T13:58:13.0638490Z [command]/opt/homebrew/bin/git remote add origin https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T13:58:13.0774220Z ##[endgroup]
+2026-10-13T13:58:13.0776290Z ##[group]Disabling automatic garbage collection
+2026-10-13T13:58:13.0778760Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-13T13:58:13.0880430Z ##[endgroup]
+2026-10-13T13:58:13.0881470Z ##[group]Setting up auth
+2026-10-13T13:58:13.0895890Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T13:58:13.0986170Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T13:58:13.2726750Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T13:58:13.2848310Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T13:58:13.4490660Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T13:58:13.4828870Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T13:58:13.7216760Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T13:58:13.7353420Z ##[endgroup]
+2026-10-13T13:58:13.7354460Z ##[group]Fetching the repository
+2026-10-13T13:58:13.7360280Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b7f1484e63030417d96eceaeb42a8494eda95a5e:refs/remotes/origin/main
+2026-10-13T13:58:14.3499790Z From https://github.com/sharshad1527/macos-vnc-test
+2026-10-13T13:58:14.3504390Z  * [new ref]         b7f1484e63030417d96eceaeb42a8494eda95a5e -> origin/main
+2026-10-13T13:58:14.3512730Z ##[endgroup]
+2026-10-13T13:58:14.3515560Z ##[group]Determining the checkout info
+2026-10-13T13:58:14.3518790Z ##[endgroup]
+2026-10-13T13:58:14.3521400Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-13T13:58:14.3612850Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T13:58:14.3735040Z ##[group]Checking out the ref
+2026-10-13T13:58:14.3741510Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-13T13:58:14.4088050Z Switched to a new branch 'main'
+2026-10-13T13:58:14.4097040Z branch 'main' set up to track 'origin/main'.
+2026-10-13T13:58:14.4110450Z ##[endgroup]
+2026-10-13T13:58:14.4242200Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-13T13:58:14.4486260Z b7f1484e63030417d96eceaeb42a8494eda95a5e
+2026-10-13T13:58:14.5060960Z ##[group]Run chmod +x scripts/setup_vnc.sh
+2026-10-13T13:58:14.5062140Z [36;1mchmod +x scripts/setup_vnc.sh[0m
+2026-10-13T13:58:14.5063750Z [36;1mFINAL_TOKEN="${INPUT_NGROK_TOKEN:-$SECRET_NGROK_TOKEN}"[0m
+2026-10-13T13:58:14.5065290Z [36;1m./scripts/setup_vnc.sh "$VNC_PASSWORD" "$FINAL_TOKEN" "$NGROK_REGION"[0m
+2026-10-13T13:58:14.5119300Z shell: /bin/bash -e {0}
+2026-10-13T13:58:14.5120200Z env:
+2026-10-13T13:58:14.5121040Z   INPUT_NGROK_TOKEN: 
+2026-10-13T13:58:14.5121980Z   SECRET_NGROK_TOKEN: 
+2026-10-13T13:58:14.5122810Z   VNC_PASSWORD: FarisMac2026
+2026-10-13T13:58:14.5123720Z   NGROK_REGION: in
+2026-10-13T13:58:14.5124490Z   LEGACY_VNC: yes
+2026-10-13T13:58:14.5125320Z ##[endgroup]
+2026-10-13T13:58:14.5780950Z ==========================================================
+2026-10-13T13:58:14.5783290Z 🍏 Configuring macOS GUI Screen Sharing & VNC Service...
+2026-10-13T13:58:14.5788990Z ==========================================================
+2026-10-13T13:58:24.5637180Z /:
+2026-10-13T13:58:24.5638750Z 	Indexing disabled.
+2026-10-13T13:58:24.5639440Z /System/Volumes/Data:
+2026-10-13T13:58:24.5640170Z 	Indexing disabled.
+2026-10-13T13:58:24.5643020Z /System/Volumes/Preboot:
+2026-10-13T13:58:24.5643750Z 	Indexing disabled.
+2026-10-13T13:58:24.5665250Z ==> Disabling display sleep and waking session...
+2026-10-13T13:58:24.6274050Z ==> Configuring desktop user 'vncuser' and 'runner'...
+2026-10-13T13:58:26.5716110Z creating home directories for (sjc22-be106-a223bd6f-2445-4d96-88ed-0e66b02f2af7-A63D7E7B72CF.local)
+2026-10-13T13:58:26.5718190Z created (/Users/vncuser)
+2026-10-13T13:58:26.7355820Z passwd: DS error: eDSAuthFailed
+2026-10-13T13:58:26.7374760Z ==> Granting Screen Recording / Accessibility to Screen Sharing...
+2026-10-13T13:58:26.7536000Z ==> Pre-approving Screen Sharing privacy permissions (TCC)...
+2026-10-13T13:58:26.7615680Z   --- /Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T13:58:27.3238710Z   granted kTCCServiceScreenCapture (template row 29)
+2026-10-13T13:58:27.4794180Z   granted kTCCServiceAccessibility (template row 3)
+2026-10-13T13:58:27.7171460Z   granted kTCCServiceListenEvent (template row 3)
+2026-10-13T13:58:27.7177160Z   --- /Users/runner/Library/Application Support/com.apple.TCC/TCC.db
+2026-10-13T13:58:27.8602890Z   granted kTCCServiceScreenCapture (template row 80)
+2026-10-13T13:58:28.0460920Z   granted kTCCServiceAccessibility (template row 50)
+2026-10-13T13:58:28.2508720Z   granted kTCCServiceListenEvent (template row 50)
+2026-10-13T13:58:28.3399530Z ==> Verifying kTCCServiceScreenCapture grants:
+2026-10-13T13:58:28.4022260Z     com.apple.screensharing.agent  type=0  auth=2
+2026-10-13T13:58:28.4414190Z     com.apple.screensharing.agent  type=0  auth=2
+2026-10-13T13:58:28.4438260Z   TCC seeding complete.
+2026-10-13T13:58:28.4440150Z ==> Configuring Apple Remote Management...
+2026-10-13T13:58:33.7966690Z Starting...
+2026-10-13T13:58:33.9078320Z [31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T13:58:33.9591760Z [0mActivated Remote Management.
+2026-10-13T13:58:34.1355080Z Set the client options.
+2026-10-13T13:58:34.1356740Z Setting allow all users to YES.
+2026-10-13T13:58:34.1485110Z Setting all users privileges to 1073742079.
+2026-10-13T13:58:34.1696000Z Done.
+2026-10-13T13:58:34.1699040Z ==> Setting VNC authentication hash...
+2026-10-13T13:58:34.2049150Z 51552307F8E5A481
+2026-10-13T13:58:34.2070050Z ==> Restarting ARD service...
+2026-10-13T13:58:40.0462840Z Starting...
+2026-10-13T13:58:40.2343130Z Stopped ARD Agent.
+2026-10-13T13:58:40.5214030Z Done.
+2026-10-13T13:58:46.1285550Z Starting...
+2026-10-13T13:58:46.2146160Z [31mScreen control might be disabled. Screen Sharing or Remote Management must be enabled from System Settings or via MDM.
+2026-10-13T13:58:46.2292650Z [0mActivated Remote Management.
+2026-10-13T13:58:46.2943380Z Done.
+2026-10-13T13:58:46.2968610Z ==> Waiting for the VNC listener on 5900...
+2026-10-13T13:59:13.9886810Z ❌ Nothing is listening on 5900 - VNC will not connect.
+2026-10-13T13:59:13.9888170Z 
+2026-10-13T13:59:13.9888800Z    If the TCC grant above succeeded, ARD itself is refusing to start the
+2026-10-13T13:59:13.9900520Z ==========================================================
+2026-10-13T13:59:13.9901850Z    framebuffer listener. See 'Health Check' for daemons + SIP state.
+2026-10-13T13:59:13.9902610Z 🌐 Starting Remote Tunnels...
+2026-10-13T13:59:13.9902990Z ==========================================================
+2026-10-13T13:59:13.9903360Z ==> Launching Pinggy TCP tunnel (tokenless backup)...
+2026-10-13T13:59:13.9903860Z ==> Waiting for Pinggy TCP endpoint...
+2026-10-13T13:59:15.0256690Z 
+2026-10-13T13:59:15.0257880Z ==========================================================
+2026-10-13T13:59:15.0259250Z 🎉 MACOS DESKTOP CONNECTION DETAILS
+2026-10-13T13:59:15.0259950Z ==========================================================
+2026-10-13T13:59:15.0261130Z 👤 Username:   vncuser (or runner)
+2026-10-13T13:59:15.0262010Z 🔑 Password:   FarisMac2026
+2026-10-13T13:59:15.0599360Z 🖥️  OS:         macOS 26.6.2
+2026-10-13T13:59:15.0599700Z 
+2026-10-13T13:59:15.0663150Z ⚡ PINGGY TUNNEL (TOKENLESS BACKUP):
+2026-10-13T13:59:15.0664550Z    VNC Target: tcp://rqric-13-105-117-127.run.pinggy-free.link:43885
+2026-10-13T13:59:15.0665030Z    Connect directly to: rqric-13-105-117-127.run.pinggy-free.link:43885
+2026-10-13T13:59:15.0665400Z 
+2026-10-13T13:59:15.0665610Z ==========================================================
+2026-10-13T13:59:20.1281150Z ##[group]Run echo "--- listener on 5900 ---"
+2026-10-13T13:59:20.1281530Z [36;1mecho "--- listener on 5900 ---"[0m
+2026-10-13T13:59:20.1281830Z [36;1mlsof -nP -iTCP:5900 -sTCP:LISTEN || echo "NOT LISTENING"[0m
+2026-10-13T13:59:20.1282200Z [36;1mecho "--- Apple remote daemons ---"[0m
+2026-10-13T13:59:20.1282610Z [36;1mps aux | grep -iE 'screenshar|ARDAgent|AppleVNC' | grep -v grep || echo "(no ARD/VNC process)"[0m
+2026-10-13T13:59:20.1283140Z [36;1mecho "--- console session owner (empty = no GUI login) ---"[0m
+2026-10-13T13:59:20.1283510Z [36;1mstat -f '%Su' /dev/console[0m
+2026-10-13T13:59:20.1283750Z [36;1mecho "--- TCC grants for screen sharing ---"[0m
+2026-10-13T13:59:20.1284130Z [36;1msudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \[0m
+2026-10-13T13:59:20.1284760Z [36;1m  "SELECT service||' -> '||client||' auth='||auth_value||' v='||COALESCE(auth_version,'-') FROM access WHERE client LIKE '%screenshar%' OR client LIKE '%ARDAgent%';"[0m
+2026-10-13T13:59:20.1285570Z [36;1mecho "--- all ScreenCapture grants (sample) ---"[0m
+2026-10-13T13:59:20.1321510Z [36;1msudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \[0m
+2026-10-13T13:59:20.1323160Z [36;1m  "SELECT client FROM access WHERE service='kTCCServiceScreenCapture' LIMIT 10;"[0m
+2026-10-13T13:59:20.1324150Z [36;1mecho "--- SIP ---"[0m
+2026-10-13T13:59:20.1324920Z [36;1msudo csrutil status || true[0m
+2026-10-13T13:59:20.1380360Z shell: /bin/bash -e {0}
+2026-10-13T13:59:20.1380750Z ##[endgroup]
+2026-10-13T13:59:20.1983850Z --- listener on 5900 ---
+2026-10-13T13:59:20.2191360Z NOT LISTENING
+2026-10-13T13:59:20.2191970Z --- Apple remote daemons ---
+2026-10-13T13:59:20.2934390Z runner            2130   0.0  0.3 435362400  19776   ??  S     1:58PM   0:00.08 /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent
+2026-10-13T13:59:20.2938010Z _rmd              2254   0.0  0.3 435305296  20512   ??  Ss    1:58PM   0:00.07 /System/Library/PrivateFrameworks/RemoteManagement.framework/XPCServices/ScreenSharingSubscriber.xpc/Contents/MacOS/ScreenSharingSubscriber
+2026-10-13T13:59:20.2938880Z --- console session owner (empty = no GUI login) ---
+2026-10-13T13:59:20.3004610Z runner
+2026-10-13T13:59:20.3008590Z --- TCC grants for screen sharing ---
+2026-10-13T13:59:20.3825780Z kTCCServiceScreenCapture -> com.apple.screensharing.agent auth=2 v=1
+2026-10-13T13:59:20.3831040Z kTCCServiceAccessibility -> com.apple.screensharing.agent auth=2 v=1
+2026-10-13T13:59:20.3832780Z kTCCServiceListenEvent -> com.apple.screensharing.agent auth=2 v=1
+2026-10-13T13:59:20.3849040Z --- all ScreenCapture grants (sample) ---
+2026-10-13T13:59:20.4164700Z /bin/bash
+2026-10-13T13:59:20.4165950Z /opt/hca/hosted-compute-agent
+2026-10-13T13:59:20.4166410Z /usr/local/opt/runner/provisioner/provisioner
+2026-10-13T13:59:20.4166850Z com.apple.screensharing.agent
+2026-10-13T13:59:20.4177990Z --- SIP ---
+2026-10-13T13:59:20.4393630Z System Integrity Protection status: disabled.
+2026-10-13T13:59:20.4462390Z ##[group]Run echo "=========================================================="
+2026-10-13T13:59:20.4462800Z [36;1mecho "=========================================================="[0m
+2026-10-13T13:59:20.4463230Z [36;1mecho "🟢 macOS Cloud Desktop session is live and interactive!"[0m
+2026-10-13T13:59:20.4463770Z [36;1mecho "To stop this runner, click 'Cancel run' in GitHub Actions."[0m
+2026-10-13T13:59:20.4464120Z [36;1mecho "=========================================================="[0m
+2026-10-13T13:59:20.4464480Z [36;1m# Keepalive loop for 6 hours[0m
+2026-10-13T13:59:20.4464820Z [36;1mfor ((i=1; i<=360; i++)); do[0m
+2026-10-13T13:59:20.4465130Z [36;1m  sleep 60[0m
+2026-10-13T13:59:20.4465370Z [36;1mdone[0m
+2026-10-13T13:59:20.4501240Z shell: /bin/bash -e {0}
+2026-10-13T13:59:20.4501530Z ##[endgroup]
+2026-10-13T13:59:20.4899810Z ==========================================================
+2026-10-13T13:59:20.4901080Z 🟢 macOS Cloud Desktop session is live and interactive!
+2026-10-13T13:59:20.4901920Z To stop this runner, click 'Cancel run' in GitHub Actions.
+2026-10-13T13:59:20.4902410Z ==========================================================
+2026-10-13T14:00:53.3831440Z ##[error]The operation was canceled.
+2026-10-13T14:00:53.4087830Z Post job cleanup.
+2026-10-13T14:00:54.2627410Z [command]/opt/homebrew/bin/git version
+2026-10-13T14:00:54.3438830Z git version 2.55.0
+2026-10-13T14:00:54.3549300Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/2c43778b-a4cf-4767-9794-4e7aae788965/.gitconfig'
+2026-10-13T14:00:54.3550090Z Temporarily overriding HOME='/Users/runner/work/_temp/2c43778b-a4cf-4767-9794-4e7aae788965' before making global git config changes
+2026-10-13T14:00:54.3591210Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T14:00:54.3646550Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/macos-vnc-test/macos-vnc-test
+2026-10-13T14:00:54.4264700Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T14:00:54.4329840Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T14:00:54.5751110Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T14:00:54.5818020Z http.https://github.com/.extraheader
+2026-10-13T14:00:54.5826050Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T14:00:54.5903440Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T14:00:54.6846810Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T14:00:54.6941140Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T14:00:54.8182980Z Cleaning up orphan processes
+2026-10-13T14:00:55.1288650Z Terminate orphan process: pid (3673) (sleep)
+2026-10-13T14:00:55.9290000Z Terminate orphan process: pid (2492) (ssh)
+2026-10-13T14:00:56.2739780Z Terminate orphan process: pid (1260) (caffeinate)
+2026-10-13T14:00:56.4316660Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
