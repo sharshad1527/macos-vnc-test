@@ -67,24 +67,60 @@ def sh(cmd, timeout=10):
 # --------------------------------------------------------------------------
 # capture loop
 # --------------------------------------------------------------------------
+# Flag sets to try, most-preferred first. Only "-x" has been proven on a live
+# runner; the others are progressively plainer fallbacks so a bad flag on some
+# future macOS degrades performance instead of killing the feature.
+CAPTURE_CMDS = (
+    ["/usr/sbin/screencapture", "-x", "-C", "-t", "jpg"],
+    ["/usr/sbin/screencapture", "-x", "-t", "jpg"],
+    ["/usr/sbin/screencapture", "-x", "-t", "png"],
+)
+
+
 def capture_loop():
     """Keep FRAME updated. Runs forever; the process dies with the job."""
-    tmp = FRAME + ".tmp"
+    which = 0
     n = 0
+    last_err = ""
     while True:
-        # -x  : no click sound      -t jpg : JPEG
-        # -C  : include the cursor  -R    : do not add a drop shadow
-        subprocess.run(
-            ["/usr/sbin/screencapture", "-x", "-C", "-R", "-t", "jpg", tmp],
-            capture_output=True, timeout=15, check=False,
-        )
-        if os.path.exists(tmp) and os.path.getsize(tmp) > 0:
-            # atomic swap so HTTP clients never read a half-written file
-            os.replace(tmp, FRAME)
-            n += 1
+        ext = "png" if which == 2 else "jpg"
+        tmp = os.path.join(FRAMEDIR, f"frame.{ext}")
+        cmd = CAPTURE_CMDS[which] + [tmp]
+        try:
+            r = subprocess.run(cmd, capture_output=True, timeout=20, check=False)
+        except Exception as e:  # noqa: BLE001
+            last_err = f"{type(e).__name__}: {e}"
+            time.sleep(1)
+            continue
+
+        if r.returncode == 0 and os.path.exists(tmp) and os.path.getsize(tmp) > 0:
+            if which != 0:
+                log(f"capture working with cmd[{which}] = {' '.join(cmd)}")
+            if which == 2:
+                # PNG -> JPEG for a smaller poll response
+                try:
+                    subprocess.run(
+                        ["/usr/bin/sips", "-s", "format", "jpeg", tmp,
+                         "--out", FRAME + ".tmp"],
+                        capture_output=True, timeout=15, check=False)
+                    if os.path.exists(FRAME + ".tmp") and os.path.getsize(FRAME + ".tmp") > 0:
+                        os.replace(FRAME + ".tmp", FRAME)
+                        n += 1
+                except Exception as e:  # noqa: BLE001
+                    log("sips failed:", e)
+            else:
+                os.replace(tmp, FRAME)
+                n += 1
             if n == 1:
-                log("first frame captured")
-        time.sleep(INTERVAL)
+                log(f"first frame captured ({os.path.getsize(FRAME)} bytes)")
+            time.sleep(INTERVAL)
+            continue
+
+        # failed - remember why, then fall back to a plainer invocation
+        last_err = f"rc={r.returncode} err={r.stderr.decode('utf8', 'replace')[:200]}"
+        log(f"capture cmd[{which}] failed: {last_err}")
+        which = (which + 1) % len(CAPTURE_CMDS)
+        time.sleep(0.5)
 
 
 # --------------------------------------------------------------------------

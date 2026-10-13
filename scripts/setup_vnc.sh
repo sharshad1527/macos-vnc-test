@@ -200,7 +200,7 @@ for i in $(seq 1 25); do
   # Pinggy's banner also advertises https://dashboard.pinggy.io - that is NOT
   # the tunnel. The real forward lives on a *.pinggy.link / *.pinggy.io host.
   WEB_URL=$(grep -oE 'https://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null \
-            | grep -v 'dashboard' | grep -E 'pinggy\.(link|io)' | head -n1 || true)
+            | grep -v 'dashboard' | grep -E "pinggy[-.]|free\." | head -n1 || true)
   [ -n "$WEB_URL" ] && break
   sleep 1
 done
@@ -346,6 +346,9 @@ if [ -n "${RUNNER_TEMP:-}" ]; then
   {
     echo "BROWSER: ${WEB_URL}?t=${DESKTOP_TOKEN}"
     echo "ALL_URLS_IN_LOG:"; grep -oE 'https?://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null | sort -u
+    echo "PINGGY_LOG_TAIL:"; tail -15 /tmp/pinggy-web.log 2>/dev/null
+    echo "SERVER_LOG:"; tail -25 /tmp/webdesktop/server.log 2>/dev/null
+    echo "FRAMES_ON_DISK:"; ls -la /tmp/webdesktop/ 2>/dev/null
     echo "TOKEN: ${DESKTOP_TOKEN}"
     echo "PORT: ${DESKTOP_PORT}"
     echo "VNC_USER: vncuser"
