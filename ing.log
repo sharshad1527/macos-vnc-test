@@ -1,0 +1,126 @@
+﻿2026-10-13T14:43:00.9898060Z Current runner version: '2.337.0'
+2026-10-13T14:43:00.9927160Z ##[group]Runner Image Provisioner
+2026-10-13T14:43:00.9929350Z Hosted Compute Agent
+2026-10-13T14:43:00.9929840Z Version: 20260828.587
+2026-10-13T14:43:00.9930350Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-13T14:43:00.9930900Z Build Date: 2026-08-28T16:44:25Z
+2026-10-13T14:43:00.9931390Z Worker ID: {1a86b630-2be5-4ade-9753-a7392a74da0a}
+2026-10-13T14:43:00.9931900Z Azure Region: westus
+2026-10-13T14:43:00.9932270Z ##[endgroup]
+2026-10-13T14:43:00.9934420Z ##[group]Operating System
+2026-10-13T14:43:00.9934870Z macOS
+2026-10-13T14:43:00.9935310Z 26.6.2
+2026-10-13T14:43:00.9936200Z 25G83
+2026-10-13T14:43:00.9936580Z ##[endgroup]
+2026-10-13T14:43:00.9937540Z ##[group]Runner Image
+2026-10-13T14:43:00.9938300Z Image: macos-26-arm64
+2026-10-13T14:43:00.9939300Z Version: 20260907.0351.1
+2026-10-13T14:43:00.9940660Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20260907.0351/images/macos/macos-26-arm64-Readme.md
+2026-10-13T14:43:00.9942290Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20260907.0351
+2026-10-13T14:43:00.9943930Z ##[endgroup]
+2026-10-13T14:43:00.9945000Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T14:43:00.9948120Z Contents: read
+2026-10-13T14:43:00.9948570Z Metadata: read
+2026-10-13T14:43:00.9948960Z Packages: read
+2026-10-13T14:43:00.9949420Z ##[endgroup]
+2026-10-13T14:43:00.9951640Z Secret source: Actions
+2026-10-13T14:43:00.9952250Z Cache mode: write
+2026-10-13T14:43:00.9952890Z Prepare workflow directory
+2026-10-13T14:43:01.0351370Z Prepare all required actions
+2026-10-13T14:43:01.0519920Z Complete job name: probe
+2026-10-13T14:43:01.1064830Z ##[group]Run echo "=== is a non-Apple VNC server brew-installable? ==="
+2026-10-13T14:43:01.1065780Z [36;1mecho "=== is a non-Apple VNC server brew-installable? ==="[0m
+2026-10-13T14:43:01.1066520Z [36;1mbrew search vnc 2>/dev/null | head -20 || echo "  search failed"[0m
+2026-10-13T14:43:01.1067230Z [36;1mecho "--- cask: realvnc ---"[0m
+2026-10-13T14:43:01.1067780Z [36;1mbrew info --cask vnc-server 2>&1 | head -8 || true[0m
+2026-10-13T14:43:01.1068360Z [36;1mecho "--- cask: tightvnc ---"[0m
+2026-10-13T14:43:01.1068990Z [36;1mbrew info --cask tightvnc 2>&1 | head -8 || true[0m
+2026-10-13T14:43:01.1069650Z [36;1m[0m
+2026-10-13T14:43:01.1070140Z [36;1mecho "=== input injection prerequisites ==="[0m
+2026-10-13T14:43:01.1070810Z [36;1mcommand -v cliclick || echo "  cliclick: not installed (brew install cliclick)"[0m
+2026-10-13T14:43:01.1071590Z [36;1mecho "--- osascript Accessibility is pre-granted by the runner image? ---"[0m
+2026-10-13T14:43:01.1072680Z [36;1msudo sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \[0m
+2026-10-13T14:43:01.1073400Z [36;1m  "SELECT service||' -> '||client||' auth='||auth_value[0m
+2026-10-13T14:43:01.1074120Z [36;1m     FROM access WHERE client='/usr/bin/osascript';" 2>&1 | head[0m
+2026-10-13T14:43:01.1074650Z [36;1m[0m
+2026-10-13T14:43:01.1075310Z [36;1mecho "=== can screencapture run in a loop inside the console session? ==="[0m
+2026-10-13T14:43:01.1110360Z [36;1mCU=$(stat -f '%Su' /dev/console); CUID=$(stat -f '%u' /dev/console)[0m
+2026-10-13T14:43:01.1110930Z [36;1mmkdir -p /tmp/loop[0m
+2026-10-13T14:43:01.1111330Z [36;1mSTART=$(date +%s)[0m
+2026-10-13T14:43:01.1111790Z [36;1mfor i in $(seq 1 10); do[0m
+2026-10-13T14:43:01.1112240Z [36;1m  sudo launchctl asuser "$CUID" sudo -u "$CU" \[0m
+2026-10-13T14:43:01.1112870Z [36;1m    /usr/sbin/screencapture -x /tmp/loop/f$i.png 2>/dev/null[0m
+2026-10-13T14:43:01.1113460Z [36;1mdone[0m
+2026-10-13T14:43:01.1113880Z [36;1mEND=$(date +%s)[0m
+2026-10-13T14:43:01.1114340Z [36;1mecho "  10 frames in $((END-START))s"[0m
+2026-10-13T14:43:01.1115000Z [36;1mls /tmp/loop | wc -l[0m
+2026-10-13T14:43:01.1115680Z [36;1mmd5 -q /tmp/loop/f1.png /tmp/loop/f5.png /tmp/loop/f10.png 2>/dev/null[0m
+2026-10-13T14:43:01.1116290Z [36;1m[0m
+2026-10-13T14:43:01.1116690Z [36;1mecho "=== is there a usable display to capture? ==="[0m
+2026-10-13T14:43:01.1118600Z [36;1msudo launchctl asuser "$CUID" sudo -u "$CU" /usr/sbin/screencapture -x /tmp/one.png[0m
+2026-10-13T14:43:01.1119390Z [36;1mpython3 -m venv /tmp/p 2>/dev/null; /tmp/p/bin/pip install --quiet pillow[0m
+2026-10-13T14:43:01.1120000Z [36;1m/tmp/p/bin/python - <<'PY'[0m
+2026-10-13T14:43:01.1120430Z [36;1mfrom PIL import Image[0m
+2026-10-13T14:43:01.1121020Z [36;1mim = Image.open("/tmp/one.png").convert("RGB"); px=list(im.getdata())[0m
+2026-10-13T14:43:01.1121620Z [36;1mnb=sum(1 for p in px if max(p)>12)[0m
+2026-10-13T14:43:01.1122200Z [36;1mprint(f"  size={im.size} nonblack={100.0*nb/len(px):.2f}%")[0m
+2026-10-13T14:43:01.1122820Z [36;1m# is the TOP strip (menu bar) rendered?[0m
+2026-10-13T14:43:01.1123260Z [36;1mw,h = im.size[0m
+2026-10-13T14:43:01.1123660Z [36;1mtop = list(im.crop((0,0,w,30)).getdata())[0m
+2026-10-13T14:43:01.1124140Z [36;1mtnb = sum(1 for p in top if max(p)>12)[0m
+2026-10-13T14:43:01.1124670Z [36;1mbot = list(im.crop((0,h-90,w,h)).getdata())[0m
+2026-10-13T14:43:01.1125180Z [36;1mbnb = sum(1 for p in bot if max(p)>12)[0m
+2026-10-13T14:43:01.1125850Z [36;1mprint(f"  menubar nonblack={100.0*tnb/len(top):.1f}%  dock nonblack={100.0*bnb/len(bot):.1f}%")[0m
+2026-10-13T14:43:01.1126580Z [36;1mPY[0m
+2026-10-13T14:43:01.1127010Z [36;1m[0m
+2026-10-13T14:43:01.1127440Z [36;1mecho "=== display resolution ==="[0m
+2026-10-13T14:43:01.1128070Z [36;1msystem_profiler SPDisplaysDataType 2>/dev/null | head -25[0m
+2026-10-13T14:43:01.2992910Z shell: /bin/bash -e {0}
+2026-10-13T14:43:01.2993540Z ##[endgroup]
+2026-10-13T14:43:01.3761560Z === is a non-Apple VNC server brew-installable? ===
+2026-10-13T14:43:03.6355450Z gtk-vnc
+2026-10-13T14:43:03.6357750Z libvncserver
+2026-10-13T14:43:03.6359240Z tiger-vnc
+2026-10-13T14:43:03.6369020Z vncsnapshot
+2026-10-13T14:43:03.6371310Z x11vnc
+2026-10-13T14:43:03.6372750Z vnu
+2026-10-13T14:43:03.6374080Z znc
+2026-10-13T14:43:03.6374730Z 
+2026-10-13T14:43:03.6375370Z jollysfastvnc
+2026-10-13T14:43:03.6377290Z realvnc-connect
+2026-10-13T14:43:03.6378720Z tigervnc
+2026-10-13T14:43:03.6380010Z turbovnc-viewer
+2026-10-13T14:43:03.6381410Z vlc
+2026-10-13T14:43:03.6382720Z vnc-server
+2026-10-13T14:43:03.6384140Z vnc-viewer
+2026-10-13T14:43:03.6386020Z --- cask: realvnc ---
+2026-10-13T14:43:04.4539810Z [32m==>[0m [1mvnc-server[0m (Real VNC Server): 7.17.0
+2026-10-13T14:43:04.4541280Z Remote desktop server application
+2026-10-13T14:43:04.4542000Z [4mhttps://www.realvnc.com/[24m
+2026-10-13T14:43:04.4542380Z Not installed
+2026-10-13T14:43:04.4542990Z From: [4mhttps://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/v/vnc-server.rb[24m
+2026-10-13T14:43:04.4543670Z [34m==>[0m [1mRequirements[0m
+2026-10-13T14:43:04.4544050Z Required: macOS
+2026-10-13T14:43:04.4544460Z [34m==>[0m [1mArtifacts[0m
+2026-10-13T14:43:04.6068810Z --- cask: tightvnc ---
+2026-10-13T14:43:05.2766140Z ##[error]Cask 'tightvnc' is unavailable: No Cask with this name exists.
+2026-10-13T14:43:05.2789660Z === input injection prerequisites ===
+2026-10-13T14:43:05.2895970Z   cliclick: not installed (brew install cliclick)
+2026-10-13T14:43:05.2994180Z --- osascript Accessibility is pre-granted by the runner image? ---
+2026-10-13T14:43:06.2569930Z kTCCServiceAccessibility -> /usr/bin/osascript auth=2
+2026-10-13T14:43:06.2578980Z kTCCServiceAppleEvents -> /usr/bin/osascript auth=2
+2026-10-13T14:43:06.2586540Z kTCCServiceAppleEvents -> /usr/bin/osascript auth=2
+2026-10-13T14:43:06.2588590Z === can screencapture run in a loop inside the console session? ===
+2026-10-13T14:43:08.2754030Z   10 frames in 2s
+2026-10-13T14:43:08.2835540Z       10
+2026-10-13T14:43:08.2942620Z 060bc69b87cb7527441f0940bfaaee31
+2026-10-13T14:43:08.2943590Z 22e62c9e038f492c10d58f87dde6f8c7
+2026-10-13T14:43:08.2947570Z 22e62c9e038f492c10d58f87dde6f8c7
+2026-10-13T14:43:08.2948740Z === is there a usable display to capture? ===
+2026-10-13T14:43:14.0171920Z <stdin>:2: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+2026-10-13T14:43:14.1820120Z <stdin>:7: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+2026-10-13T14:43:14.1892410Z <stdin>:9: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+2026-10-13T14:43:14.2132120Z   size=(1024, 768) nonblack=10.63%
+2026-10-13T14:43:14.2136600Z   menubar nonblack=98.9%  dock nonblack=57.8%
+2026-10-13T14:43:14.3061220Z === display resolution ===
+2026-10-13T14:43:14.8382960Z Cleaning up orphan processes

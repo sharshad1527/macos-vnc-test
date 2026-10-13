@@ -63,6 +63,14 @@ jobs:
           FINAL_TOKEN="${INPUT_NGROK_TOKEN:-$SECRET_NGROK_TOKEN}"
           ./scripts/setup_vnc.sh "$VNC_PASSWORD" "$FINAL_TOKEN" "$NGROK_REGION"
 
+      - name: Publish connection details
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: connection
+          path: ${{ runner.temp }}/connection.txt
+          if-no-files-found: ignore
+
       - name: Self-test - are the pixels real?
         # Non-fatal on purpose: the point of this step is diagnostics. The
         # session must survive it so you can still connect and look yourself.

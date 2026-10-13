@@ -145,7 +145,65 @@ if ! sudo lsof -nP -iTCP:5900 -sTCP:LISTEN >/dev/null 2>&1; then
   echo "   framebuffer listener. See 'Health Check' for daemons + SIP state." >&2
 fi
 
-# 9. Start tunnels
+# 9b. Browser remote desktop.
+#     Apple's VNC is unusable here (tccd: "Platform binary prompting is
+#     'Deny' because: is Platform Binary"), but screencapture and osascript
+#     both work - the runner image pre-grants Full Disk Access to /bin/bash and
+#     Accessibility to /usr/bin/osascript. So serve the framebuffer over HTTP
+#     and tunnel it with Pinggy's HTTPS mode (a browser cannot speak raw TCP).
+echo "==> Setting up browser remote desktop..."
+DESKTOP_PORT=6080
+sudo mkdir -p /tmp/webdesktop
+sudo chown "$(id -un)" /tmp/webdesktop 2>/dev/null || true
+
+if [ ! -x /opt/homebrew/bin/cliclick ]; then
+  echo "    installing cliclick (mouse injection)..."
+  brew install cliclick >/dev/null 2>&1 || \
+    echo "    !! cliclick install failed - mouse input will be disabled" >&2
+fi
+
+# Everything must run inside the console user's GUI session, or WindowServer
+# and the Accessibility grant will not apply.
+CONSOLE_UID=$(stat -f '%u' /dev/console)
+CONSOLE_USER=$(stat -f '%Su' /dev/console)
+DESKTOP_TOKEN="$(openssl rand -hex 12)"
+printf '%s' "$DESKTOP_TOKEN" > /tmp/webdesktop/token
+
+sudo launchctl asuser "$CONSOLE_UID" sudo -u "$CONSOLE_USER" \
+  env WEB_DESKTOP_TOKEN="$DESKTOP_TOKEN" WEB_DESKTOP_PORT="$DESKTOP_PORT" \
+  python3 "$SCRIPT_DIR/webdesktop.py" > /tmp/webdesktop/server.log 2>&1 &
+
+echo "    waiting for the first frame..."
+for i in $(seq 1 20); do
+  code=$(curl -s -o /dev/null -w '%{http_code}' \
+         "http://127.0.0.1:$DESKTOP_PORT/frame.jpg?t=$DESKTOP_TOKEN" 2>/dev/null || true)
+  if [ "$code" = "200" ]; then
+    echo "    ✅ frame server is up"
+    break
+  fi
+  if [ "$i" -eq 20 ]; then
+    echo "    !! frame server never came up:" >&2
+    tail -20 /tmp/webdesktop/server.log >&2 || true
+  fi
+  sleep 2
+done
+
+# Pinggy in HTTP(S) mode - a browser cannot connect to a raw TCP forward.
+echo "==> Starting Pinggy HTTPS tunnel..."
+: > /tmp/pinggy-web.log
+ssh -T -p 443 -R0:localhost:"$DESKTOP_PORT" -o StrictHostKeyChecking=no \
+    -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=30 \
+    a.pinggy.io > /tmp/pinggy-web.log 2>&1 &
+
+WEB_URL=""
+for i in $(seq 1 25); do
+  WEB_URL=$(grep -oE 'https://[a-zA-Z0-9.-]+' /tmp/pinggy-web.log 2>/dev/null | head -n1 || true)
+  [ -n "$WEB_URL" ] && break
+  sleep 1
+done
+[ -z "$WEB_URL" ] && { echo "!! Pinggy HTTPS tunnel did not come up:" >&2; tail -20 /tmp/pinggy-web.log >&2; }
+
+# 10. Classic raw-TCP VNC tunnels (still useful for a VNC client)
 echo ""
 echo "=========================================================="
 echo "🌐 Starting Remote Tunnels..."
@@ -199,6 +257,14 @@ echo ""
 echo "=========================================================="
 echo "🎉 MACOS DESKTOP CONNECTION DETAILS"
 echo "=========================================================="
+echo "🌐 BROWSER DESKTOP (recommended - Apple's VNC is blocked by macOS TCC):"
+if [ -n "$WEB_URL" ]; then
+  echo "   $WEB_URL?t=$DESKTOP_TOKEN"
+else
+  echo "   (tunnel failed - see log)"
+fi
+echo ""
+echo "🔌 VNC (authenticates, but the framebuffer is BLACK on macOS 13+):"
 echo "👤 Username:   vncuser    (NOT 'runner' - GitHub manages that account's"
 echo "                           password and it cannot be set, so login fails)"
 echo "🔑 Password:   $VNC_PASSWORD"
@@ -269,4 +335,17 @@ EOF
 6. Password: \`$VNC_PASSWORD\`
 7. Connect!
 EOF
+fi
+
+# 11. Publish connection details so they are readable while the job is still
+#     running (Artifacts are downloadable mid-run; step logs are not).
+if [ -n "${RUNNER_TEMP:-}" ]; then
+  {
+    echo "BROWSER: ${WEB_URL}?t=${DESKTOP_TOKEN}"
+    echo "TOKEN: ${DESKTOP_TOKEN}"
+    echo "PORT: ${DESKTOP_PORT}"
+    echo "VNC_USER: vncuser"
+    echo "VNC_PASSWORD: ${VNC_PASSWORD}"
+    echo "CONSOLE_USER: ${CONSOLE_USER}"
+  } > "${RUNNER_TEMP}/connection.txt"
 fi
