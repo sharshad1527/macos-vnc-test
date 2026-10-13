@@ -1,0 +1,56 @@
+name: Is there a desktop at all?
+on: workflow_dispatch
+
+jobs:
+  probe:
+    runs-on: macos-26
+    timeout-minutes: 12
+    steps:
+      - name: Probe display pipeline
+        run: |
+          K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          sudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu >/dev/null 2>&1 || true
+          sleep 4
+
+          CONSOLE_USER=$(stat -f '%Su' /dev/console)
+          CONSOLE_UID=$(stat -f '%u' /dev/console)
+          echo "console user = '$CONSOLE_USER' (uid $CONSOLE_UID)"
+
+          echo "=== WindowServer / display ==="
+          pgrep -l WindowServer || echo "  WindowServer NOT running"
+          pgrep -l loginwindow || echo "  loginwindow NOT running"
+          echo "--- displays ---"
+          system_profiler SPDisplaysDataType 2>/dev/null | grep -iE 'Resolution|Display Type|UI Looks|Mirror' | head -12
+
+          echo "=== who is on the console right now ==="
+          who
+          echo "--- GUI sessions (launchctl) ---"
+          sudo launchctl print user/$(id -u "$CONSOLE_USER") 2>/dev/null | head -5 || echo "  (no GUI domain for console user)"
+
+          echo "=== screencapture INSIDE the console user's GUI session ==="
+          # asuser + the right bootstrap namespace is what makes WindowServer talk back
+          sudo launchctl asuser "$CONSOLE_UID" sudo -u "$CONSOLE_USER" \
+            /usr/sbin/screencapture -x /tmp/desk.png 2>&1 | head -5
+          ls -la /tmp/desk.png 2>/dev/null || echo "  screencapture produced NO FILE"
+
+          echo "=== analysis ==="
+          python3 -m venv /tmp/v 2>/dev/null
+          /tmp/v/bin/pip install --quiet pillow 2>/dev/null
+          /tmp/v/bin/python - <<'PY'
+          from PIL import Image
+          im = Image.open("/tmp/desk.png").convert("RGB")
+          px = list(im.getdata())
+          nb = sum(1 for p in px if max(p) > 12)
+          print(f"  size       : {im.size}")
+          print(f"  non-black  : {100.0*nb/len(px):.2f}%")
+          print("  VERDICT    :", "REAL DESKTOP" if nb/len(px) > 0.005 else "BLACK / NOTHING RENDERING")
+          PY
+          cp /tmp/desk.png "$RUNNER_TEMP/desk.png" 2>/dev/null || true
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desk-sample
+          path: ${{ runner.temp }}/desk.png
+          if-no-files-found: ignore
