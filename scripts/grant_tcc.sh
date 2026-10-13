@@ -42,14 +42,19 @@ readonly SERVICES=(
   "kTCCServiceListenEvent"     # observe input events
   "kTCCServicePostEvent"       # post input events
 )
-# Every bundle identifier that ships in /System/Library/CoreServices/RemoteManagement
-# and can end up doing the capture / event injection. Verified against a live
-# macOS 26 runner; see .github/workflows/diagnose.yml.
+# Every identity that can end up doing the capture / event injection, verified
+# against a live macOS 26 runner (see .github/workflows/deskprobe.yml).
+# Format: "<client>|<client_type>"  0 = bundle id, 1 = absolute binary path.
 readonly CLIENTS=(
-  "com.apple.screensharing.agent"   # ScreensharingAgent.bundle
-  "com.apple.screensharing.daemon"  # screensharingd.bundle  <- the actual server
-  "com.apple.RemoteDesktopAgent"    # ARDAgent.app
-  "com.apple.AppleVNCServer"        # AppleVNCServer.bundle
+  "com.apple.screensharing.agent|0"    # ScreensharingAgent.bundle
+  "com.apple.screensharing.daemon|0"   # screensharingd.bundle  <- the real server
+  "com.apple.RemoteDesktopAgent|0"     # ARDAgent.app
+  "com.apple.AppleVNCServer|0"         # AppleVNCServer.bundle
+  "/System/Library/CoreServices/RemoteManagement/screensharingd.bundle/Contents/MacOS/screensharingd|1"
+  "/System/Library/CoreServices/RemoteManagement/ScreensharingAgent.bundle/Contents/MacOS/ScreensharingAgent|1"
+  "/System/Library/CoreServices/RemoteManagement/AppleVNCServer.bundle/Contents/MacOS/AppleVNCServer|1"
+  "/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent|1"
+  "/System/Library/CoreServices/RemoteManagement/SSMenuAgent.app/Contents/MacOS/SSMenuAgent|1"
 )
 readonly AUTH_VALUE=2          # 2 = allowed
 readonly AUTH_REASON=4         # matches the row GitHub ships
@@ -74,23 +79,28 @@ collect_dbs() {
   return 0
 }
 
-# expr_for <column> <service> <client>
+# expr_for <column> <service> <client> <client_type>
 expr_for() {
   case "$1" in
     service)       printf "'%s'" "$2" ;;
     client)        printf "'%s'" "$3" ;;
-    client_type)   printf '0' ;;      # 0 = bundle identifier
+    client_type)   printf '%s' "$4" ;;
     auth_value)    printf '%s' "$AUTH_VALUE" ;;
     auth_reason)   printf '%s' "$AUTH_REASON" ;;
     flags)         printf '%s' "$FLAGS" ;;
     last_modified) printf "CAST(strftime('%%s','now') AS INTEGER)" ;;
+    # csreq is the binary's code-signing requirement. Inheriting the template
+    # row's csreq is WRONG - it belongs to a different binary, so TCC rejects
+    # the grant at match time and the capture stays black. NULL means "no code
+    # requirement", which is what GitHub's own runner image uses.
+    csreq)         printf 'NULL' ;;
     *)             printf '"%s"' "$1" ;;   # inherit from the template row
   esac
 }
 
-# grant_service <db> <service> <client>
+# grant_service <db> <service> <client> <client_type>
 grant_service() {
-  local db="$1" service="$2" client="$3"
+  local db="$1" service="$2" client="$3" ctype="$4"
   local columns select_list col tmpl sql err
 
   [[ -f "$db" ]] || return 0
@@ -109,7 +119,7 @@ grant_service() {
     [[ -z "$col" ]] && continue
     if [[ -n "$columns" ]]; then columns="$columns,"; select_list="$select_list,"; fi
     columns="$columns\"$col\""
-    select_list="$select_list$(expr_for "$col" "$service" "$client")"
+    select_list="$select_list$(expr_for "$col" "$service" "$client" "$ctype")"
   done < <(sudo sqlite3 "$db" "PRAGMA table_info(access);" | cut -d'|' -f2)
 
   # Deterministic: drop any stale row (including a `denied` one) first, since
@@ -155,8 +165,8 @@ rc=0
 while IFS= read -r db; do
   log "--- $db"
   for service in "${SERVICES[@]}"; do
-    for client in "${CLIENTS[@]}"; do
-      grant_service "$db" "$service" "$client" || rc=1
+    for spec in "${CLIENTS[@]}"; do
+      grant_service "$db" "$service" "${spec%%|*}" "${spec##*|}" || rc=1
     done
   done
 done < <(collect_dbs)
@@ -169,10 +179,11 @@ echo "==> Verifying screen-capture grants:"
 while IFS= read -r db; do
   [[ -f "$db" ]] || continue
   sudo sqlite3 "$db" \
-    "SELECT '    ' || service || ' -> ' || client || '  auth=' || auth_value
+    "SELECT '    ' || client || '  type=' || client_type || '  auth=' || auth_value
+              || '  csreq=' || CASE WHEN csreq IS NULL THEN 'NULL' ELSE 'SET(BAD)' END
        FROM access
       WHERE service = 'kTCCServiceScreenCapture'
-        AND client IN ($(printf "'%s'," "${CLIENTS[@]}" | sed 's/,$//'))
+        AND auth_value = 2
       ORDER BY client;" 2>/dev/null || true
 done < <(collect_dbs)
 

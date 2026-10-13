@@ -64,16 +64,17 @@ jobs:
           ./scripts/setup_vnc.sh "$VNC_PASSWORD" "$FINAL_TOKEN" "$NGROK_REGION"
 
       - name: Self-test - are the pixels real?
+        # Non-fatal on purpose: the point of this step is diagnostics. The
+        # session must survive it so you can still connect and look yourself.
+        continue-on-error: true
         env:
           VNC_PASSWORD: ${{ github.event.inputs.vnc_password || 'FarisMac2026' }}
           VNC_USER: vncuser
         run: |
-          set -e
-          echo "--- can we authenticate at all? ---"
           if sudo dscl . -authonly "$VNC_USER" "$VNC_PASSWORD" >/dev/null 2>&1; then
             echo "  $VNC_USER: auth OK"
           else
-            echo "  $VNC_USER: AUTH FAILED"; exit 1
+            echo "  $VNC_USER: AUTH FAILED"
           fi
 
           echo "Installing a RFB client to pull the framebuffer from localhost:5900..."
@@ -83,7 +84,10 @@ jobs:
 
           VNC_PASSWORD="$VNC_PASSWORD" /tmp/vncvenv/bin/vncdo \
             -s 127.0.0.1:0 -u "$VNC_USER" -p "$VNC_PASSWORD" \
-            capture /tmp/vnc-frame.png
+            capture /tmp/vnc-frame.png || echo "  (vncdo capture failed)"
+
+          # Copy first, analyse second - so the PNG survives even if it is black.
+          cp -f /tmp/vnc-frame.png "$RUNNER_TEMP/vnc-frame.png" 2>/dev/null || true
 
           /tmp/vncvenv/bin/python - <<'PY'
           import sys
@@ -95,13 +99,10 @@ jobs:
           pct = 100.0 * nonblack / len(px)
           print(f"  framebuffer : {im.size[0]}x{im.size[1]}")
           print(f"  non-black   : {pct:.2f}%")
-          if pct < 0.5:
-              print("  RESULT: BLACK SCREEN - the framebuffer is empty.")
-              sys.exit(1)
-          print("  RESULT: REAL DESKTOP - the framebuffer has actual content.")
+          print("  RESULT: BLACK SCREEN - the framebuffer is empty."
+                if pct < 0.5 else
+                "  RESULT: REAL DESKTOP - the framebuffer has actual content.")
           PY
-
-          cp /tmp/vnc-frame.png "$RUNNER_TEMP/vnc-frame.png"
 
       - name: Upload frame sample
         if: always()
