@@ -5,7 +5,7 @@ jobs:
   probe:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 12
     strategy:
       fail-fast: false
       matrix:
@@ -13,21 +13,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable ARD the corrected way
-        env:
-          VNC_PASSWORD: 'FarisMac2026'
+      # Deliberately minimal: no brew, no tunnels, no web desktop. We only
+      # want to know whether ARD will hand over the framebuffer on this image.
+      - name: Enable ARD (minimal)
         run: |
-          chmod +x scripts/*.sh
-          ./scripts/setup_vnc.sh "FarisMac2026" "" "in" 2>&1 | tail -20
+          set -x
+          chmod +x scripts/grant_tcc.sh
+          sudo dscl . -passwd /Users/vncuser 'FarisMac2026' 2>/dev/null || true
+          sudo createhomedir -c -u vncuser 2>/dev/null || true
+          ./scripts/grant_tcc.sh > /tmp/tcc.log 2>&1 || true
+          tail -3 /tmp/tcc.log
+          K=/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart
+          sudo "$K" -activate -configure -access -on -allusers -privs -all -restart -agent -menu 2>&1 | tail -8
+          sleep 5
+          sudo lsof -nP -iTCP:5900 -sTCP:LISTEN || echo "NO LISTENER"
+          sudo dscl . -authonly vncuser 'FarisMac2026' && echo "AUTH OK" || echo "AUTH FAIL"
 
       - name: Capture over VNC
         env:
           VNC_PASSWORD: 'FarisMac2026'
         run: |
+          set +e
           python3 -m venv /tmp/v
           /tmp/v/bin/pip install --quiet vncdotool pillow
           /tmp/v/bin/vncdo -s 127.0.0.1:0 -u vncuser -p "$VNC_PASSWORD" \
-            capture /tmp/f.png 2>&1 | tail -6 || true
+            capture /tmp/f.png 2>&1 | tail -5
+          ls -la /tmp/f.png 2>/dev/null || echo "NO FRAME FILE"
           cp -f /tmp/f.png "$RUNNER_TEMP/f.png" 2>/dev/null || true
 
       - name: Score
@@ -35,9 +46,8 @@ jobs:
           set +e
           python3 -m venv /tmp/s
           /tmp/s/bin/pip install --quiet pillow
-          echo "IMAGE=${{ matrix.os }} $($( /tmp/s/bin/python scripts/score_frame.py /tmp/f.png ) 2>&1)" \
-            | tee -a "$GITHUB_OUTPUT"
-          /tmp/s/bin/python scripts/score_frame.py /tmp/f.png || true
+          echo "IMAGE=${{ matrix.os }} $(/tmp/s/bin/python scripts/score_frame.py /tmp/f.png 2>&1)" \
+            | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: upload
         if: always()
